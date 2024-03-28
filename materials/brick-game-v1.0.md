@@ -1,52 +1,52 @@
-# Конечные автоматы
+### Finite-state machines
 
-Конечный автомат (КА) в теории алгоритмов — математическая абстракция, модель дискретного устройства, имеющего один вход, один выход и в каждый момент времени находящегося в одном состоянии из множества возможных.
+A finite-state machine (FSM) in the theory of algorithms is a mathematical abstraction, a model of a discrete device that has one entry, one exit and at each moment of time is in one state out of a set of possible states.
 
-При работе на вход КА последовательно поступают входные воздействия, а на выходе КА формирует выходные сигналы. Переход из одного внутреннего состояния КА в другое может происходить не только от внешнего воздействия, но и самопроизвольно.
+During operation, the input of the FSM sequentially receives entry actions, and at the output the FSM generates exit signals. Transition from one internal state to another can occur not only from external action, but also spontaneously.
 
-КА можно использовать для описания алгоритмов, позволяющих решать те или иные задачи, а также для моделирования практически любого процесса. Несколько примеров:
+FSM can be used to describe algorithms for solving certain problems, as well as for modeling almost any process. A few examples:
 
-- Логика искусственного интеллекта для игр.
-- Синтаксический и лексический анализ.
-- Сложные компоненты.
+- Artificial intelligence logic for games;
+- Syntactic and lexical analysis;
+- Complex components
 
-Ниже представлены примеры использования КА для формализации игровой логики нескольких игр из BrickGame.
+Below are examples of using FSM to formalize the game logic of a few games from BrickGame.
 
-## Фроггер
+### Frogger
 
-![Фроггер](../misc/images/frogger-game.png)
+![Frogger](../misc/images/frogger-game.png)
 
-Фроггер - одна из игр консоли Brickgame. Игра представляет из себя игровое поле, по которому движутся бревна, перепрыгивая по которым, игроку необходимо перевести лягушку с одного берега на другой. Если игрок попадает в воду или лягушка уходит за пределы игрового поля, то лягушка погибает. Игра завершается, когда игрок доводит лягушку до другого берега, или погибает последняя лягушка.
+Frogger is one of the games for the Brickgame console. The game is a playing field on which the logs move, and by jumping over them, the player needs to direct the frog from one side to the other. If the player hits the water or the frog moves outside the playing field, the frog dies. The game ends when the player brings the frog to the other side or the last frog dies.
 
-Для формализации логики данной игры можно представить следующий вариант конечного автомата:
+In order to formalize the logic of this game, the following variant of a finite-state machine can be introduced:
 
-![Конечный автомат фроггера](../misc/images/frogger-fsm.jpg)
+![Frogger's finite-state machine](../misc/images/frogger.jpg)
 
-Данный КА имеет следующие состояния:
+This FSM has the following states:
 
-- Старт - состояние, в котором игра ждет, пока игрок нажмет кнопку готовности к игре.
-- Спавн - состояние, в котором создается очередная лягушка.
-- Перемещение - основное игровое состояние с обработкой ввода от пользователя - движение лягушки по полосе влево/право или прыжки вперед/назад.
-- Сдвиг - состояние, которое наступает после истечения таймера, при котором сдвигаются все объекты на полосах вправо, вместе с лягушкой.
-- Столкновение - состояние, которое наступает, если после прыжка лягушка попадает в воду, или после смещения бревен лягушка оказывается за пределами игрового поля.
-- Достигнут другой берег - состояние, которое наступает при достижении лягушкой верхней другого берега.
-- Игра окончена - состояние, которое наступает после достижения другого берега или смерти последней лягушки.
+- Start is the state in which the game waits for the player to press the ready to play button.
+- Spawn is the state in which the next frog is created.
+- Moving is the main game state with user input processing - moving the frog along the lane left/right or jumping forward/backward.
+- Shifting is the state that occurs after the timer expires, which shifts all objects on the lanes to the right, along with the frog.
+- Collision is a state that occurs if the frog hits the water after jumping, or if the frog is outside the playing field after shifting logs.
+- Reached the other side is the state that occurs when a frog reaches the  other side.
+- Game over is the state that occurs after reaching the other side of the river or the last frog dies.
 
-## Тетрис
+### Tetris
 
-![Тетрис](../misc/images/tetris-game.png)
+![Tetris](../misc/images/tetris-game.png)
 
-Тетрис наверное одна из самых популярных игр для консоли Brickgame. Нередко саму консоль и называют тетрисом. Цель игры заключается в наборе очков за построение линий из генерируемых игрой блоков. Очередной блок, сгенерированный игрой начинает опускаться вниз по игровому полю, пока не достигнет нижней границы или не столкнется с другим блоком. Пользовать может поворачивать фигуры и перемещать их по горизонтали, стараясь составлять ряды. После заполнения ряда, он уничтожается, игрок получает очки, а блоки, находящиеся выше заполненного ряда опускаются вниз. Игра заканчивается, когда очередная фигура останавливается в самом верхнем ряду.
+Tetris is probably one of the most popular games for the Brickgame console. It's not rare for the console itself to be referred to as Tetris. The goal of the game is to score points for building lines from the blocks generated by the game. The next block generated by the game starts moving down the playing field until it reaches the lower boundary or collides with another block. The user can rotate the pieces and move them horizontally, trying to make rows. Once filled, the row is destroyed, the player gets points, and the blocks above the filled row go down. The game ends when the next piece stops in the topmost row.
 
-Для формализации логики данной игры можно представить следующий вариант конечного автомата:
+In order to formalize the logic of this game, the following variant of a finite-state machine can be introduced:
 
-![Конечный автомат тетриса](../misc/images/tetris-fsm.png)
+![Tetris’s finite-state machine](../misc/images/tetris-fsm.png)
 
-Данный КА состоит из следующих состояний:
+This FSM has the following states:
 
-- Старт - состояние, в котором игра ждет, пока игрок нажмет кнопку готовности к игре.
-- Спавн - состояние, в которое переходит игра, при создании очередного блока и выбора следующего блока для спавна.
-- Перемещение - основное игровое состояние с обработкой ввода от пользователя - поворот блоков/перемещение блоков по горизонтали.
-- Сдвиг - состояние, в которое переходит игра после истечения таймера. В нем текущий блок перемещается вниз на один уровень.
-- Соединение - состояние, в которое преходит игра, после "соприкосновения" текущего блока с уже упавшими или с землей. Если образуется заполненные линии, то она уничтожается и оставльные блоки смещаются вниз. Если блок остановился в самом верхнем ряду, то игра переходит в состояние "игра окончена".
-- Игра окончена - игра окончена.
+- Start is the state in which the game waits for the player to press the ready to play button.
+- Spawn is the state the game enters when you create another block and choose the next block to spawn.
+- Moving is the main game state with user input processing - rotating blocks/moving blocks horizontally.
+- Shifting is the state the game enters after the timer expires. It moves the current block down one level.
+- Attaching is the state the game enters after the current block "touches" the already fallen blocks or the ground. If filled rows are created, it is destroyed and the rest of the blocks are shifted down. If a block is stopped in the topmost row, the game enters the "game over" state.
+- Game over is a game over.
