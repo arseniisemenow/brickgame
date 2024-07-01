@@ -107,7 +107,7 @@ Implement BrickGame v3.0:
   - The player's car can change lanes by pressing the left/right arrows;
   - If you collide with another car, the game ends;
   - Rival cars appear at the top edge of the playing field and gradually shift downward;
-  - When you hold the forward arrow, rival cars shift at an increased speed.
+  - When you hold the forward arrow, rival cars shift at an increased speed that is displayed in the user interface.
 - Copy the library folder with the game logic from the BrickGame v1.0 project.
 - Copy the library folder with the game logic from the BrickGame v2.0 project.
 - Copy the folder with the console interface of the game from the BrickGame v1.0 project.
