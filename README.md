@@ -1,6 +1,8 @@
 # BrickGame Racing (Go)
 Summary: In this project, you need to implement the Racing game in the Go programming language.
 
+💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+
 # Contents
 
 - [BrickGame Races (Go)](#brickgame-racing)
@@ -136,5 +138,3 @@ Points will be accrued as follows:
 ### Part 3. Bonus. Level mechanics
 
 Add level mechanics to the game. Each time a player gains 5 points, the level increases by 1. Increasing the level boosts the speed of cars. The maximum number of levels is 10.
-
-💡 [Press here](https://forms.yandex.ru/cloud/65d4c115eb6146203c13ff8b/)**, to give us feedback on this project**. It's anonymous and will help our team make your learning process better.
