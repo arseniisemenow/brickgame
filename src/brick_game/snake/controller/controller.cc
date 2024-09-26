@@ -1,4 +1,4 @@
-#include "controller.hpp"
+#include "controller.h"
 
 #include "../Model/Model.h"
 

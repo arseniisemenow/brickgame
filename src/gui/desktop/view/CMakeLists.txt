@@ -2,24 +2,31 @@ cmake_minimum_required(VERSION 3.5)
 
 project(brickgame_desktop VERSION 0.1)
 
-#enable_language(C)
+# Enable C and C++ languages
+enable_language(C)
 enable_language(CXX)
 
+# Use current directories for includes
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+# Enable automatic UI, MOC, and RCC processing for Qt
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+# Set C++17 standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Find and link Qt Widgets
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+# Include directories
 include_directories(../../../)
 include_directories(.)
 
+# Source files for the library
 set(PROJECT_SOURCES
         ../../../brick_game/common/block/block.c
         ../../../brick_game/common/board/board.c
@@ -33,6 +40,10 @@ set(PROJECT_SOURCES
         ../../../brick_game/common/time_handler/time_handler.c
         ../../../brick_game/tetris/fsm/fsm_matrix.c
         ../../../brick_game/tetris/backend/backend.c
+        ../../../brick_game/snake/controller/controller.cc
+        ../../../brick_game/snake/model/model.cc
+        ../../../brick_game/snake/action/action.cc
+        ../../../brick_game/snake/move_snake/move_snake.cc
         main.cc
         view.cc
         view.h
@@ -44,45 +55,31 @@ set(PROJECT_SOURCES
         style_handler/style_handler.cc
         next_player_grid_widget/next_player_grid_widget.cc
         constants.h
-        ../../../brick_game/snake/controller/controller.cc
-        ../../../brick_game/snake/model/model.cc
-        ../../../brick_game/snake/action/action.cc
-        ../../../brick_game/snake/move_snake/move_snake.cc
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(brickgame_desktop
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET View APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(brickgame_desktop SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(brickgame_desktop
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+# Create a shared library instead of an executable
+add_library(brickgame_desktop SHARED ${PROJECT_SOURCES})
 
+# Link the library with Qt
 target_link_libraries(brickgame_desktop PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
+# Set target properties for the shared library
 set_target_properties(brickgame_desktop PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
 )
 
+# On macOS, set additional bundle properties
+if(APPLE)
+    set_target_properties(brickgame_desktop PROPERTIES
+            MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+            MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+            MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+            MACOSX_BUNDLE TRUE
+    )
+endif()
+
+# If building with Qt6, finalize the library
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(brickgame_desktop)
 endif()

@@ -1,6 +1,5 @@
 package main
 
-import "C"
 import (
 	"github.com/gin-gonic/gin"
 	"log"
@@ -10,10 +9,9 @@ import (
 // #cgo CFLAGS: -g -Wall
 // #cgo LDFLAGS: -lstdc++
 // #include <stdlib.h>
-// #include legacy_include/controller.hpp"
+// #include "../snake/controller/controller.h"
 import "C"
 
-//#include "../tetris/fsm/fsm.h"
 
 type GameInfo struct {
 	ID   int    `json:"id"`
