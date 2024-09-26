@@ -25,6 +25,8 @@ typedef enum {
   kSignalEnterButton = 6,
   kSignalPauseButton = 7,
 } SignalType;
+
+
 #ifdef __cplusplus
 }
 #endif

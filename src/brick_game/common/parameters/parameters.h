@@ -2,6 +2,7 @@
 #define CPP3_BRICK_GAME_V_2_0_1_BRICK_GAME_COMMON_PARAMETERS_PARAMETERS_H_
 
 #include <utime.h>
+#include <stdlib.h>
 
 #include "../board/board.h"
 #include "../fsm_types.h"
@@ -39,6 +40,9 @@ typedef struct {
   };
 
 } Parameters;
+
+Parameters* AllocParameters();
+
 #ifdef __cplusplus
 }
 #endif

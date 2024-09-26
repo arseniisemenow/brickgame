@@ -24,8 +24,7 @@ COMMON :=   brick_game/common/common/colors.c \
 			brick_game/common/records/records.c \
 			brick_game/common/player/player_board/player_board.c \
  			brick_game/common/time_handler/time_handler.c
-TETRIS :=brick_game/common/common/color_handler.c \
-			brick_game/tetris/fsm/fsm_matrix.c
+TETRIS := brick_game/tetris/fsm/fsm_matrix.c
 
 BACKEND_CXX:=brick_game/snake/controller/controller.cc \
 			brick_game/snake/Model/Model.cc \
@@ -56,6 +55,13 @@ endif
 #OPEN_COMMAND=xdg-open
 #APP_DESTINATION:=../build
 
+
+SHARED_LIB_NAME := libbrickgame.so
+
+# Create .so file from all backend and common sources
+lib: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS}
+	$(CXX) -shared -fPIC -o $(SHARED_LIB_NAME) $^
+
 all: install run_cli
 
 install: uninstall install_cli install_desktop
@@ -65,8 +71,17 @@ uninstall:
 	@rm -rf ${DESKTOP_BUILD}
 	@echo "Uninstallation is finished"
 
-install_cli: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS} ${FRONTEND}
-	$(CXX) $(LIBRARIES) $^ -o brickgame_cli.out
+
+install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
+	$(CXX) $(LIBRARIES) $^ -L. \
+	brick_game/common/common/color_handler.c \
+	-lbrickgame -o brickgame_cli.out
+
+
+#install_cli: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS} ${FRONTEND}
+#	$(CXX) $(LIBRARIES) $^ \
+#	brick_game/common/common/color_handler.c \
+#	-o brickgame_cli.out
 
 DESKTOP_SOURCES := gui/desktop/View
 DESKTOP_BUILD := ../build

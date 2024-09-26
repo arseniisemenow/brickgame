@@ -1,6 +1,8 @@
 package main
 
+import "C"
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -9,9 +11,7 @@ import (
 // #cgo CFLAGS: -g -Wall
 // #cgo LDFLAGS: -lstdc++
 // #include <stdlib.h>
-// #include "../snake/controller/controller.h"
 import "C"
-
 
 type GameInfo struct {
 	ID   int    `json:"id"`
@@ -32,6 +32,10 @@ type UserAction struct {
 }
 
 func main() {
+	handle := C.dlopen(C.CString("../../libbrickgame.so"), C.RTLD_LAZY)
+	bar := C.dlsym(handle, C.CString("bar"))
+	fmt.Printf("bar is at %p\n", bar)
+
 	params := C.struct_Parameters{}
 	log.Println("params: ", params.t_player_.x_)
 
