@@ -18,8 +18,8 @@ typedef struct {
   int x_;
   int y_;
   BlockType block_type_;
-  PlayerBoard board_;
-  Cell snake_body_[200];
+  PlayerBoard *board_;
+  Cell *snake_body_;
   int snake_length_;
   Direction direction_;
 } Player;

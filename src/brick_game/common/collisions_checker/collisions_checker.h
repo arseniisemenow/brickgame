@@ -28,7 +28,7 @@ bool CheckFutureCollideWithDown(Player *p_player, Board *p_board);
 bool CheckFutureCollideWithLeft(Player *p_player, Board *p_board);
 bool CheckFutureCollideWithRight(Player *p_player, Board *p_board);
 
-bool CheckCollideWithBlocks(Player *p_player, Board *p_board);
+bool CheckCollideWithBlocks(const Player *p_player, const Board *p_board);
 
 bool CheckFutureCollideWithBlocksLeft(Player *p_player, Board *p_board);
 bool CheckFutureCollideWithBlocksRight(Player *p_player, Board *p_board);

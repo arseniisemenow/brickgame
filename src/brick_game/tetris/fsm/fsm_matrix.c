@@ -17,7 +17,7 @@ action_callback fsm_table[7][8] = {
     {NULL, NULL, NULL, NULL, NULL, NULL, NULL, ActionPause},
 };
 
-void SignalAction(SignalType signal, Parameters *p_parameters) {
+__attribute__((visibility("default"))) void SignalAction(SignalType signal, Parameters *p_parameters) {
   action_callback act = fsm_table[*p_parameters->t_state_][signal];
 
   if (act) {

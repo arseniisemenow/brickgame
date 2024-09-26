@@ -1,4 +1,5 @@
 #include "collisions_checker.h"
+#include <printf.h>
 
 bool CheckFutureCollideWithUp(Player *p_player, Board *p_board) {
   return CheckFutureCollideWithSide(p_player, p_board, kBoardSideUp);
@@ -37,7 +38,7 @@ bool CheckCollide(Player *p_player, Board *p_board) {
 
 bool CheckCollideWithSide(Player *p_player, Board *p_board,
                           BoardSide board_side) {
-  PlayerBoard *p_player_board = &p_player->board_;
+  PlayerBoard *p_player_board = p_player->board_;
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
          ++column_index) {
@@ -58,7 +59,7 @@ bool CheckCollideWithSide(Player *p_player, Board *p_board,
 
 bool CheckFutureCollideWithSide(Player *p_player, Board *p_board,
                                 BoardSide board_side) {
-  PlayerBoard *p_player_board = &p_player->board_;
+  PlayerBoard *p_player_board = p_player->board_;
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
          ++column_index) {
@@ -120,8 +121,8 @@ bool PerformFutureCollideCheckWithSide(Board *p_board, BoardSide board_side,
   return false;
 }
 
-bool CheckCollideWithBlocks(Player *p_player, Board *p_board) {
-  PlayerBoard *p_player_board = &p_player->board_;
+bool CheckCollideWithBlocks(const Player *p_player, const Board *p_board) {
+  PlayerBoard *p_player_board = p_player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
@@ -129,6 +130,9 @@ bool CheckCollideWithBlocks(Player *p_player, Board *p_board) {
       if (p_player_board->board_[row_index][column_index].is_set_) {
         int cell_global_pos_x = p_player->x_ + column_index;
         int cell_global_pos_y = p_player->y_ + row_index;
+        if (cell_global_pos_y > 19 || cell_global_pos_x > 9){ // skip out of the bounds
+          continue;
+        }
         bool flag =
             p_board->cells_[cell_global_pos_y][cell_global_pos_x].is_set_;
         if (flag) {
@@ -140,7 +144,7 @@ bool CheckCollideWithBlocks(Player *p_player, Board *p_board) {
   return false;
 }
 bool CheckFutureCollideWithBlocksLeft(Player *p_player, Board *p_board) {
-  PlayerBoard *p_player_board = &p_player->board_;
+  PlayerBoard *p_player_board = p_player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
@@ -162,7 +166,7 @@ bool CheckFutureCollideWithBlocksLeft(Player *p_player, Board *p_board) {
   return false;
 }
 bool CheckFutureCollideWithBlocksRight(Player *p_player, Board *p_board) {
-  PlayerBoard *p_player_board = &p_player->board_;
+  PlayerBoard *p_player_board = p_player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;

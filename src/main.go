@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"runtime"
-
 	"github.com/ebitengine/purego"
+	"runtime"
 )
 
 // #cgo CFLAGS: -g -Wall

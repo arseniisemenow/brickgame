@@ -1,7 +1,7 @@
 #include "backend.h"
 
 void BoardOverlayBlock(Player *p_player, Board *p_board) {
-  PlayerBoard *p_player_board = &p_player->board_;
+  PlayerBoard *p_player_board = p_player->board_;
 
   int player_pos_x = p_player->x_;
   int player_pos_y = p_player->y_ - 1;

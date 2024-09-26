@@ -35,7 +35,7 @@ typedef struct {
       Board *s_board_;
       Records *s_records_;
       long long *s_last_moved_time_;
-      char s_username[20];
+      char *s_username; // size is 20 btw
     };
   };
 

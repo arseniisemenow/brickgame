@@ -1,16 +1,17 @@
 #include "player.h"
 #include <stdlib.h>
+#include <string.h>
 
-Player * AllocPlayer(){
-  Player *p_player = (Player*)calloc(sizeof(Player), 1);
+Player *AllocPlayer() {
+  Player *p_player = (Player *)calloc(sizeof(Player), 1);
+  p_player->board_ = AllocPlayerBoard();
+  p_player->snake_body_ = (Cell *)calloc(sizeof(Cell), 200);
   return p_player;
 }
-void FreePlayer(Player *p_player){
-  free(p_player);
-}
+void FreePlayer(Player *p_player) { free(p_player); }
 
 void InitPlayer(Player *p_player) {
-  InitPlayerBoard(&p_player->board_);
+  InitPlayerBoard(p_player->board_);
   SetPlayerBlockType(p_player, GetRandomBlockType());
 }
 
@@ -35,6 +36,16 @@ void CopyPlayer(Player *p_player_dest, Player player_src) {
   p_player_dest->block_type_ = player_src.block_type_;
   p_player_dest->direction_ = player_src.direction_;
   p_player_dest->board_ = player_src.board_;
+
+  for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
+    for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
+      p_player_dest->board_->board_[i][j] =
+          player_src.board_->board_[i][j];
+    }
+  }
+
+  //  memcpy(p_player_dest->board_->board_, player_src.board_->board_,
+  //  sizeof(Cell) * PLAYER_BOARD_SIZE * PLAYER_BOARD_SIZE);
 }
 
 void SetPlayerBlockType(Player *p_player, BlockType block_type) {
@@ -58,7 +69,7 @@ void SetPlayerNextBlockRotation(Player *p_player) {
   Direction next_block_rotation = GetNextBlockRotation(block_rotation);
 
   SetPlayerBlockRotation(p_player, next_block_rotation);
-  SetPlayerBoardBlock(&p_player->board_, p_player->block_type_,
+  SetPlayerBoardBlock(p_player->board_, p_player->block_type_,
                       p_player->direction_);
 }
 
@@ -68,13 +79,12 @@ void SetPlayerPreviousBlockRotation(Player *p_player) {
   Direction previous_block_rotation = GetPreviousBlockRotation(block_rotation);
 
   SetPlayerBlockRotation(p_player, previous_block_rotation);
-  SetPlayerBoardBlock(&p_player->board_, p_player->block_type_,
+  SetPlayerBoardBlock(p_player->board_, p_player->block_type_,
                       p_player->direction_);
 }
 
 void UpdatePlayerBoard(Player *p_player) {
-  SetPlayerBoardBlock(&p_player->board_, p_player->block_type_,
-                      kDirectionFirst);
+  SetPlayerBoardBlock(p_player->board_, p_player->block_type_, kDirectionFirst);
 }
 
 void MovePlayerByDXDY(Player *p_player, int d_x, int d_y) {
@@ -90,8 +100,8 @@ void MovePlayerRight(Player *p_player) { MovePlayerByDXDY(p_player, 1, 0); }
 void SetNextPlayerColor(Player *p_player) {
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      if (p_player->board_.board_[i][j].is_set_) {
-        p_player->board_.board_[i][j].color_ = kBlockColorPredict;
+      if (p_player->board_->board_[i][j].is_set_) {
+        p_player->board_->board_[i][j].color_ = kBlockColorPredict;
       }
     }
   }

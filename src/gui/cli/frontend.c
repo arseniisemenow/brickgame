@@ -158,15 +158,15 @@ void PrintBoard(Board *p_board) {
 void PrintBlock(Player *p_player) {
   int player_pos_x = p_player->x_;
   int player_pos_y = p_player->y_;
-  PlayerBoard player_board = p_player->board_;
+  const PlayerBoard *player_board = (const PlayerBoard*)p_player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
          ++column_index) {
       int print_y = player_pos_y + BOARDS_BEGIN + 1 + row_index;
       int print_x = player_pos_x + BOARDS_BEGIN + 1 + column_index;
-      if (player_board.board_[row_index][column_index].is_set_) {
-        int color = player_board.board_[row_index][column_index].color_;
+      if (player_board->board_[row_index][column_index].is_set_) {
+        int color = player_board->board_[row_index][column_index].color_;
         attron(COLOR_PAIR(kBlockColorPairsArray[color]));
         mvprintw(print_y, print_x, "F");
         attroff(COLOR_PAIR(kBlockColorPairsArray[color]));
@@ -361,37 +361,21 @@ void TetrisLoop(Parameters *p_parameters) {
 }
 
 void HandleTetrisLoop() {
-  Board board = {0};
-  GameStatus game_status = {0};
-  Player player = {0};
-  Player next_player = {0};
-  Player predict_player = {0};
-  State state = kStart;
-  Records records = {0};
-  Parameters parameters = {0};
-  long long time_in_secs;
+  Parameters *p_parameters = AllocParameters();
 
-  InitPlayer(&player);
-  InitNextPlayer(&next_player);
-  InitBoard(&board);
-  InitGameStatus(&game_status);
-  time_in_secs = GetTimeInMS();
+  InitPlayer(p_parameters->t_player_);
+  InitNextPlayer(p_parameters->t_next_player_);
+  InitBoard(p_parameters->t_board_);
+  InitGameStatus(p_parameters->t_game_status_);
 
-  parameters.t_game_status_ = &game_status;
-  parameters.t_state_ = &state;
-  parameters.t_board_ = &board;
-  parameters.t_player_ = &player;
-  parameters.t_next_player_ = &next_player;
-  parameters.t_predict_player_ = &predict_player;
-  parameters.t_last_moved_time_ = &time_in_secs;
-  parameters.t_records_ = &records;
+  *p_parameters->t_last_moved_time_ = GetTimeInMS();
 
-  LoadRecords(parameters.t_records_, TETRIS_RECORDS_FILE_NAME);
-  SaveRecords(parameters.t_records_, TETRIS_RECORDS_FILE_NAME);
+  LoadRecords(p_parameters->t_records_, TETRIS_RECORDS_FILE_NAME);
+  SaveRecords(p_parameters->t_records_, TETRIS_RECORDS_FILE_NAME);
 
   InitGameColors();
   PrintBegin();
-  TetrisLoop(&parameters);
+  TetrisLoop(p_parameters);
 }
 
 int main(void) {

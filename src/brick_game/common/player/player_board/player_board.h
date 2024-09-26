@@ -12,8 +12,11 @@ extern "C" {
 #endif
 
 typedef struct {
-  Cell board_[PLAYER_BOARD_SIZE][PLAYER_BOARD_SIZE];
+  Cell **board_;
 } PlayerBoard;
+
+PlayerBoard * AllocPlayerBoard();
+void FreePlayerBoard(PlayerBoard *p_player_board);
 
 void InitPlayerBoard(PlayerBoard *p_player_board);
 void CopyPlayerBoard(PlayerBoard *p_player_board_dest,

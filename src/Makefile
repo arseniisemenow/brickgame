@@ -11,34 +11,30 @@ CXXCOV 			:=  --coverage
 
 DIST_DIR :=archive
 
-DEBUGGER := brick_game/tetris/debugger/debugger.c
-BACKEND := brick_game/tetris/backend/backend.c
-COMMON :=   brick_game/common/common/colors.c \
-			brick_game/common/block/block.c \
-			brick_game/common/cell/cell.c \
-			brick_game/common/collisions_checker/collisions_checker.c \
-			brick_game/common/parameters/parameters.c \
-			brick_game/common/game_status/game_status.c \
-			brick_game/common/board/board.c \
-			brick_game/common/player/player.c \
-			brick_game/common/records/records.c \
-			brick_game/common/player/player_board/player_board.c \
- 			brick_game/common/time_handler/time_handler.c \
- 			brick_game/common/fsm_types.c
-TETRIS := brick_game/tetris/fsm/fsm_matrix.c
+DEBUGGER := 	brick_game/tetris/debugger/debugger.c
+BACKEND := 		brick_game/tetris/backend/backend.c
+COMMON :=   	brick_game/common/common/colors.c \
+				brick_game/common/block/block.c \
+				brick_game/common/cell/cell.c \
+				brick_game/common/collisions_checker/collisions_checker.c \
+				brick_game/common/parameters/parameters.c \
+				brick_game/common/game_status/game_status.c \
+				brick_game/common/board/board.c \
+				brick_game/common/player/player.c \
+				brick_game/common/records/records.c \
+				brick_game/common/player/player_board/player_board.c \
+ 				brick_game/common/time_handler/time_handler.c \
+ 				brick_game/common/fsm_types.c
+TETRIS_SRC := 	brick_game/tetris/fsm/fsm_matrix.c
 
-BACKEND_CXX:=brick_game/snake/controller/controller.cc \
-			brick_game/snake/Model/Model.cc \
-			brick_game/snake/Action/Action.cc \
-			brick_game/snake/move_snake/move_snake.cc
+BACKEND_CXX:=	brick_game/snake/controller/controller.cc \
+				brick_game/snake/Model/Model.cc \
+				brick_game/snake/Action/Action.cc \
+				brick_game/snake/move_snake/move_snake.cc
 
-FRONTEND:=gui/cli/frontend.c
+FRONTEND:=		gui/cli/frontend.c
 
-SOURCES_FOR_TESTS := ${BACKEND} \
-					${BACKEND_CXX} \
-					${COMMON} \
-                        ../tests/model_tests.cc \
-					 	../tests/tests.cc
+SOURCES_FOR_TESTS :=	  	../tests/main_test.c
 
 APP_DESTINATION:=../build/brickgame_desktop.app/Contents/MacOS
 ifeq ($(OS_NAME), GNU/Linux)
@@ -60,8 +56,8 @@ endif
 SHARED_LIB_NAME := libbrickgame.so
 
 # Create .so file from all backend and common sources
-lib: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS}
-	$(CXX) -shared -fPIC -o $(SHARED_LIB_NAME) $^
+lib: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
+	$(CXX) $^ -shared -fPIC -o $(SHARED_LIB_NAME)
 
 all: install run_cli
 
@@ -113,7 +109,7 @@ test_manual:
 	${CXX} ${CXXFLAGS} ${BACKEND} ${BACKEND_CXX} ${COMMON}  main.cc -o manual_test.out
 	./manual_test.out
 test: clean
-	@${CXX} ${CXXFLAGS} ${CXXCOV} ${SOURCES_FOR_TESTS} -lgtest -lm  -o test.out
+	@${CXX} ${SOURCES_FOR_TESTS} libbrickgame.so -lcheck -lm  -o test.out
 	@./test.out
 	@make clean
 
