@@ -23,7 +23,8 @@ COMMON :=   brick_game/common/common/colors.c \
 			brick_game/common/player/player.c \
 			brick_game/common/records/records.c \
 			brick_game/common/player/player_board/player_board.c \
- 			brick_game/common/time_handler/time_handler.c
+ 			brick_game/common/time_handler/time_handler.c \
+ 			brick_game/common/fsm_types.c
 TETRIS := brick_game/tetris/fsm/fsm_matrix.c
 
 BACKEND_CXX:=brick_game/snake/controller/controller.cc \

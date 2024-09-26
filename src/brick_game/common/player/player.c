@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 Player * AllocPlayer(){
-  return calloc(sizeof(Player), 1);
+  Player *p_player = (Player*)calloc(sizeof(Player), 1);
+  return p_player;
 }
 void FreePlayer(Player *p_player){
   free(p_player);

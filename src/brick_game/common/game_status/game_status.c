@@ -1,7 +1,7 @@
 #include "game_status.h"
 #include <stdlib.h>
 
-GameStatus *AllocGameStatus() { return calloc(sizeof(GameStatus), 1); }
+GameStatus *AllocGameStatus() { return (GameStatus*)calloc(sizeof(GameStatus), 1); }
 void FreeGameStatus(GameStatus *p_game_status) { free(p_game_status); }
 
 void InitGameStatus(GameStatus *p_game_status) {

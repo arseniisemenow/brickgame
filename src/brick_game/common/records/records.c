@@ -5,8 +5,8 @@
 #include <string.h>
 
 Records* AllocRecords(){
-  Records * records = calloc(sizeof(Records), 1);
-  records->records_ = calloc(sizeof(Record), RECORDS_NUMBER);
+  Records * records = (Records *)calloc(sizeof(Records), 1);
+  records->records_ = (Record*)calloc(sizeof(Record), RECORDS_NUMBER);
   return records;
 }
 void FreeRecords(Records* p_records){

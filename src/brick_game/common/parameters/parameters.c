@@ -9,8 +9,8 @@ Parameters *AllocParameters() {
   parameters->t_next_player_ = AllocPlayer();
   parameters->t_predict_player_ = AllocPlayer();
   parameters->t_records_ = AllocRecords();
-  parameters->t_last_moved_time_ = calloc(sizeof(long long), 1);
-  parameters->t_username = calloc(sizeof(char), 20);
+  parameters->t_last_moved_time_ = (long long *)calloc(sizeof(long long), 1);
+  parameters->t_username = (char*)calloc(sizeof(char), 20);
   return parameters;
 }
 

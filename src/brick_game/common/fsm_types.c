@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 State * AllocState(){
-  return calloc(sizeof(State), 1);
+  return (State*)calloc(sizeof(State), 1);
 }
 SignalType * AllocSignalType(){
-  return calloc(sizeof(SignalType), 1);
+  return (SignalType*)calloc(sizeof(SignalType), 1);
 }
 
 void FreeState(State *p_state){

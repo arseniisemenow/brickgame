@@ -54,6 +54,8 @@ func main() {
 
 	var AllocParameters func() *C.struct_Parameters
 	purego.RegisterLibFunc(&AllocParameters, libc, "AllocParameters")
+	var FreeParameters func(*C.struct_Parameters)
+	purego.RegisterLibFunc(&FreeParameters, libc, "FreeParameters")
 
 	parameters := AllocParameters()
 	signal := kSignalNone
@@ -61,4 +63,6 @@ func main() {
 	var ControllerSnake func(int, *C.struct_Parameters)
 	purego.RegisterLibFunc(&ControllerSnake, libc, "ControllerSnake")
 	ControllerSnake(signal, parameters)
+
+	FreeParameters(parameters)
 }
