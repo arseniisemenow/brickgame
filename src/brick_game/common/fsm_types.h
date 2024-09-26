@@ -26,9 +26,14 @@ typedef enum {
   kSignalPauseButton = 7,
 } SignalType;
 
+State *AllocState();
+SignalType *AllocSignalType();
+
+void FreeState(State *);
+void FreeSignalType(SignalType *);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // CPP3_BRICK_GAME_V_2_0_1_BRICK_GAME_COMMON_FSM_TYPES_H_
+#endif // CPP3_BRICK_GAME_V_2_0_1_BRICK_GAME_COMMON_FSM_TYPES_H_

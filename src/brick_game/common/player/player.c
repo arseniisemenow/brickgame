@@ -1,4 +1,12 @@
 #include "player.h"
+#include <stdlib.h>
+
+Player * AllocPlayer(){
+  return calloc(sizeof(Player), 1);
+}
+void FreePlayer(Player *p_player){
+  free(p_player);
+}
 
 void InitPlayer(Player *p_player) {
   InitPlayerBoard(&p_player->board_);

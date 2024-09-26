@@ -18,8 +18,11 @@ typedef struct {
 } Record;
 
 typedef struct {
-  Record records_[RECORDS_NUMBER];
+  Record *records_;
 } Records;
+
+Records* AllocRecords();
+void FreeRecords(Records*);
 
 void InitRecords(Records *p_records);
 

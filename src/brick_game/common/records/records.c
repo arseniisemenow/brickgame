@@ -1,7 +1,18 @@
 #include "records.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+Records* AllocRecords(){
+  Records * records = calloc(sizeof(Records), 1);
+  records->records_ = calloc(sizeof(Record), RECORDS_NUMBER);
+  return records;
+}
+void FreeRecords(Records* p_records){
+  free(p_records->records_);
+  free(p_records);
+}
 
 void InitRecords(Records *p_records) {
   for (int i = 0; i < RECORDS_NUMBER; ++i) {

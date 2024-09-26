@@ -55,6 +55,7 @@ set(PROJECT_SOURCES
         style_handler/style_handler.cc
         next_player_grid_widget/next_player_grid_widget.cc
         constants.h
+        ../../../brick_game/common/fsm_types.c
 )
 
 # Create a shared library instead of an executable

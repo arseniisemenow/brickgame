@@ -24,6 +24,9 @@ typedef struct {
   Direction direction_;
 } Player;
 
+Player * AllocPlayer();
+void FreePlayer(Player *);
+
 void InitPlayer(Player *p_player);
 void InitNextPlayer(Player *p_player);
 void CopyPlayer(Player *p_player_dest, Player player_src);

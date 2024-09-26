@@ -1,4 +1,21 @@
 #include "board.h"
+#include <stdlib.h>
+
+Board *AllocBoard() {
+  Board *board = (Board *)calloc(sizeof(Board), 1);
+  board->cells_ = (Cell**)calloc(sizeof(Cell *), BOARD_HEIGHT);
+  for (int i = 0; i < BOARD_HEIGHT; ++i) {
+    board->cells_[i] = (Cell*)calloc(sizeof(Cell), BOARD_WIDTH);
+  }
+  return board;
+}
+
+void FreeBoard(Board *board) {
+  for (int i = 0; i < BOARD_HEIGHT; ++i) {
+    free(board->cells_[i]);
+  }
+  free(board->cells_);
+}
 
 void InitBoard(Board *p_board) {
   p_board->width_ = BOARD_WIDTH;

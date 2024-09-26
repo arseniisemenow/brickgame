@@ -20,8 +20,11 @@ typedef enum {
 typedef struct {
   int height_;
   int width_;
-  Cell cells_[BOARD_HEIGHT][BOARD_WIDTH];
+  Cell **cells_;
 } Board;
+
+Board* AllocBoard();
+void FreeBoard(Board *board);
 
 void InitBoard(Board *p_board);
 int HandleBoardCompleteLines(Board *p_board);

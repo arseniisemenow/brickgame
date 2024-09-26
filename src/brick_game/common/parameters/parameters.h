@@ -25,7 +25,7 @@ typedef struct {
       Player *t_predict_player_;
       Records *t_records_;
       long long *t_last_moved_time_;
-      char t_username[20];
+      char *t_username;
     };
     struct {
       State *s_state_;
@@ -42,6 +42,7 @@ typedef struct {
 } Parameters;
 
 Parameters* AllocParameters();
+void FreeParameters(Parameters* p_parameters);
 
 #ifdef __cplusplus
 }

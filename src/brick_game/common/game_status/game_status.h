@@ -16,6 +16,8 @@ typedef struct {
   int level_;
 } GameStatus;
 
+GameStatus *AllocGameStatus();
+void FreeGameStatus(GameStatus*);
 void InitGameStatus(GameStatus *p_game_status);
 void AddScoreGameStatus(GameStatus *p_game_status, int complete_lines_count);
 void UpdateGameStatusLevel(GameStatus *p_game_status);
