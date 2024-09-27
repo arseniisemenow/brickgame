@@ -8,26 +8,25 @@
 #endif
 
 START_TEST(HandleBoardCompleteLinesTest) {
-  Board board = {0};
-  board.width_ = 10;
-  board.height_ = 20;
+  Board *board = AllocBoard();
+  board->width_ = 10;
+  board->height_ = 20;
 
-  for (int i = 0; i < board.width_; ++i) {
-    board.cells_[19][i].is_set_ = true;
+  for (int i = 0; i < board->width_; ++i) {
+    board->cells_[19][i].is_set_ = true;
   }
-  for (int i = 0; i < board.width_; ++i) {
-    board.cells_[18][i].is_set_ = true;
+  for (int i = 0; i < board->width_; ++i) {
+    board->cells_[18][i].is_set_ = true;
   }
-  for (int i = 0; i < board.width_; i++) {
-    board.cells_[17][i].is_set_ = true;
+  for (int i = 0; i < board->width_; i++) {
+    board->cells_[17][i].is_set_ = true;
   }
-  for (int i = 0; i < board.width_; i += 2) {
-    board.cells_[16][i].is_set_ = true;
+  for (int i = 0; i < board->width_; i += 2) {
+    board->cells_[16][i].is_set_ = true;
   }
-  int complete_lines = HandleBoardCompleteLines(&board);
+  int complete_lines = HandleBoardCompleteLines(board);
   ck_assert_int_eq(complete_lines, 3);
 }
-
 END_TEST
 
 Suite *board_suite(void) {
