@@ -25,7 +25,7 @@ void Model::SignalAction() {
 
   long long time_in_ms = GetTimeInMS();
 
-  if (*p_parameters->t_state_ == kMoving) {
+  if (*p_parameters->s_state_ == kMoving) {
     long long time_step = GetTimeStepMS(p_parameters->s_game_status_);
     if (time_in_ms - *p_parameters->s_last_moved_time_ > time_step) {
       *p_parameters->s_last_moved_time_ = time_in_ms;

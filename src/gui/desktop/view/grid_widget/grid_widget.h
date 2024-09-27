@@ -14,22 +14,22 @@ class GridWidget : public QWidget {
   GridWidget(QWidget *parent = nullptr, int rows = s21::constants::kRows,
              int columns = s21::constants::kColumns);
 
-  void SetBoard(Board board);
-  void SetPlayer(Player player);
-  void SetPredictPlayer(Player player);
-  void SetFruit(Cell fruit);
+  void SetBoard(const Board *board);
+  void SetPlayer(const Player *player);
+  void SetPredictPlayer(const Player *player);
+  void SetFruit(const Cell *fruit);
   void SetCurrentGame(s21::CurrentGame current_game);
 
  protected:
   void paintEvent(QPaintEvent *event) override;
-  void DrawPlayer(QPainter *painter, Player *player);
+  void DrawPlayer(QPainter *painter, const Player *player);
   void DrawSnake(QPainter *painter, Player *player);
 
  private:
-  Board board_;
-  Player player_;
-  Player predict_player_;
-  Cell fruit_;
+  Board* board_;
+  Player* player_;
+  Player* predict_player_;
+  Cell* fruit_;
   int rows_;
   int columns_;
   s21::CurrentGame current_game_{s21::CurrentGame::kSnake};

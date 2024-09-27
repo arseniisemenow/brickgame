@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include "./ui_View.h"
 #include "brick_game/common/game_status/game_status.h"
 #include "brick_game/common/parameters/parameters.h"
 #include "brick_game/common/player/player.h"
@@ -10,9 +11,43 @@
 #include "brick_game/tetris/fsm/fsm.h"
 #include "grid_widget/grid_widget.h"
 #include "next_player_grid_widget/next_player_grid_widget.hpp"
-#include "./ui_View.h"
 
 namespace s21 {
+
+void InitParametersForSnakeBeforeStart(Parameters *p_params) {
+  InitBoard(p_params->s_board_);
+  InitGameStatus(p_params->s_game_status_);
+  InitPlayer(p_params->s_player_);
+  SetPlayerPosition(p_params->s_player_, 10, 10);
+
+  p_params->s_player_->snake_length_ = 4;
+  p_params->s_player_->direction_ = kDirectionSecond;
+  p_params->s_player_->snake_body_[0].x_ = 10 / 2;
+  p_params->s_player_->snake_body_[0].y_ = 20 / 2;
+  *p_params->s_state_ = kStart;
+  InitCell(p_params->s_fruit_);
+  // todo: move
+  p_params->s_fruit_->y_ = rand() % 10;
+  p_params->s_fruit_->x_ = rand() % 20;
+
+  *p_params->s_last_moved_time_ = GetTimeInMS();
+
+  LoadRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
+  SaveRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
+}
+
+void InitParametersForTetrisBeforeStart(Parameters *p_params) {
+  InitPlayer(p_params->t_player_);
+  InitNextPlayer(p_params->t_next_player_);
+  InitBoard(p_params->t_board_);
+  InitGameStatus(p_params->t_game_status_);
+
+  *p_params->t_last_moved_time_ = GetTimeInMS();
+
+  LoadRecords(p_params->t_records_, TETRIS_RECORDS_FILE_NAME);
+  SaveRecords(p_params->t_records_, TETRIS_RECORDS_FILE_NAME);
+}
+
 View::View(QWidget *parent) : QMainWindow(parent), ui_(new Ui::View) {
   ui_->setupUi(this);
   view_tab_switcher_ = new ViewTabSwitcher(ui_, this);
@@ -42,76 +77,74 @@ void View::HandleSignal(SignalType signal_type) {
 
 void View::UpdateTetris() {
   SignalType signal = signal_type_;
-  SignalAction(signal, p_t_parameters_);
-  PrintState(*p_t_parameters_->t_state_, ui_->label_state_tetris);
-  if (*p_t_parameters_->t_state_ != kStart &&
-      *p_t_parameters_->t_state_ != kPause) {
+  SignalAction(signal, p_parameters_);
+  PrintState(*p_parameters_->t_state_, ui_->label_state_tetris);
+  if (*p_parameters_->t_state_ != kStart &&
+      *p_parameters_->t_state_ != kPause) {
     ui_->widget_snake->SetCurrentGame(CurrentGame::kTetris);
-    ui_->widget_tetris->SetBoard(*p_t_parameters_->t_board_);
-    ui_->widget_tetris->SetPlayer(*p_t_parameters_->t_player_);
-    ui_->widget_tetris->SetPredictPlayer(*p_t_parameters_->t_predict_player_);
-    ui_->widget_tetris_next_player->SetPlayers(
-        *p_t_parameters_->t_next_player_);
+    ui_->widget_tetris->SetBoard(p_parameters_->t_board_);
+    ui_->widget_tetris->SetPlayer(p_parameters_->t_player_);
+    ui_->widget_tetris->SetPredictPlayer(p_parameters_->t_predict_player_);
+    ui_->widget_tetris_next_player->SetPlayer(p_parameters_->t_next_player_);
     ui_->label_score_tetris_value->setText(
-        QString::number(p_t_parameters_->t_game_status_->score_, 10));
+        QString::number(p_parameters_->t_game_status_->score_, 10));
     ui_->label_level_tetris_value->setText(
-        QString::number(p_t_parameters_->t_game_status_->level_, 10));
+        QString::number(p_parameters_->t_game_status_->level_, 10));
 
     PrintTetrisRecords();
   }
-  if (*p_t_parameters_->t_state_ == kGameOver) {
+  if (*p_parameters_->t_state_ == kGameOver) {
     bool ok;
     QString name = QInputDialog::getText(this, "Enter Your Name",
                                          "Name:", QLineEdit::Normal, "", &ok);
     if (ok && !name.isEmpty()) {
-      RemoveRecord(p_t_parameters_->t_records_, "Unnamed",
+      RemoveRecord(p_parameters_->t_records_, "Unnamed",
                    TETRIS_RECORDS_FILE_NAME);
       std::string string = name.toStdString();
       const char *c_string = string.c_str();
-      AddRecord(p_t_parameters_->t_records_, c_string,
-                p_t_parameters_->t_game_status_->score_,
+      AddRecord(p_parameters_->t_records_, c_string,
+                p_parameters_->t_game_status_->score_,
                 TETRIS_RECORDS_FILE_NAME);
     }
   }
-  if (*p_t_parameters_->t_state_ == kExitState) {
+  if (*p_parameters_->t_state_ == kExitState) {
     this->close();
   }
 }
 void View::UpdateSnake() {
   SignalType signal = signal_type_;
-  ControllerSnake(signal, p_s_parameters_);
+  ControllerSnake(signal, p_parameters_);
 
-  PrintState(*p_s_parameters_->s_state_, ui_->label_state_snake);
+  PrintState(*p_parameters_->s_state_, ui_->label_state_snake);
 
-  if (*p_s_parameters_->s_state_ != kStart &&
-      *p_s_parameters_->s_state_ != kPause) {
+  if (*p_parameters_->s_state_ != kStart &&
+      *p_parameters_->s_state_ != kPause) {
     ui_->widget_snake->SetCurrentGame(CurrentGame::kSnake);
-    ui_->widget_snake->SetBoard(*p_s_parameters_->s_board_);
-    ui_->widget_snake->SetPlayer(*p_s_parameters_->s_player_);
-    ui_->widget_snake->SetFruit(*p_s_parameters_->s_fruit_);
+    ui_->widget_snake->SetBoard(p_parameters_->s_board_);
+    ui_->widget_snake->SetPlayer(p_parameters_->s_player_);
+    ui_->widget_snake->SetFruit(p_parameters_->s_fruit_);
     ui_->label_score_snake_value->setText(
-        QString::number(p_s_parameters_->s_game_status_->score_, 10));
+        QString::number(p_parameters_->s_game_status_->score_, 10));
     ui_->label_level_snake_value->setText(
-        QString::number(p_s_parameters_->s_game_status_->level_, 10));
+        QString::number(p_parameters_->s_game_status_->level_, 10));
 
     PrintSnakeRecords();
   }
-  if (*p_s_parameters_->s_state_ == kGameOver) {
+  if (*p_parameters_->s_state_ == kGameOver) {
+    InitParametersForSnakeBeforeStart(p_parameters_);
     bool ok;
     QString name = QInputDialog::getText(this, "Enter Your Name",
                                          "Name:", QLineEdit::Normal, "", &ok);
     if (ok && !name.isEmpty()) {
-      RemoveRecord(p_s_parameters_->s_records_, "Unnamed",
+      RemoveRecord(p_parameters_->s_records_, "Unnamed",
                    SNAKE_RECORDS_FILE_NAME);
       std::string string = name.toStdString();
       const char *c_string = string.c_str();
-      AddRecord(p_s_parameters_->s_records_, c_string,
-                p_s_parameters_->s_game_status_->score_,
-                SNAKE_RECORDS_FILE_NAME);
-      *p_s_parameters_->s_state_ = kStart;
+      AddRecord(p_parameters_->s_records_, c_string,
+                p_parameters_->s_game_status_->score_, SNAKE_RECORDS_FILE_NAME);
     }
   }
-  if (*p_s_parameters_->s_state_ == kExitState) {
+  if (*p_parameters_->s_state_ == kExitState) {
     this->close();
   }
 }
@@ -138,64 +171,15 @@ void View::InitializeUI() {
 }
 void View::StartTetrisGame() {
   current_game_ = CurrentGame::kTetris;
-  InitBoard(&t_board_);
-  InitPlayer(&t_player_);
-  InitPlayerPosition(&t_player_);
-  t_state_ = kStart;
-
-  InitGameStatus(&game_status_);
-  InitPlayer(&t_player_);
-  InitNextPlayer(&t_next_player_);
-  InitBoard(&t_board_);
-  //            PrintBegin();
-  t_time_in_secs_ = GetTimeInMS();
-
-  t_parameters_.t_game_status_ = &game_status_;
-  t_parameters_.t_state_ = &t_state_;
-  t_parameters_.t_board_ = &t_board_;
-  t_parameters_.t_player_ = &t_player_;
-  t_parameters_.t_next_player_ = &t_next_player_;
-  t_parameters_.t_predict_player_ = &t_predict_player_;
-  t_parameters_.t_last_moved_time_ = &t_time_in_secs_;
-  t_parameters_.t_records_ = &t_records_;
-
-  LoadRecords(t_parameters_.t_records_, TETRIS_RECORDS_FILE_NAME);
-  SaveRecords(t_parameters_.t_records_, TETRIS_RECORDS_FILE_NAME);
-
-  p_t_parameters_ = &t_parameters_;
+  InitParametersForTetrisBeforeStart(p_parameters_);
 }
+
 void View::StartSnakeGame() {
   current_game_ = CurrentGame::kSnake;
-  InitBoard(&s_board_);
-  InitGameStatus(&s_game_status_);
-
-  InitPlayer(&s_player_);
-  SetPlayerPosition(&s_player_, 10, 10);
-  s_state_ = kStart;
-  s_player_.snake_length_ = 4;
-  s_player_.direction_ = kDirectionSecond;
-  s_player_.snake_body_[0].x_ = 10 / 2;
-  s_player_.snake_body_[0].y_ = 20 / 2;
-
-  InitCell(&s_fruit_);
-  s_fruit_.y_ = rand() % 10;
-  s_fruit_.x_ = rand() % 20;
-  s_time_in_secs_ = GetTimeInMS();
-
-  s_parameters_.s_state_ = &s_state_;
-  s_parameters_.s_player_ = &s_player_;
-  s_parameters_.s_fruit_ = &s_fruit_;
-  s_parameters_.s_game_status_ = &s_game_status_;
-  s_parameters_.s_board_ = &s_board_;
-  s_parameters_.s_records_ = &s_records_;
-  s_parameters_.s_last_moved_time_ = &s_time_in_secs_;
-  LoadRecords(s_parameters_.s_records_, SNAKE_RECORDS_FILE_NAME);
-  SaveRecords(s_parameters_.s_records_, SNAKE_RECORDS_FILE_NAME);
-
-  p_s_parameters_ = &s_parameters_;
+  InitParametersForSnakeBeforeStart(p_parameters_);
 }
 void View::PrintTetrisRecords() {
-  auto records = p_t_parameters_->t_records_;
+  auto records = p_parameters_->t_records_;
   ui_->label_records_1_value->setText(
       QString::number(records->records_[0].score_, 10));
   ui_->label_records_2_value->setText(
@@ -208,7 +192,7 @@ void View::PrintTetrisRecords() {
       QString::number(records->records_[4].score_, 10));
 }
 void View::PrintSnakeRecords() {
-  auto records = p_s_parameters_->s_records_;
+  auto records = p_parameters_->s_records_;
   ui_->label_records_snake_1_value->setText(
       QString::number(records->records_[0].score_, 10));
   ui_->label_records_snake_2_value->setText(
@@ -258,4 +242,4 @@ void View::keyPressEvent(QKeyEvent *event) {
   }
 }
 
-}  // namespace s21
+} // namespace s21

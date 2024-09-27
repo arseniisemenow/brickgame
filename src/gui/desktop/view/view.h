@@ -54,34 +54,12 @@ class View : public QMainWindow {
 
  private:
   Ui::View *ui_;
-
   ViewTabSwitcher *view_tab_switcher_;
+
   SignalType signal_type_{};
 
-  Board t_board_{};
-  GameStatus game_status_{};
-
-  Player t_player_{};
-  Player t_next_player_{};
-  Player t_predict_player_{};
-  State t_state_ = kStart;
-  Records t_records_{};
-  Parameters t_parameters_{};
-
-  long long t_time_in_secs_{};
-
-  Board s_board_{};
-  GameStatus s_game_status_{};
-  Player s_player_{};
-  State s_state_ = kStart;
-  Records s_records_{};
-  Cell s_fruit_{};
-  long long s_time_in_secs_{};
-
-  Parameters s_parameters_{};
-
-  Parameters *p_t_parameters_;
-  Parameters *p_s_parameters_;
+  Parameters *p_parameters_ = AllocParameters();
+//  Parameters *p_s_parameters_ = AllocParameters();
 
   QTimer *timer_;
 

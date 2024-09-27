@@ -15,7 +15,7 @@ extern "C" {
 #endif
 
 typedef struct {
-  union {
+  struct {
     struct {
       State *t_state_;
       GameStatus *t_game_status_;

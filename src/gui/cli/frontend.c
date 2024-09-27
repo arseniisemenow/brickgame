@@ -53,7 +53,8 @@ void PrintRectangle(int top_y, int bottom_y, int left_x, int right_x) {
 
   int i = left_x + 1;
 
-  for (; i < right_x; i++) MVADDCH(top_y, i, ACS_HLINE);
+  for (; i < right_x; i++)
+    MVADDCH(top_y, i, ACS_HLINE);
   MVADDCH(top_y, i, ACS_URCORNER);
 
   for (int i_2 = top_y + 1; i_2 < bottom_y; i_2++) {
@@ -63,7 +64,8 @@ void PrintRectangle(int top_y, int bottom_y, int left_x, int right_x) {
 
   MVADDCH(bottom_y, left_x, ACS_LLCORNER);
   i = left_x + 1;
-  for (; i < right_x; i++) MVADDCH(bottom_y, i, ACS_HLINE);
+  for (; i < right_x; i++)
+    MVADDCH(bottom_y, i, ACS_HLINE);
   MVADDCH(bottom_y, i, ACS_LRCORNER);
 }
 
@@ -158,7 +160,7 @@ void PrintBoard(Board *p_board) {
 void PrintBlock(Player *p_player) {
   int player_pos_x = p_player->x_;
   int player_pos_y = p_player->y_;
-  const PlayerBoard *player_board = (const PlayerBoard*)p_player->board_;
+  const PlayerBoard *player_board = (const PlayerBoard *)p_player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
@@ -285,47 +287,30 @@ void SnakeLoop(Parameters *p_parameters) {
 }
 
 void HandleSnakeLoop() {
-  Board board = {0};
-  InitBoard(&board);
+  Parameters *parameters = AllocParameters();
+  InitBoard(parameters->s_board_);
+  InitGameStatus(parameters->s_game_status_);
+  InitPlayer(parameters->s_player_);
+  SetPlayerPosition(parameters->s_player_, 10, 10);
 
-  GameStatus game_status = {0};
-  InitGameStatus(&game_status);
+  parameters->s_player_->snake_length_ = 4;
+  parameters->s_player_->direction_ = kDirectionSecond;
+  parameters->s_player_->snake_body_[0].x_ = 10 / 2;
+  parameters->s_player_->snake_body_[0].y_ = 20 / 2;
+  *parameters->s_state_ = kStart;
+  InitCell(parameters->s_fruit_);
+  //todo: move
+  parameters->s_fruit_->y_ = rand() % 10;
+  parameters->s_fruit_->x_ = rand() % 20;
 
-  Player player = {0};
-  InitPlayer(&player);
-  SetPlayerPosition(&player, 10, 10);
-  //    InitSnake(&player);
-  player.snake_length_ = 4;
-  player.direction_ = kDirectionSecond;
-  player.snake_body_[0].x_ = 10 / 2;
-  player.snake_body_[0].y_ = 20 / 2;
+  *parameters->s_last_moved_time_ = GetTimeInMS();
 
-  State state = kStart;
-  Records records = {0};
-
-  Cell fruit = {0};
-  InitCell(&fruit);
-  fruit.y_ = rand() % 10;
-  fruit.x_ = rand() % 20;
-
-  long long time_in_secs;
-  time_in_secs = GetTimeInMS();
-
-  Parameters parameters = {0};
-
-  parameters.s_state_ = &state;
-  parameters.s_player_ = &player;
-  parameters.s_fruit_ = &fruit;
-  parameters.s_game_status_ = &game_status;
-  parameters.s_board_ = &board;
-  parameters.s_records_ = &records;
-  parameters.s_last_moved_time_ = &time_in_secs;
-  LoadRecords(parameters.s_records_, SNAKE_RECORDS_FILE_NAME);
-  SaveRecords(parameters.s_records_, SNAKE_RECORDS_FILE_NAME);
+  LoadRecords(parameters->s_records_, SNAKE_RECORDS_FILE_NAME);
+  SaveRecords(parameters->s_records_, SNAKE_RECORDS_FILE_NAME);
 
   InitGameColors();
   PrintBegin();
-  SnakeLoop(&parameters);
+  SnakeLoop(parameters);
 }
 
 void TetrisLoop(Parameters *p_parameters) {
@@ -437,15 +422,15 @@ int CreateMenu(const char *options[], int size) {
     key = getch();
 
     switch (key) {
-      case KEY_UP:
-        highlight = (highlight - 1 + size) % size;
-        break;
-      case KEY_DOWN:
-        highlight = (highlight + 1) % size;
-        break;
-      case 10:
-        choice = highlight;
-        break;
+    case KEY_UP:
+      highlight = (highlight - 1 + size) % size;
+      break;
+    case KEY_DOWN:
+      highlight = (highlight + 1) % size;
+      break;
+    case 10:
+      choice = highlight;
+      break;
     }
     if (choice != -1) {
       break;

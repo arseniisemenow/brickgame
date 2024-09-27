@@ -11,53 +11,49 @@ CXXCOV 			:=  --coverage
 
 DIST_DIR :=archive
 
-DEBUGGER := 	brick_game/tetris/debugger/debugger.c
-BACKEND := 		brick_game/tetris/backend/backend.c
-COMMON :=   	brick_game/common/common/colors.c \
-				brick_game/common/block/block.c \
-				brick_game/common/cell/cell.c \
-				brick_game/common/collisions_checker/collisions_checker.c \
-				brick_game/common/parameters/parameters.c \
-				brick_game/common/game_status/game_status.c \
-				brick_game/common/board/board.c \
-				brick_game/common/player/player.c \
-				brick_game/common/records/records.c \
-				brick_game/common/player/player_board/player_board.c \
- 				brick_game/common/time_handler/time_handler.c \
- 				brick_game/common/fsm_types.c
-TETRIS_SRC := 	brick_game/tetris/fsm/fsm_matrix.c
+DEBUGGER := 	src/brick_game/tetris/debugger/debugger.c
+BACKEND := 		src/brick_game/tetris/backend/backend.c
+COMMON :=   	src/brick_game/common/common/colors.c \
+				src/brick_game/common/block/block.c \
+				src/brick_game/common/cell/cell.c \
+				src/brick_game/common/collisions_checker/collisions_checker.c \
+				src/brick_game/common/parameters/parameters.c \
+				src/brick_game/common/game_status/game_status.c \
+				src/brick_game/common/board/board.c \
+				src/brick_game/common/player/player.c \
+				src/brick_game/common/records/records.c \
+				src/brick_game/common/player/player_board/player_board.c \
+ 				src/brick_game/common/time_handler/time_handler.c \
+ 				src/brick_game/common/fsm_types.c
+TETRIS_SRC := 	src/brick_game/tetris/fsm/fsm_matrix.c
+BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
+				src/brick_game/snake/Model/Model.cc \
+				src/brick_game/snake/Action/Action.cc \
+				src/brick_game/snake/move_snake/move_snake.cc
+FRONTEND:=		src/gui/cli/frontend.c
 
-BACKEND_CXX:=	brick_game/snake/controller/controller.cc \
-				brick_game/snake/Model/Model.cc \
-				brick_game/snake/Action/Action.cc \
-				brick_game/snake/move_snake/move_snake.cc
+SOURCES_FOR_TESTS:= tests/tetris/main_test.c
 
-FRONTEND:=		gui/cli/frontend.c
 
-SOURCES_FOR_TESTS := ../tests/tetris/main_test.c
+SHARED_LIB_NAME := libbrickgame.so
 
-APP_DESTINATION:=../build/brickgame_desktop.app/Contents/MacOS
+
 ifeq ($(OS_NAME), GNU/Linux)
     OPEN_COMMAND := xdg-open
-	APP_DESTINATION:=../build
+#	APP_DESTINATION:=../build
 endif
 
 OPEN_COMMAND =open
-ifeq ($(OS), Linux)
-	OPEN_COMMAND=xdg-open
-else
-	OPEN_COMMAND=open
-endif
 # if Fedora, need to uncomment followed two lines
 #OPEN_COMMAND=xdg-open
 #APP_DESTINATION:=../build
 
 
-SHARED_LIB_NAME := libbrickgame.so
-
 # Create .so file from all backend and common sources
-lib: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
+${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
 	$(CXX) $^ -shared -fPIC -o $(SHARED_LIB_NAME)
+
+lib: ${SHARED_LIB_NAME}
 
 all: install run_cli
 
@@ -68,20 +64,19 @@ uninstall:
 	@rm -rf ${DESKTOP_BUILD}
 	@echo "Uninstallation is finished"
 
-
 install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
 	$(CXX) $(LIBRARIES) $^ -L. \
-	brick_game/common/common/color_handler.c \
+	src/brick_game/common/common/color_handler.c \
 	-lbrickgame -o brickgame_cli.out
-
 
 #install_cli: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS} ${FRONTEND}
 #	$(CXX) $(LIBRARIES) $^ \
 #	brick_game/common/common/color_handler.c \
 #	-o brickgame_cli.out
 
-DESKTOP_SOURCES := gui/desktop/View
-DESKTOP_BUILD := ../build
+DESKTOP_SOURCES := src/gui/desktop/View
+DESKTOP_BUILD := build_desktop
+APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
 
 install_desktop:
 	cmake -DCMAKE_BUILD_TYPE=Release -S ${DESKTOP_SOURCES} -B ${DESKTOP_BUILD}
@@ -105,13 +100,24 @@ dist: clean_dist
 dist_unpack:
 	cd ../ && tar -xzvf archive.tar.gz
 
-test_manual:
-	${CXX} ${CXXFLAGS} ${BACKEND} ${BACKEND_CXX} ${COMMON}  main.cc -o manual_test.out
-	./manual_test.out
-test: clean
-	@${CXX} ${SOURCES_FOR_TESTS} libbrickgame.so -lcheck -lm  -o test.out
+#test_manual:
+#	${CXX} ${CXXFLAGS} ${BACKEND} ${BACKEND_CXX} ${COMMON}  main.cc -o manual_test.out
+#	./manual_test.out
+test: test_tetris test_snake
+
+test_tetris: ${SHARED_LIB_NAME}
+	@${CXX} ${SOURCES_FOR_TESTS} ${SHARED_LIB_NAME} -lcheck -lm  -o test.out
 	@./test.out
 	@make clean
+
+TEST_SNAKE_SRC := tests/snake
+TEST_SNAKE_DEST := tests/snake/build
+TEST_SNAKE_TARGET := tests
+
+test_snake:
+	cmake -DCMAKE_BUILD_TYPE=Release -S ${TEST_SNAKE_SRC} -B ${TEST_SNAKE_DEST}
+	cmake --build ${TEST_SNAKE_DEST} --target tests -j 8
+	./${TEST_SNAKE_DEST}/tests
 
 test_valgrind:
 	@${CC} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o test.out
@@ -151,12 +157,10 @@ style:
 	@rm .clang-format
 	@echo "Clang format style apply is finished"
 
-clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report clean_dist
+clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report clean_dist clean_dynamic_libs
 	@echo "Clean finished"
 
 clean_project:
-	@find .. -type f -name "*.records" -exec rm {} \;
-
 clean_dist:
 	@cd ../ && rm -rf archive
 	@cd ../ && rm -rf archive.tar.gz
@@ -177,4 +181,6 @@ clean_lcov:
 	@find .. -type f -name "*.info" -exec rm {} \;
 clean_lcov_report:
 	@rm -rf report
+clean_dynamic_libs:
+	@find . -type f -name "*.so" -exec rm {} \;
 

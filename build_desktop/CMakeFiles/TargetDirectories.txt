@@ -1,0 +1,4 @@
+/Users/evangelm/Documents/Projects/brick-game/AP2_BrickGame_v3.0_Go-1/build_desktop/CMakeFiles/brickgame_desktop.dir
+/Users/evangelm/Documents/Projects/brick-game/AP2_BrickGame_v3.0_Go-1/build_desktop/CMakeFiles/edit_cache.dir
+/Users/evangelm/Documents/Projects/brick-game/AP2_BrickGame_v3.0_Go-1/build_desktop/CMakeFiles/rebuild_cache.dir
+/Users/evangelm/Documents/Projects/brick-game/AP2_BrickGame_v3.0_Go-1/build_desktop/CMakeFiles/brickgame_desktop_autogen.dir

@@ -14,13 +14,13 @@ class NextPlayerGridWidget : public QWidget {
  public:
   NextPlayerGridWidget(QWidget *parent = nullptr);
 
-  void SetPlayers(Player next_player);
+  void SetPlayer(const Player *next_player);
 
  protected:
   void paintEvent(QPaintEvent *event) override;
 
  private:
-  Player next_player_;
+  Player *next_player_;
 };
 
 #endif //CPP3_BRICK_GAME_V_2_0_1_GUI_DESKTOP_VIEW_NEXT_PLAYER_GRID_WIDGET_NEXT_PLAYER_GRID_WIDGET_H_

@@ -6,7 +6,6 @@
 namespace s21 {
 class ModelTest : public ::testing::Test {
 protected:
-
   SignalType signal_type{};
   Parameters *parameters = AllocParameters();
 
