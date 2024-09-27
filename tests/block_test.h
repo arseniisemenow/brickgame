@@ -9,35 +9,34 @@
 #endif
 
 START_TEST(GetRandomBlockTypeTest) {
-  BlockType block_type = {0};
+  BlockType block_type = {};
   block_type = GetRandomBlockType();
   ck_assert_int_ge(block_type, 0);
 }
-
 END_TEST
+
 START_TEST(GetNextBlockRotationTest) {
-  BlockRotation block_rotation = kBlockRotationFirst;
+  Direction block_rotation = kDirectionFirst;
   block_rotation = GetNextBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationSecond);
+  ck_assert_int_eq(block_rotation, kDirectionSecond);
   block_rotation = GetNextBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationThird);
+  ck_assert_int_eq(block_rotation, kDirectionThird);
   block_rotation = GetNextBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationForth);
+  ck_assert_int_eq(block_rotation, kDirectionForth);
 }
-
 END_TEST
-START_TEST(GetPreviousBlockRotationTest) {
-  BlockRotation block_rotation = kBlockRotationFirst;
-  block_rotation = GetPreviousBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationForth);
-  block_rotation = GetPreviousBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationThird);
-  block_rotation = GetPreviousBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationSecond);
-  block_rotation = GetPreviousBlockRotation(block_rotation);
-  ck_assert_int_eq(block_rotation, kBlockRotationFirst);
-}
 
+START_TEST(GetPreviousBlockRotationTest) {
+  Direction block_rotation = kDirectionFirst;
+  block_rotation = GetPreviousBlockRotation(block_rotation);
+  ck_assert_int_eq(block_rotation, kDirectionForth);
+  block_rotation = GetPreviousBlockRotation(block_rotation);
+  ck_assert_int_eq(block_rotation, kDirectionThird);
+  block_rotation = GetPreviousBlockRotation(block_rotation);
+  ck_assert_int_eq(block_rotation, kDirectionSecond);
+  block_rotation = GetPreviousBlockRotation(block_rotation);
+  ck_assert_int_eq(block_rotation, kDirectionFirst);
+}
 END_TEST
 
 Suite *block_suite(void) {

@@ -55,8 +55,8 @@ START_TEST(BoardOverlayBlockOnAnotherBlockTest) {
 END_TEST
 
 START_TEST(UpdatePredictPlayerTest) {
-  Player* player = AllocPlayer();
-  Player* predict_player = AllocPlayer();
+  Player *player = AllocPlayer();
+  Player *predict_player = AllocPlayer();
   Board *board = AllocBoard();
 
   InitBoard(board);
