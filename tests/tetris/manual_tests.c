@@ -1,8 +1,8 @@
 #include "../../src/brick_game/tetris/backend/backend.h"
 
 int main(){
-  Player* player = AllocPlayer();
-  Board *board = AllocBoard();
+  Player* player = {0};
+  Board *board = {0};
   InitPlayer(player);
   InitPlayerPosition(player);
 
@@ -10,5 +10,5 @@ int main(){
 
   SetPlayerBlockType(player, kBlockT);
   SetPlayerBlockRotation(player, kDirectionFirst);
-  bool flag = CheckCollide(player, board);
+  bool flag = CheckFutureCollideWithBlocksLeft(player, board);
 }

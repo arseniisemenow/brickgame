@@ -23,8 +23,8 @@ START_TEST(CheckCollideTest1) {
 END_TEST
 
 START_TEST(CheckFutureCollideWithBlocksLeftTest1) {
-  Player* player = {0};
-  Board *board = {0};
+  Player* player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 

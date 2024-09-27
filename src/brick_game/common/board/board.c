@@ -32,7 +32,6 @@ void InitBoard(Board *p_board) {
 // todo: check why not segfaulting: row_index_2 is set to 20 - out of the bounds
 int HandleBoardCompleteLines(Board *p_board) {
   int complete_lines_count = 0;
-  printf("p_board->height_: %d\n", p_board->height_);
   for (int row_index = p_board->height_ - 1; row_index >= 0; --row_index) {
     for (int row_index_2 = p_board->height_; row_index_2 >= 0; --row_index_2) {
       bool flag = CheckBoardCompleteLine(p_board, row_index);
