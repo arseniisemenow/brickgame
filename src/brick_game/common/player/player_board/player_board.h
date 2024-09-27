@@ -20,7 +20,7 @@ void FreePlayerBoard(PlayerBoard *p_player_board);
 
 void InitPlayerBoard(PlayerBoard *p_player_board);
 void CopyPlayerBoard(PlayerBoard *p_player_board_dest,
-                     PlayerBoard player_board_src);
+                     const PlayerBoard *p_player_board_src);
 
 void SetPlayerBoardBlock(PlayerBoard *p_player_board, BlockType block_type,
                          Direction block_rotation);

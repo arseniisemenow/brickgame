@@ -26,11 +26,11 @@ void InitPlayerBoard(PlayerBoard *p_player_board) {
 }
 
 void CopyPlayerBoard(PlayerBoard *p_player_board_dest,
-                     PlayerBoard player_board_src) {
+                     const PlayerBoard *p_player_board_src) {
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       CopyCell(&p_player_board_dest->board_[i][j],
-               player_board_src.board_[i][j]);
+               p_player_board_src->board_[i][j]);
     }
   }
 }

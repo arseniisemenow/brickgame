@@ -8,15 +8,15 @@
 #endif
 
 START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
-  PlayerBoard player_board = {0};
-  SetPlayerBoardBlock(&player_board, kBlockI, kBlockRotationFirst);
+  PlayerBoard *player_board = AllocPlayerBoard();
+  SetPlayerBoardBlock(player_board, kBlockI, kDirectionFirst);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       if (j == 1) {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, true);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, true);
       } else {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, false);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
       }
     }
   }
@@ -24,15 +24,15 @@ START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
 
 END_TEST
 START_TEST(SetPlayerBoardBlockTestISecondRotation) {
-  PlayerBoard player_board = {0};
-  SetPlayerBoardBlock(&player_board, kBlockI, kBlockRotationSecond);
+  PlayerBoard *player_board = AllocPlayerBoard();
+  SetPlayerBoardBlock(player_board, kBlockI, kDirectionSecond);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       if (i == 2) {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, true);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, true);
       } else {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, false);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
       }
     }
   }
@@ -41,15 +41,15 @@ START_TEST(SetPlayerBoardBlockTestISecondRotation) {
 END_TEST
 
 START_TEST(SetPlayerBoardBlockTestIThirdRotation) {
-  PlayerBoard player_board = {0};
-  SetPlayerBoardBlock(&player_board, kBlockI, kBlockRotationThird);
+  PlayerBoard *player_board = AllocPlayerBoard();
+  SetPlayerBoardBlock(player_board, kBlockI, kDirectionThird);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       if (j == 1) {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, true);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, true);
       } else {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, false);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
       }
     }
   }
@@ -58,15 +58,15 @@ START_TEST(SetPlayerBoardBlockTestIThirdRotation) {
 END_TEST
 
 START_TEST(SetPlayerBoardBlockTestIForthRotation) {
-  PlayerBoard player_board = {0};
-  SetPlayerBoardBlock(&player_board, kBlockI, kBlockRotationForth);
+  PlayerBoard *player_board = AllocPlayerBoard();
+  SetPlayerBoardBlock(player_board, kBlockI, kDirectionForth);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       if (i == 2) {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, true);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, true);
       } else {
-        ck_assert_int_eq(player_board.board_[i][j].is_set_, false);
+        ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
       }
     }
   }
@@ -75,13 +75,13 @@ START_TEST(SetPlayerBoardBlockTestIForthRotation) {
 END_TEST
 
 START_TEST(InitPlayerBoardTest) {
-  PlayerBoard player_board = {0};
-  InitPlayerBoard(&player_board);
+  PlayerBoard *player_board = AllocPlayerBoard();
+  InitPlayerBoard(player_board);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      ck_assert_int_eq(player_board.board_[i][j].color_, COLOR_BLACK);
-      ck_assert_int_eq(player_board.board_[i][j].is_set_, false);
+      ck_assert_int_eq(player_board->board_[i][j].color_, COLOR_BLACK);
+      ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
     }
   }
 }
@@ -89,24 +89,24 @@ START_TEST(InitPlayerBoardTest) {
 END_TEST
 
 START_TEST(CopyPlayerBoardTest) {
-  PlayerBoard player_board_1 = {0};
-  PlayerBoard player_board_2 = {0};
-  InitPlayerBoard(&player_board_1);
-  InitPlayerBoard(&player_board_2);
+  PlayerBoard *player_board_1 = AllocPlayerBoard();
+  PlayerBoard *player_board_2 = AllocPlayerBoard();
+  InitPlayerBoard(player_board_1);
+  InitPlayerBoard(player_board_2);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; i += 2) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; j += 2) {
-      player_board_1.board_[i][j].is_set_ = true;
+      player_board_1->board_[i][j].is_set_ = true;
     }
   }
-  CopyPlayerBoard(&player_board_2, player_board_1);
+  CopyPlayerBoard(player_board_2, player_board_1);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      ck_assert_int_eq(player_board_1.board_[i][j].is_set_,
-                       player_board_2.board_[i][j].is_set_);
-      ck_assert_int_eq(player_board_1.board_[i][j].color_,
-                       player_board_2.board_[i][j].color_);
+      ck_assert_int_eq(player_board_1->board_[i][j].is_set_,
+                       player_board_2->board_[i][j].is_set_);
+      ck_assert_int_eq(player_board_1->board_[i][j].color_,
+                       player_board_2->board_[i][j].color_);
     }
   }
 }
