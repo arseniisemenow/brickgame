@@ -13,7 +13,7 @@ extern "C" {
 
 typedef struct {
   bool is_current_player_;
-  char name_[20];
+  char *name_;
   int score_;
 } Record;
 

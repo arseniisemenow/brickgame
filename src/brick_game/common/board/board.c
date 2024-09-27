@@ -51,9 +51,9 @@ void RemoveBoardLine(Board *p_board, int line_index) {
 }
 
 bool CheckBoardCompleteLine(Board *p_board, int row_index) {
-  if (row_index >= 0 && row_index < 19){
-    return false;
-  }
+//  if (row_index < 0 && row_index > 19){
+//    return false;
+//  }
   bool flag = true;
   for (int column_index = 0; column_index < BOARD_WIDTH; ++column_index) {
     if (!p_board->cells_[row_index][column_index].is_set_) {

@@ -130,7 +130,6 @@ Mkfile.old
 Makefile.old
 dkms.conf
 
-*.records_
 *cmake-build*
 *.out
 *build

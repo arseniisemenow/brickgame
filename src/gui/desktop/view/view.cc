@@ -33,7 +33,7 @@ void InitParametersForSnakeBeforeStart(Parameters *p_params) {
   *p_params->s_last_moved_time_ = GetTimeInMS();
 
   LoadRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
-  SaveRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
+//  SaveRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
 }
 
 void InitParametersForTetrisBeforeStart(Parameters *p_params) {

@@ -7,9 +7,15 @@
 Records* AllocRecords(){
   Records * records = (Records *)calloc(sizeof(Records), 1);
   records->records_ = (Record*)calloc(sizeof(Record), RECORDS_NUMBER);
+  for (int i = 0; i < RECORDS_NUMBER; ++i) {
+    records->records_[i].name_ = (char*)calloc(sizeof(char), 20);
+  }
   return records;
 }
 void FreeRecords(Records* p_records){
+  for (int i = 0; i < RECORDS_NUMBER; ++i) {
+    free(p_records->records_[i].name_);
+  }
   free(p_records->records_);
   free(p_records);
 }
@@ -46,9 +52,10 @@ void AddRecord(Records *p_records, const char *name, int score,
     }
   }
 
-  for (int i = RECORDS_NUMBER - 1; i > position && !flag_handled; --i) {
-    p_records->records_[i] = p_records->records_[i - 1];
-  }
+//  for (int i = RECORDS_NUMBER - 1; i > position && !flag_handled; --i) {
+////    p_records->records_[i] = p_records->records_[i - 1];
+//    memcpy(&p_records->records_[i], &p_records->records_[i - 1], sizeof(p_records->records_[i]));
+//  }
 
   if (!flag_handled) {
     p_records->records_[position].is_current_player_ = true;
@@ -73,7 +80,8 @@ void RemoveRecord(Records *p_records, const char *name, const char *filename) {
 
   if (found) {
     for (int j = i; j < RECORDS_NUMBER - 1; ++j) {
-      p_records->records_[j] = p_records->records_[j + 1];
+//      p_records->records_[j] = p_records->records_[j + 1];
+      memcpy(&p_records->records_[j], &p_records->records_[j + 1], sizeof(p_records->records_[j]));
     }
 
     p_records->records_[RECORDS_NUMBER - 1].is_current_player_ = false;
@@ -91,7 +99,7 @@ bool SaveRecords(const Records *p_records, const char *filename) {
     return false;
   }
 
-  size_t num_written = fwrite(p_records, sizeof(Records), 1, p_file);
+  size_t num_written = fwrite(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
   fclose(p_file);
 
   return num_written == 1;
@@ -103,7 +111,7 @@ bool LoadRecords(Records *p_records, const char *filename) {
     return false;
   }
 
-  size_t num_read = fread(p_records, sizeof(Records), 1, p_file);
+  size_t num_read = fread(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
   fclose(p_file);
 
   return num_read == 1;
