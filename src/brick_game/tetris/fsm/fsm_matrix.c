@@ -86,7 +86,7 @@ void ActionSpawn(Parameters *p_parameters) {
     *p_parameters->t_state_ = kGameOver;
   } else {
     UpdatePredictPlayer(p_parameters->t_predict_player_,
-                        *p_parameters->t_player_, p_parameters->t_board_);
+                        p_parameters->t_player_, p_parameters->t_board_);
 
     SetPlayerBlockType(p_parameters->t_next_player_, GetRandomBlockType());
 
@@ -99,7 +99,7 @@ void ActionMoveUp(Parameters *p_parameters) {
   if (CheckCollide(p_parameters->t_player_, p_parameters->t_board_)) {
     SetPlayerPreviousBlockRotation(p_parameters->t_player_);
   }
-  UpdatePredictPlayer(p_parameters->t_predict_player_, *p_parameters->t_player_,
+  UpdatePredictPlayer(p_parameters->t_predict_player_, p_parameters->t_player_,
                       p_parameters->t_board_);
   CheckCollisions(p_parameters);
 }
@@ -118,7 +118,7 @@ void ActionMoveLeft(Parameters *p_parameters) {
   if (flag_ok) {
     MovePlayerLeft(p_parameters->t_player_);
   }
-  UpdatePredictPlayer(p_parameters->t_predict_player_, *p_parameters->t_player_,
+  UpdatePredictPlayer(p_parameters->t_predict_player_, p_parameters->t_player_,
                       p_parameters->t_board_);
   CheckCollisions(p_parameters);
 }
@@ -131,7 +131,7 @@ void ActionMoveRight(Parameters *p_parameters) {
   if (flag_ok) {
     MovePlayerRight(p_parameters->t_player_);
   }
-  UpdatePredictPlayer(p_parameters->t_predict_player_, *p_parameters->t_player_,
+  UpdatePredictPlayer(p_parameters->t_predict_player_, p_parameters->t_player_,
                       p_parameters->t_board_);
   CheckCollisions(p_parameters);
 }

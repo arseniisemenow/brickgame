@@ -23,8 +23,8 @@ bool CheckCollide(const Player *p_player, const Board *p_board);
 bool PerformFutureCollideCheckWithSide(const Board *p_board,
                                        const BoardSide board_side, const int x,
                                        const int y);
-bool CheckFutureCollideWithSide(Player *p_player, Board *p_board,
-                                BoardSide board_side);
+bool CheckFutureCollideWithSide(const Player *p_player, const Board *p_board,
+                                const BoardSide board_side);
 bool CheckFutureCollideWithUp(const Player *p_player, const Board *p_board);
 bool CheckFutureCollideWithDown(const Player *p_player, const Board *p_board);
 bool CheckFutureCollideWithLeft(const Player *p_player, const Board *p_board);

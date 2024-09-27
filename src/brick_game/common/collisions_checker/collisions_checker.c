@@ -57,8 +57,8 @@ bool CheckCollideWithSide(const Player *p_player, const Board *p_board,
   return false;
 }
 
-bool CheckFutureCollideWithSide(Player *p_player, Board *p_board,
-                                BoardSide board_side) {
+bool CheckFutureCollideWithSide(const Player *p_player, const Board *p_board,
+                                const BoardSide board_side) {
   PlayerBoard *p_player_board = p_player->board_;
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;

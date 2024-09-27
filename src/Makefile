@@ -34,7 +34,7 @@ BACKEND_CXX:=	brick_game/snake/controller/controller.cc \
 
 FRONTEND:=		gui/cli/frontend.c
 
-SOURCES_FOR_TESTS :=	  	../tests/main_test.c
+SOURCES_FOR_TESTS := ../tests/tetris/main_test.c
 
 APP_DESTINATION:=../build/brickgame_desktop.app/Contents/MacOS
 ifeq ($(OS_NAME), GNU/Linux)

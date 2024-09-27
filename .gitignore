@@ -135,3 +135,4 @@ dkms.conf
 *.out
 *build
 .idea
+*.log

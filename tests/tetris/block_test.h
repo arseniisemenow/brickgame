@@ -3,7 +3,7 @@
 #ifndef TEST_HEADER_
 #define TEST_HEADER_
 
-#include "../src/brick_game/tetris/backend/backend.h"
+#include "../../src/brick_game/tetris/backend/backend.h"
 #include "test.h"
 
 #endif
