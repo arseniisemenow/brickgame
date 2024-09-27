@@ -7,9 +7,6 @@ enable_language(CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(../../src)
-include_directories(.)
-
 add_executable(manual_tests
         ../../src/brick_game/common/block/block.c
         ../../src/brick_game/common/board/board.c
@@ -28,6 +25,5 @@ add_executable(manual_tests
         ../../src/brick_game/snake/action/action.cc
         ../../src/brick_game/snake/move_snake/move_snake.cc
         ../../src/brick_game/common/fsm_types.c
-#        ../../src/common/constants.h
         manual_tests.c
 )

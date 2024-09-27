@@ -7,6 +7,8 @@
 #include "test.h"
 #endif
 
+
+
 START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
   PlayerBoard *player_board = AllocPlayerBoard();
   SetPlayerBoardBlock(player_board, kBlockI, kDirectionFirst);
@@ -21,8 +23,8 @@ START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
     }
   }
 }
-
 END_TEST
+
 START_TEST(SetPlayerBoardBlockTestISecondRotation) {
   PlayerBoard *player_board = AllocPlayerBoard();
   SetPlayerBoardBlock(player_board, kBlockI, kDirectionSecond);
@@ -37,10 +39,9 @@ START_TEST(SetPlayerBoardBlockTestISecondRotation) {
     }
   }
 }
-
 END_TEST
 
-START_TEST(SetPlayerBoardBlockTestIThirdRotation) {
+START_TEST(SetPlayerBoardBlockTestThirdRotation) {
   PlayerBoard *player_board = AllocPlayerBoard();
   SetPlayerBoardBlock(player_board, kBlockI, kDirectionThird);
 
@@ -71,7 +72,6 @@ START_TEST(SetPlayerBoardBlockTestIForthRotation) {
     }
   }
 }
-
 END_TEST
 
 START_TEST(InitPlayerBoardTest) {
@@ -85,7 +85,6 @@ START_TEST(InitPlayerBoardTest) {
     }
   }
 }
-
 END_TEST
 
 START_TEST(CopyPlayerBoardTest) {
@@ -110,7 +109,6 @@ START_TEST(CopyPlayerBoardTest) {
     }
   }
 }
-
 END_TEST
 
 Suite *player_board_suite(void) {
@@ -120,7 +118,7 @@ Suite *player_board_suite(void) {
   tc_core = tcase_create("core");
   tcase_add_test(tc_core, SetPlayerBoardBlockTestIFirstRotation);
   tcase_add_test(tc_core, SetPlayerBoardBlockTestISecondRotation);
-  tcase_add_test(tc_core, SetPlayerBoardBlockTestIThirdRotation);
+  tcase_add_test(tc_core, SetPlayerBoardBlockTestThirdRotation);
   tcase_add_test(tc_core, SetPlayerBoardBlockTestIForthRotation);
   tcase_add_test(tc_core, InitPlayerBoardTest);
   tcase_add_test(tc_core, CopyPlayerBoardTest);
