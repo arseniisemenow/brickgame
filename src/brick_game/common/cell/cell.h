@@ -14,6 +14,9 @@ typedef struct {
   int y_;
 } Cell;
 
+Cell* AllocCell();
+void FreeCell(Cell* p_cell);
+
 void InitCell(Cell *p_cell);
 void CopyCell(Cell *p_cell_dest, Cell cell_src);
 

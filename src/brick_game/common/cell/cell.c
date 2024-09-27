@@ -1,6 +1,15 @@
 #include "cell.h"
+#include <stdlib.h>
 
 #include "../common/colors.h"
+
+Cell *AllocCell() {
+  Cell *cell = (Cell *)calloc(sizeof(Cell), 1);
+  return cell;
+}
+void FreeCell(Cell *p_cell) {
+  free(p_cell);
+}
 
 void InitCell(Cell *p_cell) {
   p_cell->is_set_ = false;
