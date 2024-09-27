@@ -1,33 +1,33 @@
 #include "collisions_checker.h"
 #include <printf.h>
 
-bool CheckFutureCollideWithUp(Player *p_player, Board *p_board) {
+bool CheckFutureCollideWithUp(const Player *p_player, const Board *p_board) {
   return CheckFutureCollideWithSide(p_player, p_board, kBoardSideUp);
 }
-bool CheckFutureCollideWithDown(Player *p_player, Board *p_board) {
+bool CheckFutureCollideWithDown(const Player *p_player, const Board *p_board) {
   return CheckFutureCollideWithSide(p_player, p_board, kBoardSideDown);
 }
-bool CheckFutureCollideWithLeft(Player *p_player, Board *p_board) {
+bool CheckFutureCollideWithLeft(const Player *p_player, const Board *p_board) {
   return CheckFutureCollideWithSide(p_player, p_board, kBoardSideLeft);
 }
-bool CheckFutureCollideWithRight(Player *p_player, Board *p_board) {
+bool CheckFutureCollideWithRight(const Player *p_player, const Board *p_board) {
   return CheckFutureCollideWithSide(p_player, p_board, kBoardSideRight);
 }
 
-bool CheckCollideWithUp(Player *p_player, Board *p_board) {
+bool CheckCollideWithUp(const Player *p_player, const Board *p_board) {
   return CheckCollideWithSide(p_player, p_board, kBoardSideUp);
 }
-bool CheckCollideWithDown(Player *p_player, Board *p_board) {
+bool CheckCollideWithDown(const Player *p_player, const Board *p_board) {
   return CheckCollideWithSide(p_player, p_board, kBoardSideDown);
 }
-bool CheckCollideWithLeft(Player *p_player, Board *p_board) {
+bool CheckCollideWithLeft(const Player *p_player, const Board *p_board) {
   return CheckCollideWithSide(p_player, p_board, kBoardSideLeft);
 }
-bool CheckCollideWithRight(Player *p_player, Board *p_board) {
+bool CheckCollideWithRight(const Player *p_player, const Board *p_board) {
   return CheckCollideWithSide(p_player, p_board, kBoardSideRight);
 }
 
-bool CheckCollide(Player *p_player, Board *p_board) {
+bool CheckCollide(const Player *p_player, const Board *p_board) {
   bool flag = CheckCollideWithUp(p_player, p_board);
   flag |= CheckCollideWithDown(p_player, p_board);
   flag |= CheckCollideWithLeft(p_player, p_board);
@@ -36,8 +36,8 @@ bool CheckCollide(Player *p_player, Board *p_board) {
   return flag;
 }
 
-bool CheckCollideWithSide(Player *p_player, Board *p_board,
-                          BoardSide board_side) {
+bool CheckCollideWithSide(const Player *p_player, const Board *p_board,
+                          const BoardSide board_side) {
   PlayerBoard *p_player_board = p_player->board_;
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
@@ -78,8 +78,9 @@ bool CheckFutureCollideWithSide(Player *p_player, Board *p_board,
   return false;
 }
 
-bool PerformCollideCheckWithSide(Board *p_board, BoardSide board_side, int x,
-                                 int y) {
+bool PerformCollideCheckWithSide(const Board *p_board,
+                                 const BoardSide board_side, const int x,
+                                 const int y) {
   if (board_side == kBoardSideUp) {
     if (y < 0) {
       return true;
@@ -99,8 +100,9 @@ bool PerformCollideCheckWithSide(Board *p_board, BoardSide board_side, int x,
   }
   return false;
 }
-bool PerformFutureCollideCheckWithSide(Board *p_board, BoardSide board_side,
-                                       int x, int y) {
+bool PerformFutureCollideCheckWithSide(const Board *p_board,
+                                       const BoardSide board_side, const int x,
+                                       const int y) {
   if (board_side == kBoardSideUp) {
     if (y - 1 < 0) {
       return true;

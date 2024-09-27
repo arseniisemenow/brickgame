@@ -23,8 +23,8 @@ static const long long kArrayOfTimeStep[11] = {1000, 875, 625, 550, 425, 350,
                                                325,  300, 250, 200, 150};
 
 void BoardOverlayBlock(Player *p_player, Board *p_board);
-void MovePredictPlayerDown(Player *p_player, Board *p_board);
-void UpdatePredictPlayer(Player *p_player_dest, Player player_src,
+void MovePredictPlayerDown(Player *p_player, const Board *p_board);
+void UpdatePredictPlayer(Player *p_player_dest, const Player *p_player_src,
                          Board *p_board);
 long long int GetTimeStepMS(GameStatus *p_game_status);
 

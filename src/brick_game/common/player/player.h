@@ -29,7 +29,7 @@ void FreePlayer(Player *);
 
 void InitPlayer(Player *p_player);
 void InitNextPlayer(Player *p_player);
-void CopyPlayer(Player *p_player_dest, Player player_src);
+void CopyPlayer(Player *p_player_dest, const Player *p_player_src);
 void InitPlayerPosition(Player *p_player);
 void SetPlayerBlockType(Player *p_player, BlockType block_type);
 void SetPlayerBlockRotation(Player *p_player, Direction block_rotation);

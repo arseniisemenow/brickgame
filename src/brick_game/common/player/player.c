@@ -30,17 +30,16 @@ void InitPlayerPosition(Player *p_player) {
   //    p_player->t_board_.t_board_[p_player->y_][p_player->x_];
 }
 
-void CopyPlayer(Player *p_player_dest, Player player_src) {
-  p_player_dest->x_ = player_src.x_;
-  p_player_dest->y_ = player_src.y_;
-  p_player_dest->block_type_ = player_src.block_type_;
-  p_player_dest->direction_ = player_src.direction_;
-  p_player_dest->board_ = player_src.board_;
+void CopyPlayer(Player *p_player_dest, const Player *p_player_src) {
+  p_player_dest->x_ = p_player_src->x_;
+  p_player_dest->y_ = p_player_src->y_;
+  p_player_dest->block_type_ = p_player_src->block_type_;
+  p_player_dest->direction_ = p_player_src->direction_;
+  p_player_dest->board_ = p_player_src->board_;
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      p_player_dest->board_->board_[i][j] =
-          player_src.board_->board_[i][j];
+      p_player_dest->board_->board_[i][j] = p_player_src->board_->board_[i][j];
     }
   }
 

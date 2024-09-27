@@ -22,7 +22,7 @@ void BoardOverlayBlock(Player *p_player, Board *p_board) {
   }
 }
 
-void MovePredictPlayerDown(Player *p_player, Board *p_board) {
+void MovePredictPlayerDown(Player *p_player, const Board *p_board) {
   bool break_flag = false;
   while (!break_flag) {
     if (CheckFutureCollideWithDown(p_player, p_board)) {
@@ -38,9 +38,9 @@ void MovePredictPlayerDown(Player *p_player, Board *p_board) {
   MovePlayerUp(p_player);
 }
 
-void UpdatePredictPlayer(Player *p_player_dest, Player player_src,
+void UpdatePredictPlayer(Player *p_player_dest, const Player *p_player_src,
                          Board *p_board) {
-  CopyPlayer(p_player_dest, player_src);
+  CopyPlayer(p_player_dest, p_player_src);
   MovePredictPlayerDown(p_player_dest, p_board);
   SetNextPlayerColor(p_player_dest);
 }
