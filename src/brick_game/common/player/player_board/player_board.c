@@ -1,4 +1,5 @@
 #include "player_board.h"
+#include <printf.h>
 #include <stdlib.h>
 
 PlayerBoard * AllocPlayerBoard(){
@@ -22,6 +23,16 @@ void InitPlayerBoard(PlayerBoard *p_player_board) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
       InitCell(&p_player_board->board_[i][j]);
     }
+  }
+}
+
+void PrintPlayerBoard(const PlayerBoard *p_player_board) {
+  for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
+    printf("%d", p_player_board->board_[i][0].is_set_);
+    for (int j = 1; j < PLAYER_BOARD_SIZE; ++j) {
+      printf(" %d", p_player_board->board_[i][j].is_set_);
+    }
+    printf("\n");
   }
 }
 

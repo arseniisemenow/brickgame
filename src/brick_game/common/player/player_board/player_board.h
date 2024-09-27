@@ -18,6 +18,8 @@ typedef struct {
 PlayerBoard * AllocPlayerBoard();
 void FreePlayerBoard(PlayerBoard *p_player_board);
 
+void PrintPlayerBoard(const PlayerBoard *p_player_board);
+
 void InitPlayerBoard(PlayerBoard *p_player_board);
 void CopyPlayerBoard(PlayerBoard *p_player_board_dest,
                      const PlayerBoard *p_player_board_src);

@@ -60,15 +60,15 @@ void GridWidget::paintEvent(QPaintEvent *event) {
 void GridWidget::DrawPlayer(QPainter *painter, Player *player) {
   int player_pos_x = player->x_;
   int player_pos_y = player->y_;
-  PlayerBoard player_board = player->board_;
+  PlayerBoard *player_board = player->board_;
 
   for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
     for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
          ++column_index) {
       int print_y = player_pos_y + row_index;
       int print_x = player_pos_x + column_index;
-      if (player_board.board_[row_index][column_index].is_set_) {
-        int color = player_board.board_[row_index][column_index].color_;
+      if (player_board->board_[row_index][column_index].is_set_) {
+        int color = player_board->board_[row_index][column_index].color_;
         auto q_color = s21::constants::kColorArray[color];
         painter->fillRect(print_x * s21::constants::kCellSize,
                           print_y * s21::constants::kCellSize,

@@ -1,6 +1,6 @@
 #include "controller.h"
 
-#include "../Model/Model.h"
+#include "../model/model.h"
 
 void ControllerSnake(SignalType signal, Parameters *p_parameters) {
   s21::Model model{};

@@ -1,4 +1,4 @@
-#include "Action.h"
+#include "action.h"
 
 #include "../move_snake/move_snake.h"
 
