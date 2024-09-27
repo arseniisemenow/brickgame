@@ -1,6 +1,6 @@
 #include "player_board.h"
-#include <printf.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 PlayerBoard * AllocPlayerBoard(){
   PlayerBoard *p_player_board = (PlayerBoard*)calloc(sizeof(PlayerBoard), 1);

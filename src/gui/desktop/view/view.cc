@@ -3,7 +3,7 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-#include "./ui_View.h"
+#include "./ui_view.h"
 #include "brick_game/common/game_status/game_status.h"
 #include "brick_game/common/parameters/parameters.h"
 #include "brick_game/common/player/player.h"

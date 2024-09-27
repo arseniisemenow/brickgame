@@ -133,5 +133,7 @@ dkms.conf
 *cmake-build*
 *.out
 *build
+build*
 .idea
 *.log
+*.txt.user

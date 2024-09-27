@@ -27,8 +27,8 @@ COMMON :=   	src/brick_game/common/common/colors.c \
  				src/brick_game/common/fsm_types.c
 TETRIS_SRC := 	src/brick_game/tetris/fsm/fsm_matrix.c
 BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
-				src/brick_game/snake/Model/Model.cc \
-				src/brick_game/snake/Action/Action.cc \
+				src/brick_game/snake/model/model.cc \
+				src/brick_game/snake/action/action.cc \
 				src/brick_game/snake/move_snake/move_snake.cc
 FRONTEND:=		src/gui/cli/frontend.c
 
@@ -74,7 +74,7 @@ install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
 #	brick_game/common/common/color_handler.c \
 #	-o brickgame_cli.out
 
-DESKTOP_SOURCES := src/gui/desktop/View
+DESKTOP_SOURCES := src/gui/desktop/view
 DESKTOP_BUILD := build_desktop
 APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
 

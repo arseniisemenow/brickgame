@@ -653,6 +653,9 @@
       <height>32</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
+    </property>
     <property name="text">
      <string>Tetris</string>
     </property>
@@ -665,6 +668,9 @@
       <width>81</width>
       <height>32</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
     </property>
     <property name="text">
      <string>Snake</string>
@@ -679,6 +685,9 @@
       <height>32</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
+    </property>
     <property name="text">
      <string>Car Racing</string>
     </property>
@@ -691,6 +700,9 @@
       <width>81</width>
       <height>32</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
     </property>
     <property name="text">
      <string>Tank Classic</string>

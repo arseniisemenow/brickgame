@@ -5,7 +5,7 @@
 
 #include "next_player_grid_widget/next_player_grid_widget.hpp"
 #include "grid_widget/grid_widget.h"
-#include "../ui_View.h"
+#include "../ui_view.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

@@ -12,6 +12,12 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+#find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+#set(CMAKE_AUTOUIC OFF)
+#set(UI ${CMAKE_CURRENT_LIST_DIR}/view.ui)
+#qt6_wrap_ui(UI_HEADERS ${UI})
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -19,6 +25,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 include_directories(../../../)
+include_directories(.)
 
 set(PROJECT_SOURCES
         ../../../brick_game/common/block/block.c
@@ -36,9 +43,9 @@ set(PROJECT_SOURCES
         ../../../brick_game/common/fsm_types.h
         ../../../brick_game/common/fsm_types.c
         main.cc
-        View.cc
-        View.h
-        View.ui
+        view.cc
+        view.h
+        view.ui
         grid_widget/grid_widget.cc
         grid_widget/grid_widget.h
         view_tab_switcher/view_tab_switcher.cc
@@ -49,8 +56,8 @@ set(PROJECT_SOURCES
         next_player_grid_widget/next_player_grid_widget.hpp
         constants.h
         ../../../brick_game/snake/controller/controller.cc
-        ../../../brick_game/snake/Model/Model.cc
-        ../../../brick_game/snake/Action/Action.cc
+        ../../../brick_game/snake/model/model.cc
+        ../../../brick_game/snake/action/action.cc
         ../../../brick_game/snake/move_snake/move_snake.cc
 )
 
