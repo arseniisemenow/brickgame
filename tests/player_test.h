@@ -8,179 +8,181 @@
 #endif
 
 START_TEST(InitPlayerTest) {
-  Player player = {0};
-  InitPlayer(&player);
-  ck_assert_int_eq(player.x_, 0);
-  ck_assert_int_eq(player.y_, 0);
-  ck_assert_int_ge(player.block_type_, 0);
-  ck_assert_int_ge(player.block_rotation_, 0);
+  Player *player = AllocPlayer();
+  InitPlayer(player);
+  ck_assert_int_eq(player->x_, 0);
+  ck_assert_int_eq(player->y_, 0);
+  ck_assert_int_ge(player->block_type_, 0);
+  ck_assert_int_ge(player->direction_, 0);
 }
 END_TEST
 START_TEST(InitNextPlayerTest) {
-  Player player = {0};
-  InitNextPlayer(&player);
-  ck_assert_int_eq(player.x_, INIT_NEXT_PLAYER_POS_X);
-  ck_assert_int_eq(player.y_, INIT_NEXT_PLAYER_POS_Y);
-  ck_assert_int_ge(player.block_type_, 0);
-  ck_assert_int_ge(player.block_rotation_, 0);
+  Player *player = AllocPlayer();
+  InitNextPlayer(player);
+  ck_assert_int_eq(player->x_, INIT_NEXT_PLAYER_POS_X);
+  ck_assert_int_eq(player->y_, INIT_NEXT_PLAYER_POS_Y);
+  ck_assert_int_ge(player->block_type_, 0);
+  ck_assert_int_ge(player->direction_, 0);
 }
 END_TEST
 START_TEST(InitPlayerPositionTest) {
-  Player player = {0};
-  InitPlayerPosition(&player);
-  ck_assert_int_eq(player.x_, INIT_PLAYER_POS_X);
-  ck_assert_int_eq(player.y_, INIT_PLAYER_POS_Y);
-  ck_assert_int_ge(player.block_type_, 0);
-  ck_assert_int_ge(player.block_rotation_, 0);
+  Player *player = AllocPlayer();
+  InitPlayerPosition(player);
+  ck_assert_int_eq(player->x_, INIT_PLAYER_POS_X);
+  ck_assert_int_eq(player->y_, INIT_PLAYER_POS_Y);
+  ck_assert_int_ge(player->block_type_, 0);
+  ck_assert_int_ge(player->direction_, 0);
 }
 START_TEST(CopyPlayerTest) {
-  Player player = {0};
-  InitNextPlayer(&player);
-  Player player_2 = {0};
-  CopyPlayer(&player_2, player);
+  Player *player = AllocPlayer();
+  InitNextPlayer(player);
+  Player *player_2 = AllocPlayer();
+  CopyPlayer(player_2, player);
 
-  ck_assert_int_eq(player_2.x_, player.x_);
-  ck_assert_int_eq(player_2.y_, player.y_);
-  ck_assert_int_eq(player_2.block_type_, player.block_type_);
-  ck_assert_int_eq(player_2.block_rotation_, player.block_rotation_);
+  ck_assert_int_eq(player_2->x_, player->x_);
+  ck_assert_int_eq(player_2->y_, player->y_);
+  ck_assert_int_eq(player_2->block_type_, player->block_type_);
+  ck_assert_int_eq(player_2->direction_, player->direction_);
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      ck_assert_int_eq(player.board_.board_[i][j].color_,
-                       player.board_.board_[i][j].color_);
-      ck_assert_int_eq(player.board_.board_[i][j].is_set_,
-                       player.board_.board_[i][j].is_set_);
+      ck_assert_int_eq(player->board_->board_[i][j].color_,
+                       player->board_->board_[i][j].color_);
+      ck_assert_int_eq(player->board_->board_[i][j].is_set_,
+                       player->board_->board_[i][j].is_set_);
     }
   }
 }
 END_TEST
+
 START_TEST(SetPlayerBlockRotationTest) {
-  Player player = {0};
-  InitPlayer(&player);
-  SetPlayerBlockRotation(&player, kBlockRotationThird);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationThird);
+  Player *player = AllocPlayer();
+  InitPlayer(player);
+  SetPlayerBlockRotation(player, kDirectionThird);
+  ck_assert_int_eq(player->direction_, kDirectionThird);
 }
 END_TEST
+
 START_TEST(SetPlayerNextBlockRotationTest) {
-  Player player = {0};
-  InitPlayer(&player);
-  SetPlayerBlockRotation(&player, kBlockRotationFirst);
-  SetPlayerNextBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationSecond);
-  SetPlayerNextBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationThird);
-  SetPlayerNextBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationForth);
-  SetPlayerNextBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationFirst);
+  Player *player = AllocPlayer();
+  InitPlayer(player);
+  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerNextBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionSecond);
+  SetPlayerNextBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionThird);
+  SetPlayerNextBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionForth);
+  SetPlayerNextBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionFirst);
 }
 END_TEST
 START_TEST(SetPlayerPreviousBlockRotationTest) {
-  Player player = {0};
-  InitPlayer(&player);
-  SetPlayerBlockRotation(&player, kBlockRotationFirst);
-  SetPlayerPreviousBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationForth);
-  SetPlayerPreviousBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationThird);
-  SetPlayerPreviousBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationSecond);
-  SetPlayerPreviousBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationFirst);
-  SetPlayerPreviousBlockRotation(&player);
-  ck_assert_int_eq(player.block_rotation_, kBlockRotationForth);
+  Player *player = AllocPlayer();
+  InitPlayer(player);
+  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerPreviousBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionForth);
+  SetPlayerPreviousBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionThird);
+  SetPlayerPreviousBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionSecond);
+  SetPlayerPreviousBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionFirst);
+  SetPlayerPreviousBlockRotation(player);
+  ck_assert_int_eq(player->direction_, kDirectionForth);
 }
 END_TEST
 START_TEST(MovePlayerRightTest1) {
-  Player player = {0};
-  Player player_before = {0};
-  InitPlayer(&player);
-  InitPlayer(&player_before);
-  InitPlayerPosition(&player);
-  InitPlayerPosition(&player_before);
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
+  InitPlayer(player);
+  InitPlayer(player_before);
+  InitPlayerPosition(player);
+  InitPlayerPosition(player_before);
 
-  MovePlayerRight(&player);
+  MovePlayerRight(player);
 
-  ck_assert_int_eq(player.x_, player_before.x_ + 1);
-  ck_assert_int_eq(player.y_, player_before.y_);
+  ck_assert_int_eq(player->x_, player_before->x_ + 1);
+  ck_assert_int_eq(player->y_, player_before->y_);
 }
 END_TEST
 START_TEST(MovePlayerRightTest2) {
-  Player player = {0};
-  Player player_before = {0};
-  InitPlayer(&player);
-  InitPlayerPosition(&player);
-  CopyPlayer(&player_before, player);
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
+  InitPlayer(player);
+  InitPlayerPosition(player);
+  CopyPlayer(player_before, player);
 
-  MovePlayerRight(&player);
-  MovePlayerRight(&player);
-  MovePlayerRight(&player);
-  ck_assert_int_eq(player.x_, player_before.x_ + 3);
-  ck_assert_int_eq(player.y_, player_before.y_);
+  MovePlayerRight(player);
+  MovePlayerRight(player);
+  MovePlayerRight(player);
+  ck_assert_int_eq(player->x_, player_before->x_ + 3);
+  ck_assert_int_eq(player->y_, player_before->y_);
 }
 END_TEST
 START_TEST(MovePlayerLeftRightTest) {
-  Player player = {0};
-  Player player_before = {0};
-  InitPlayer(&player);
-  InitPlayerPosition(&player);
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
+  InitPlayer(player);
+  InitPlayerPosition(player);
 
-  CopyPlayer(&player_before, player);
+  CopyPlayer(player_before, player);
 
-  MovePlayerRight(&player);
-  MovePlayerLeft(&player);
+  MovePlayerRight(player);
+  MovePlayerLeft(player);
 
-  ck_assert_int_eq(player_before.x_, player.x_);
-  ck_assert_int_eq(player_before.y_, player.y_);
-  ck_assert_int_eq(player_before.block_type_, player.block_type_);
-  ck_assert_int_eq(player_before.block_rotation_, player.block_rotation_);
+  ck_assert_int_eq(player_before->x_, player->x_);
+  ck_assert_int_eq(player_before->y_, player->y_);
+  ck_assert_int_eq(player_before->block_type_, player->block_type_);
+  ck_assert_int_eq(player_before->direction_, player->direction_);
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      ck_assert_int_eq(player.board_.board_[i][j].color_,
-                       player_before.board_.board_[i][j].color_);
-      ck_assert_int_eq(player.board_.board_[i][j].is_set_,
-                       player_before.board_.board_[i][j].is_set_);
+      ck_assert_int_eq(player->board_->board_[i][j].color_,
+                       player_before->board_->board_[i][j].color_);
+      ck_assert_int_eq(player->board_->board_[i][j].is_set_,
+                       player_before->board_->board_[i][j].is_set_);
     }
   }
 }
 END_TEST
 
 START_TEST(MovePlayerUpTest) {
-  Player player = {0};
-  Player player_before = {0};
-  InitPlayer(&player);
-  InitPlayer(&player_before);
-  CopyPlayer(&player_before, player);
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
+  InitPlayer(player);
+  InitPlayer(player_before);
+  CopyPlayer(player_before, player);
 
-  MovePlayerUp(&player);
+  MovePlayerUp(player);
 
-  ck_assert_int_eq(player_before.x_, player.x_);
-  ck_assert_int_eq(player_before.y_, player.y_ + 1);
-  ck_assert_int_eq(player_before.block_type_, player.block_type_);
-  ck_assert_int_eq(player_before.block_rotation_, player.block_rotation_);
+  ck_assert_int_eq(player_before->x_, player->x_);
+  ck_assert_int_eq(player_before->y_, player->y_ + 1);
+  ck_assert_int_eq(player_before->block_type_, player->block_type_);
+  ck_assert_int_eq(player_before->direction_, player->direction_);
 }
 END_TEST
 
 START_TEST(MovePlayerUpDownTest) {
-  Player player = {0};
-  Player player_before = {0};
-  InitPlayer(&player);
-  InitPlayerPosition(&player);
-  CopyPlayer(&player_before, player);
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
+  InitPlayer(player);
+  InitPlayerPosition(player);
+  CopyPlayer(player_before, player);
 
-  MovePlayerUp(&player);
-  MovePlayerDown(&player);
+  MovePlayerUp(player);
+  MovePlayerDown(player);
 
-  ck_assert_int_eq(player_before.x_, player.x_);
-  ck_assert_int_eq(player_before.y_, player.y_);
-  ck_assert_int_eq(player_before.block_type_, player.block_type_);
-  ck_assert_int_eq(player_before.block_rotation_, player.block_rotation_);
+  ck_assert_int_eq(player_before->x_, player->x_);
+  ck_assert_int_eq(player_before->y_, player->y_);
+  ck_assert_int_eq(player_before->block_type_, player->block_type_);
+  ck_assert_int_eq(player_before->direction_, player->direction_);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {
-      ck_assert_int_eq(player.board_.board_[i][j].color_,
-                       player_before.board_.board_[i][j].color_);
-      ck_assert_int_eq(player.board_.board_[i][j].is_set_,
-                       player_before.board_.board_[i][j].is_set_);
+      ck_assert_int_eq(player->board_->board_[i][j].color_,
+                       player_before->board_->board_[i][j].color_);
+      ck_assert_int_eq(player->board_->board_[i][j].is_set_,
+                       player_before->board_->board_[i][j].is_set_);
     }
   }
 }
