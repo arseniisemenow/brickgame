@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 #define RECORDS_NUMBER (5)
-#define TETRIS_RECORDS_FILE_NAME "tetris_records.records_"
-#define SNAKE_RECORDS_FILE_NAME "snake_xerzia_records.records_"
+#define TETRIS_RECORDS_FILE_NAME "tetris_records.log"
+#define SNAKE_RECORDS_FILE_NAME "snake_xerzia_records.log"
 
 #ifdef __cplusplus
 extern "C" {
