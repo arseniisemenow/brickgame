@@ -3,7 +3,7 @@
 
 #ifndef TEST_HEADER_
 #define TEST_HEADER_
-#include "../../src/brick_game/tetris/backend/backend.h"
+#include "../../src/brick_game/tetris/fsm/fsm.h"
 #include "test.h"
 #endif
 
@@ -90,6 +90,68 @@ START_TEST(GetTimeStepMSTest) {
 
 END_TEST
 
+void RepeatSignal(SignalType signal, Parameters * p_parameters, int times){
+  for (int i = 0; i < times; ++i) {
+     SignalAction(signal, p_parameters);
+  }
+}
+
+void PrintBoard(Parameters* p_parameters){
+  for (int i = 0; i < p_parameters->t_board_->height_; ++i) {
+    for (int j = 0; j < p_parameters->t_board_->width_; ++j) {
+      fprintf(stderr, "%d", p_parameters->t_board_->cells_[i][j].is_set_);
+    }
+    fprintf(stderr, "\n");
+  }
+}
+START_TEST(FillFirstLineUsingSquaresTest) {
+  Parameters *p_parameters = AllocParameters();
+
+  InitPlayer(p_parameters->t_player_);
+  InitNextPlayer(p_parameters->t_next_player_);
+  InitBoard(p_parameters->t_board_);
+  InitGameStatus(p_parameters->t_game_status_);
+
+  *p_parameters->t_last_moved_time_ = GetTimeInMS();
+
+  LoadRecords(p_parameters->t_records_, TETRIS_RECORDS_FILE_NAME);
+  SaveRecords(p_parameters->t_records_, TETRIS_RECORDS_FILE_NAME);
+
+  SignalAction(kSignalEnterButton, p_parameters);
+
+  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  RepeatSignal(kSignalMoveLeft, p_parameters, 10);
+  RepeatSignal(kSignalMoveDown, p_parameters, 20);
+//  PrintBoard(p_parameters);
+
+  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  RepeatSignal(kSignalMoveLeft, p_parameters, 10);
+  RepeatSignal(kSignalMoveRight, p_parameters, 2);
+  RepeatSignal(kSignalMoveDown, p_parameters, 20);
+//  PrintBoard(p_parameters);
+  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  RepeatSignal(kSignalMoveLeft, p_parameters, 10);
+  RepeatSignal(kSignalMoveRight, p_parameters, 4);
+  RepeatSignal(kSignalMoveDown, p_parameters, 20);
+//  PrintBoard(p_parameters);
+  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  RepeatSignal(kSignalMoveLeft, p_parameters, 10);
+  RepeatSignal(kSignalMoveRight, p_parameters, 6);
+  RepeatSignal(kSignalMoveDown, p_parameters, 20);
+//  PrintBoard(p_parameters);
+  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  RepeatSignal(kSignalMoveLeft, p_parameters, 10);
+  RepeatSignal(kSignalMoveRight, p_parameters, 8);
+  RepeatSignal(kSignalMoveDown, p_parameters, 20);
+  ck_assert_int_eq(p_parameters->t_game_status_->score_, 300);
+//  PrintBoard(p_parameters);
+
+}
+
+
+
+END_TEST
+
 Suite *backend_suite(void) {
   Suite *s;
   TCase *tc_core;
@@ -99,6 +161,7 @@ Suite *backend_suite(void) {
   tcase_add_test(tc_core, BoardOverlayBlockOnAnotherBlockTest);
   tcase_add_test(tc_core, UpdatePredictPlayerTest);
   tcase_add_test(tc_core, GetTimeStepMSTest);
+  tcase_add_test(tc_core, FillFirstLineUsingSquaresTest);
   suite_add_tcase(s, tc_core);
   return s;
 }

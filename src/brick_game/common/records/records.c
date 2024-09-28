@@ -41,7 +41,6 @@
     }
     bool flag_handled = false;
     for (int i = 0; i < RECORDS_NUMBER; ++i) {
-      fprintf(stderr, "p_records->records_[%d].name_: %s\n", i, p_records->records_[i].name_);
       if (strncmp(p_records->records_[i].name_, name, 20-1) == 0) {
         if (score > p_records->records_[i].score_) {
           p_records->records_[i].score_ = score;
