@@ -52,10 +52,12 @@
       }
     }
 
-  //  for (int i = RECORDS_NUMBER - 1; i > position && !flag_handled; --i) {
-  ////    p_records->records_[i] = p_records->records_[i - 1];
-  //    memcpy(&p_records->records_[i], &p_records->records_[i - 1], sizeof(p_records->records_[i]));
-  //  }
+    for (int i = RECORDS_NUMBER - 1; i > position && !flag_handled; --i) {
+//            p_records-> records_[i] = p_records->records_[i - 1];
+      strncpy(p_records->records_[i].name_, p_records->records_[i - 1].name_, 20);
+      p_records->records_[i].score_ = p_records->records_[i - 1].score_;
+      p_records->records_[i].is_current_player_ = p_records->records_[i - 1].is_current_player_;
+    }
 
     if (!flag_handled) {
       p_records->records_[position].is_current_player_ = true;

@@ -51,8 +51,58 @@ START_TEST(RecordsAddSaveLoadTest2) {
 }
 
 END_TEST
-
 START_TEST(RecordsAddSaveLoadTest3) {
+  Records* records = AllocRecords();
+  Records* records2 = AllocRecords();
+  InitRecords(records);
+  InitRecords(records2);
+  const char * name = "Arsenii";
+  const char * empty_name = "";
+  const int first_score = 500;
+  const int second_score = 600;
+  const int empty_score = 0;
+
+
+  ck_assert_str_eq(records->records_[0].name_, empty_name);
+  ck_assert_str_eq(records->records_[1].name_, empty_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, empty_score);
+  ck_assert_int_eq(records->records_[1].score_, empty_score);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, name, first_score, TETRIS_RECORDS_FILE_NAME);
+  ck_assert_str_eq(records->records_[0].name_, name);
+  ck_assert_str_eq(records->records_[1].name_, empty_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, first_score);
+  ck_assert_int_eq(records->records_[1].score_, empty_score);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, name, second_score, TETRIS_RECORDS_FILE_NAME);
+
+  ck_assert_str_eq(records->records_[0].name_, name);
+  ck_assert_str_eq(records->records_[1].name_, empty_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, second_score);
+  ck_assert_int_eq(records->records_[1].score_, empty_score);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+}
+
+END_TEST
+
+START_TEST(RecordsAddSaveLoadTest4) {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
   InitRecords(records);
@@ -73,7 +123,7 @@ START_TEST(RecordsAddSaveLoadTest3) {
 
 END_TEST
 
-START_TEST(RecordsAddSaveLoadTest4) {
+START_TEST(RecordsAddSaveLoadTest5) {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
   InitRecords(records);
@@ -94,6 +144,86 @@ START_TEST(RecordsAddSaveLoadTest4) {
 
 END_TEST
 
+
+START_TEST(RecordsAddSaveLoadTest6) {
+  Records* records = AllocRecords();
+  Records* records2 = AllocRecords();
+  InitRecords(records);
+  InitRecords(records2);
+  const char * first_name = "Arsenii";
+  const char * second_name = "Andrew";
+  const char * empty_name = "";
+  const int first_score_first_player = 500;
+  const int first_score_second_player = 600;
+  const int second_score_first_player = 700;
+  const int second_score_second_player = 800;
+  const int empty_score = 0;
+
+  ck_assert_str_eq(records->records_[0].name_, empty_name);
+  ck_assert_str_eq(records->records_[1].name_, empty_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, empty_score);
+  ck_assert_int_eq(records->records_[1].score_, empty_score);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, first_name, first_score_first_player, TETRIS_RECORDS_FILE_NAME);
+  ck_assert_str_eq(records->records_[0].name_, first_name);
+  ck_assert_str_eq(records->records_[1].name_, empty_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, first_score_first_player);
+  ck_assert_int_eq(records->records_[1].score_, empty_score);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, second_name, first_score_second_player, TETRIS_RECORDS_FILE_NAME);
+
+  ck_assert_str_eq(records->records_[0].name_, second_name);
+  ck_assert_str_eq(records->records_[1].name_, first_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, first_score_second_player);
+  ck_assert_int_eq(records->records_[1].score_, first_score_first_player);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, first_name, second_score_first_player, TETRIS_RECORDS_FILE_NAME);
+
+  ck_assert_str_eq(records->records_[0].name_, first_name);
+  ck_assert_str_eq(records->records_[1].name_, second_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, second_score_first_player);
+  ck_assert_int_eq(records->records_[1].score_, first_score_second_player);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+
+  AddRecord(records, second_name, second_score_second_player, TETRIS_RECORDS_FILE_NAME);
+
+  ck_assert_str_eq(records->records_[0].name_, second_name);
+  ck_assert_str_eq(records->records_[1].name_, first_name);
+  ck_assert_str_eq(records->records_[2].name_, empty_name);
+  ck_assert_str_eq(records->records_[3].name_, empty_name);
+  ck_assert_str_eq(records->records_[4].name_, empty_name);
+  ck_assert_int_eq(records->records_[0].score_, second_score_second_player);
+  ck_assert_int_eq(records->records_[1].score_, second_score_first_player);
+  ck_assert_int_eq(records->records_[2].score_, empty_score);
+  ck_assert_int_eq(records->records_[3].score_, empty_score);
+  ck_assert_int_eq(records->records_[4].score_, empty_score);
+}
+
+END_TEST
+
 Suite *records_suite(void) {
   Suite *s;
   TCase *tc_core;
@@ -103,6 +233,8 @@ Suite *records_suite(void) {
   tcase_add_test(tc_core, RecordsAddSaveLoadTest2);
   tcase_add_test(tc_core, RecordsAddSaveLoadTest3);
   tcase_add_test(tc_core, RecordsAddSaveLoadTest4);
+  tcase_add_test(tc_core, RecordsAddSaveLoadTest5);
+  tcase_add_test(tc_core, RecordsAddSaveLoadTest6);
   suite_add_tcase(s, tc_core);
   return s;
 }

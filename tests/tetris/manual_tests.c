@@ -7,19 +7,23 @@
 int main() {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
-//  LoadRecords(records, "../../../"TETRIS_RECORDS_FILE_NAME);
   InitRecords(records);
   InitRecords(records2);
+  const char * first_name = "Arsenii";
+  const char * second_name = "Andrew";
+  const char * empty_name = "";
+  const int first_score_first_player = 500;
+  const int first_score_second_player = 600;
+  const int second_score_first_player = 700;
+  const int second_score_second_player = 800;
+  const int empty_score = 0;
 
-  AddRecord(records, "Arsenii", 500, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii", 600, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii", 500, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii", 600, TETRIS_RECORDS_FILE_NAME);
-  RemoveRecord(records, "Arsenii", TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, first_name, first_score_first_player, TETRIS_RECORDS_FILE_NAME);
 
-  for (int i = 0; i < RECORDS_NUMBER; ++i) {
-    records->records_[i].score_==0;
-    records->records_[i].is_current_player_==false;
-    strcmp(records->records_[i].name_,"") == 0;
-  }
+  AddRecord(records, second_name, first_score_second_player, TETRIS_RECORDS_FILE_NAME);
+
+  AddRecord(records, first_name, second_score_first_player, TETRIS_RECORDS_FILE_NAME);
+
+  AddRecord(records, second_name, second_score_second_player, TETRIS_RECORDS_FILE_NAME);
+
 }
