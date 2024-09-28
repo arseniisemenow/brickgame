@@ -119,7 +119,7 @@
 
   bool LoadRecords(Records *p_records, const char *filename) {
     FILE *p_file = fopen(filename, "rb");
-    if (!p_file) {  
+    if (!p_file) {
       return false;
     }
 
