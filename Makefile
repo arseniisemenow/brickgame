@@ -57,7 +57,7 @@ APP_DESTINATION:=build_desktop
 
 # Create .so file from all backend and common sources
 ${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
-	$(CXX) $^ -shared -fPIC -o $(SHARED_LIB_NAME)
+	$(CXX) -g $^ -shared -fPIC -o $(SHARED_LIB_NAME)
 
 # IMPORTANT!! For Linux you need to add library manually
 add_library_to_path:
@@ -168,6 +168,7 @@ clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov 
 	@echo "Clean finished"
 
 clean_project:
+	@rm -rf ${APP_DESTINATION}
 clean_dist:
 	@cd . && rm -rf archive
 	@cd . && rm -rf archive.tar.gz

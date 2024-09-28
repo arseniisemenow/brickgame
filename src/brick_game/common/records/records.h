@@ -24,6 +24,7 @@ typedef struct {
 Records* AllocRecords();
 void FreeRecords(Records*);
 
+void CopyRecord(Record* dest, const Record* src);
 void InitRecords(Records *p_records);
 
 void AddRecord(Records *p_records, const char *name, int score,

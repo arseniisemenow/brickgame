@@ -59,7 +59,6 @@ class View : public QMainWindow {
   SignalType signal_type_{};
 
   Parameters *p_parameters_ = AllocParameters();
-//  Parameters *p_s_parameters_ = AllocParameters();
 
   QTimer *timer_;
 
