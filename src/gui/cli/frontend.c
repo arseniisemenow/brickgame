@@ -338,7 +338,7 @@ void TetrisLoop(Parameters *p_parameters) {
       RemoveRecord(p_parameters->t_records_, "Unnamed",
                    TETRIS_RECORDS_FILE_NAME);
       AddRecord(p_parameters->t_records_, p_parameters->t_username,
-                p_parameters->t_game_status_->score_, TETRIS_RECORDS_FILE_NAME);
+                p_parameters->t_game_status_->  score_, TETRIS_RECORDS_FILE_NAME);
     }
 
     user_input = GET_USER_INPUT;

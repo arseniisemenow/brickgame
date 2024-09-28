@@ -36,6 +36,8 @@
 
   void AddRecord(Records *p_records, const char *name, int score,
                  const char *filename) {
+    if (!p_records)
+      return;
     if (strlen(name) == 0) {
       return;
     }
@@ -59,10 +61,6 @@
     }
 
     for (int i = RECORDS_NUMBER - 1; i > position && !flag_handled; --i) {
-//            p_records->records_[i] = p_records->records_[i - 1];
-//      strncpy(p_records->records_[i].name_, p_records->records_[i - 1].name_, 20);
-//      p_records->records_[i].score_ = p_records->records_[i - 1].score_;
-//      p_records->records_[i].is_current_player_ = p_records->records_[i - 1].is_current_player_;
       CopyRecord(&p_records->records_[i], &p_records->records_[i -1]);
     }
 
@@ -89,8 +87,6 @@
 
     if (found) {
       for (int j = i; j < RECORDS_NUMBER - 1; ++j) {
-  //      p_records->records_[j] = p_records->records_[j + 1];
-//        memcpy(&p_records->records_[j], &p_records->records_[j + 1], sizeof(p_records->records_[j]));
         CopyRecord(&p_records->records_[j], &p_records->records_[j+1]);
       }
 
@@ -104,6 +100,7 @@
   }
 
   bool SaveRecords(const Records *p_records, const char *filename) {
+    return 0;
     FILE *p_file = fopen(filename, "wb");
     if (!p_file) {
       return false;
@@ -112,10 +109,11 @@
     size_t num_written = fwrite(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
     fclose(p_file);
 
-    return num_written == 1;
+    return num_written == RECORDS_NUMBER;
   }
 
   bool LoadRecords(Records *p_records, const char *filename) {
+    return 0;
     FILE *p_file = fopen(filename, "rb");
     if (!p_file) {
       return false;
@@ -124,7 +122,7 @@
     size_t num_read = fread(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
     fclose(p_file);
 
-    return num_read == 1;
+    return num_read == RECORDS_NUMBER;
   }
 
   void SortRecords(Records *p_records) {
