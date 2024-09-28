@@ -26,7 +26,7 @@ typedef struct {
       Records *t_records_;
       long long *t_last_moved_time_;
       char *t_username;
-    };
+    } ;
     struct {
       State *s_state_;
       Player *s_player_;
@@ -36,13 +36,29 @@ typedef struct {
       Records *s_records_;
       long long *s_last_moved_time_;
       char *s_username; // size is 20 btw
-    };
-  };
+    } ;
+  } ;
 
 } Parameters;
 
 Parameters* AllocParameters();
 void FreeParameters(Parameters* p_parameters);
+
+
+char* AllocUsername();
+long long * AllocLastMovedTime();
+void FreeUsername(char*username);
+void FreeLastMovedTime(long long* last_move_time);
+
+State * GetTState(Parameters* p_parameters);
+GameStatus * GetTGameStatus(Parameters* p_parameters);
+Board * GetTBoard(Parameters* p_parameters);
+Player * GetTPlayer(Parameters* p_parameters);
+Player * GetTNextPlayer(Parameters* p_parameters);
+Player * GetTPredictPlayer(Parameters* p_parameters);
+Records * GetTRecords(Parameters* p_parameters);
+long long * GetTLastMoveTime(Parameters* p_parameters);
+char * GetTUserName(Parameters* p_parameters);
 
 #ifdef __cplusplus
 }
