@@ -98,31 +98,42 @@
     SaveRecords(p_records, filename);
     LoadRecords(p_records, filename);
   }
-
   bool SaveRecords(const Records *p_records, const char *filename) {
-    return 0;
     FILE *p_file = fopen(filename, "wb");
     if (!p_file) {
       return false;
     }
 
-    size_t num_written = fwrite(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
-    fclose(p_file);
+    // Write the fixed-size part of the records
+    for (int i = 0; i < RECORDS_NUMBER; ++i) {
+      fwrite(&p_records->records_[i].score_, sizeof(int), 1, p_file);
+      fwrite(&p_records->records_[i].is_current_player_, sizeof(bool), 1, p_file);
 
-    return num_written == RECORDS_NUMBER;
+      // Write the dynamically allocated name (write the string with null terminator)
+      fwrite(p_records->records_[i].name_, sizeof(char), 20, p_file);
+    }
+
+    fclose(p_file);
+    return true;
   }
 
   bool LoadRecords(Records *p_records, const char *filename) {
-    return 0;
     FILE *p_file = fopen(filename, "rb");
-    if (!p_file) {
+    if (!p_file) {  
       return false;
     }
 
-    size_t num_read = fread(p_records->records_, sizeof(Record), RECORDS_NUMBER, p_file);
-    fclose(p_file);
+    // Read the fixed-size part of the records
+    for (int i = 0; i < RECORDS_NUMBER; ++i) {
+      fread(&p_records->records_[i].score_, sizeof(int), 1, p_file);
+      fread(&p_records->records_[i].is_current_player_, sizeof(bool), 1, p_file);
 
-    return num_read == RECORDS_NUMBER;
+      // Reallocate memory for the name and read it from the file
+      fread(p_records->records_[i].name_, sizeof(char), 20, p_file);
+    }
+
+    fclose(p_file);
+    return true;
   }
 
   void SortRecords(Records *p_records) {
