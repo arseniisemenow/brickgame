@@ -16,9 +16,9 @@ import "C"
 func getSystemLibrary() string {
 	switch runtime.GOOS {
 	case "darwin":
-		return "libbrickgame.so"
+		return "../libbrickgame.so"
 	case "linux":
-		return "libbrickgame.so"
+		return "../libbrickgame.so"
 	default:
 		panic(fmt.Errorf("GOOS=%s is not supported", runtime.GOOS))
 	}
@@ -45,23 +45,41 @@ const (
 	kSignalPauseButton
 )
 
+var AllocParameters func() *C.struct_Parameters
+var FreeParameters func(*C.struct_Parameters)
+var ControllerSnake func(int, *C.struct_Parameters)
+var SignalAction func(int, *C.struct_Parameters)
+
+func GetLibrary() (uintptr, error) {
+	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
+	return handle, err
+}
+
+func InitFunctions(handle uintptr) {
+	purego.RegisterLibFunc(&AllocParameters, handle, "AllocParameters")
+	purego.RegisterLibFunc(&FreeParameters, handle, "FreeParameters")
+	purego.RegisterLibFunc(&ControllerSnake, handle, "ControllerSnake")
+	purego.RegisterLibFunc(&SignalAction, handle, "SignalAction")
+}
+
 func main() {
-	libc, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
+	handle, err := GetLibrary()
 	if err != nil {
 		panic(err)
 	}
 
-	var AllocParameters func() *C.struct_Parameters
-	purego.RegisterLibFunc(&AllocParameters, libc, "AllocParameters")
-	var FreeParameters func(*C.struct_Parameters)
-	purego.RegisterLibFunc(&FreeParameters, libc, "FreeParameters")
+	InitFunctions(handle)
 
 	parameters := AllocParameters()
-	signal := kSignalNone
+	//signal := kSignalNone
 
-	var ControllerSnake func(int, *C.struct_Parameters)
-	purego.RegisterLibFunc(&ControllerSnake, libc, "ControllerSnake")
-	ControllerSnake(signal, parameters)
+	//ControllerSnake(signal, parameters)
+
+	SignalAction(kSignalEnterButton, parameters)
+	SignalAction(kSignalMoveLeft, parameters)
+	SignalAction(kSignalMoveLeft, parameters)
+	SignalAction(kSignalMoveLeft, parameters)
+	SignalAction(kSignalMoveLeft, parameters)
 
 	FreeParameters(parameters)
 }
