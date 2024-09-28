@@ -51,8 +51,8 @@ APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
 
 OPEN_COMMAND =open
 # if Fedora, need to uncomment followed two lines
-OPEN_COMMAND=xdg-open
-APP_DESTINATION:=build_desktop
+#OPEN_COMMAND=xdg-open
+#APP_DESTINATION:=build_desktop
 
 
 # Create .so file from all backend and common sources

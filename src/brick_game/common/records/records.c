@@ -34,6 +34,13 @@
     }
   }
 
+
+  void SetCurrentPlayerByIndex(Records *p_records, const int index_current_player){
+    for (int i = 0; i < RECORDS_NUMBER; ++i) {
+      p_records->records_[i].is_current_player_ = false;
+    }
+    p_records->records_[index_current_player].is_current_player_ = true;
+  }
   void AddRecord(Records *p_records, const char *name, int score,
                  const char *filename) {
     if (!p_records)
@@ -47,6 +54,7 @@
         if (score > p_records->records_[i].score_) {
           p_records->records_[i].score_ = score;
         }
+        SetCurrentPlayerByIndex(p_records, i);
         flag_handled = true;
       }
     }
@@ -69,6 +77,7 @@
       p_records->records_[position].score_ = score;
       snprintf(p_records->records_[position].name_, 18, "%s", name);
     }
+    SetCurrentPlayerByIndex(p_records, position);
     SortRecords(p_records);
     SaveRecords(p_records, filename);
     LoadRecords(p_records, filename);
@@ -95,8 +104,8 @@
       p_records->records_[RECORDS_NUMBER - 1].name_[0] = '\0';
     }
     SortRecords(p_records);
-    SaveRecords(p_records, filename);
-    LoadRecords(p_records, filename);
+//    SaveRecords(p_records, filename);
+//    LoadRecords(p_records, filename);
   }
   bool SaveRecords(const Records *p_records, const char *filename) {
     FILE *p_file = fopen(filename, "wb");

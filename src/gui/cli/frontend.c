@@ -236,22 +236,36 @@ void PrintRecords(int shift, Records *p_records) {
   PrintRectangle(shift, 20, 13, 24);
   mvprintw(shift + 2, 16, "Records");
 
-  attron(COLOR_PAIR(RECORD_1_COLOR_PAIR_INDEX));
-  mvprintw(shift + 3, 16, "1. %7d", p_records->records_[0].score_);
-  attron(COLOR_PAIR(RECORD_1_COLOR_PAIR_INDEX));
-  attron(COLOR_PAIR(RECORD_2_COLOR_PAIR_INDEX));
-  mvprintw(shift + 4, 16, "2. %7d", p_records->records_[1].score_);
-  attroff(COLOR_PAIR(RECORD_2_COLOR_PAIR_INDEX));
-  attron(COLOR_PAIR(RECORD_3_COLOR_PAIR_INDEX));
-  mvprintw(shift + 5, 16, "3. %7d", p_records->records_[2].score_);
-  attroff(COLOR_PAIR(RECORD_3_COLOR_PAIR_INDEX));
+  const unsigned char kColorPair[5] = {RECORD_1_COLOR_PAIR_INDEX,
+                             RECORD_2_COLOR_PAIR_INDEX,
+                             RECORD_3_COLOR_PAIR_INDEX,
+                             RECORD_4_5_COLOR_PAIR_INDEX,
+                             RECORD_4_5_COLOR_PAIR_INDEX};
 
-  attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
-  mvprintw(shift + 6, 16, "4. %7d", p_records->records_[3].score_);
-  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
-  attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
-  mvprintw(shift + 7, 16, "5. %7d", p_records->records_[4].score_);
-  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
+  for (int i = 0; i < 5; ++i) {
+    const int name_width = p_records->records_[i].is_current_player_ ? 3 : 4;
+    const char* current_player_carret = p_records->records_[i].is_current_player_ ? ">" : "";
+    attron(COLOR_PAIR(kColorPair[i]));
+    mvprintw(shift + 3 + i, 16, "%d. %s%*s %4d", i + 1 ,current_player_carret, name_width, p_records->records_[i].name_, p_records->records_[i].score_);
+    attron(COLOR_PAIR(kColorPair[i]));
+  }
+//
+//  attron(COLOR_PAIR(RECORD_1_COLOR_PAIR_INDEX));
+//  mvprintw(shift + 3, 16, "1. %s %4d", p_records->records_[0].name_, p_records->records_[0].score_);
+//  attron(COLOR_PAIR(RECORD_1_COLOR_PAIR_INDEX));
+//  attron(COLOR_PAIR(RECORD_2_COLOR_PAIR_INDEX));
+//  mvprintw(shift + 4, 16, "2. %7d", p_records->records_[1].score_);
+//  attroff(COLOR_PAIR(RECORD_2_COLOR_PAIR_INDEX));
+//  attron(COLOR_PAIR(RECORD_3_COLOR_PAIR_INDEX));
+//  mvprintw(shift + 5, 16, "3. %7d", p_records->records_[2].score_);
+//  attroff(COLOR_PAIR(RECORD_3_COLOR_PAIR_INDEX));
+//
+//  attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
+//  mvprintw(shift + 6, 16, "4. %7d", p_records->records_[3].score_);
+//  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
+//  attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
+//  mvprintw(shift + 7, 16, "5. %7d", p_records->records_[4].score_);
+//  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
 }
 
 void SnakeLoop(Parameters *p_parameters) {
