@@ -69,7 +69,6 @@ START_TEST(RecordsAddSaveLoadTest3) {
   const bool is_current_player = true;
   const bool is_not_current_player = false;
 
-
   ck_assert_str_eq(records->records_[0].name_, empty_name);
   ck_assert_str_eq(records->records_[1].name_, empty_name);
   ck_assert_str_eq(records->records_[2].name_, empty_name);
@@ -80,11 +79,6 @@ START_TEST(RecordsAddSaveLoadTest3) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   AddRecord(records, name, first_score, TEST_TETRIS_RECORDS_FILE_NAME);
 
@@ -101,11 +95,6 @@ START_TEST(RecordsAddSaveLoadTest3) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   AddRecord(records, name, second_score, TEST_TETRIS_RECORDS_FILE_NAME);
 
@@ -122,11 +111,6 @@ START_TEST(RecordsAddSaveLoadTest3) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 }
 
 END_TEST
@@ -152,7 +136,6 @@ START_TEST(RecordsAddSaveLoadTest4) {
 
   for (int i = 0; i < RECORDS_NUMBER; ++i) {
     ck_assert_int_eq(records->records_[i].score_, 0);
-    ck_assert_int_eq(records->records_[i].is_current_player_, false);
     ck_assert_str_eq(records->records_[i].name_, "");
   }
 }
@@ -213,11 +196,6 @@ START_TEST(RecordsAddSaveLoadTest6) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -234,11 +212,6 @@ START_TEST(RecordsAddSaveLoadTest6) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -255,11 +228,6 @@ START_TEST(RecordsAddSaveLoadTest6) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -276,11 +244,6 @@ START_TEST(RecordsAddSaveLoadTest6) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -297,11 +260,6 @@ START_TEST(RecordsAddSaveLoadTest6) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -339,11 +297,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
@@ -360,11 +313,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -381,11 +329,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -402,11 +345,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
@@ -424,11 +362,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -445,11 +378,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -466,11 +394,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
@@ -487,11 +410,6 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
-  ck_assert_int_eq(records->records_[0].is_current_player_, is_current_player);
-  ck_assert_int_eq(records->records_[1].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[2].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[3].is_current_player_, is_not_current_player);
-  ck_assert_int_eq(records->records_[4].is_current_player_, is_not_current_player);
 }
 
 END_TEST

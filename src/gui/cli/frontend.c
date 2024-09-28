@@ -231,6 +231,9 @@ void PrintPause() {
 
 void ClearRecords() {}
 
+
+#define NAME_LENGTH (4)
+
 void PrintRecords(int shift, Records *p_records) {
   ClearRecords();
   PrintRectangle(shift, 20, 13, 24);
@@ -242,11 +245,16 @@ void PrintRecords(int shift, Records *p_records) {
                              RECORD_4_5_COLOR_PAIR_INDEX,
                              RECORD_4_5_COLOR_PAIR_INDEX};
 
-  for (int i = 0; i < 5; ++i) {
-    const int name_width = p_records->records_[i].is_current_player_ ? 3 : 4;
-    const char* current_player_carret = p_records->records_[i].is_current_player_ ? ">" : "";
+  for (int i = 0; i < NAME_LENGTH; ++i) {
+    char name[NAME_LENGTH] = {0};
+    strncpy(name, p_records->records_[i].name_, NAME_LENGTH - 1);
+    for (int j = 0; j < NAME_LENGTH - 1; ++j) {
+      if (!isalnum(name[i])){
+        name[j] = '?';
+      }
+    }
     attron(COLOR_PAIR(kColorPair[i]));
-    mvprintw(shift + 3 + i, 16, "%d. %s%*s %4d", i + 1 ,current_player_carret, name_width, p_records->records_[i].name_, p_records->records_[i].score_);
+    mvprintw(shift + 3 + i, 16, "%d. %s %4d", i + 1, name, p_records->records_[i].score_);
     attron(COLOR_PAIR(kColorPair[i]));
   }
 //
