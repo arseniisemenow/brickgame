@@ -8,26 +8,26 @@
 #endif
 
 START_TEST(RecordsAddSaveLoadTest1) {
-  Records* records = AllocRecords();
-  Records* records2 = AllocRecords();
-  InitRecords(records);
-  InitRecords(records2);
+    Records* records = AllocRecords();
+    Records* records2 = AllocRecords();
+    InitRecords(records);
+    InitRecords(records2);
 
-  AddRecord(records, "Arsenii1", 500, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii2", 600, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii3", 700, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii4", 800, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii5", 900, TETRIS_RECORDS_FILE_NAME);
-  AddRecord(records, "Arsenii6", 1000, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii1", 500, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii2", 600, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii3", 700, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii4", 800, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii5", 900, TETRIS_RECORDS_FILE_NAME);
+    AddRecord(records, "Arsenii6", 1000, TETRIS_RECORDS_FILE_NAME);
 
-  SaveRecords(records, TETRIS_RECORDS_FILE_NAME);
-  LoadRecords(records2, TETRIS_RECORDS_FILE_NAME);
-  for (int i = 0; i < RECORDS_NUMBER; ++i) {
-    ck_assert_int_eq(records->records_[i].is_current_player_,
-                     records2->records_[i].is_current_player_);
-    ck_assert_int_eq(records->records_[i].score_, records2->records_[i].score_);
-    ck_assert_str_eq(records->records_[i].name_, records2->records_[i].name_);
-  }
+    SaveRecords(records, TETRIS_RECORDS_FILE_NAME);
+    LoadRecords(records2, TETRIS_RECORDS_FILE_NAME);
+    for (int i = 0; i < RECORDS_NUMBER; ++i) {
+      ck_assert_int_eq(records->records_[i].is_current_player_,
+                       records2->records_[i].is_current_player_);
+      ck_assert_int_eq(records->records_[i].score_, records2->records_[i].score_);
+      ck_assert_str_eq(records->records_[i].name_, records2->records_[i].name_);
+    }
 }
 
 END_TEST

@@ -43,15 +43,26 @@ ifeq ($(OS_NAME), GNU/Linux)
 #	APP_DESTINATION:=../build
 endif
 
+
+
+DESKTOP_SOURCES := src/gui/desktop/view
+DESKTOP_BUILD := build_desktop
+APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
+
 OPEN_COMMAND =open
 # if Fedora, need to uncomment followed two lines
-#OPEN_COMMAND=xdg-open
-#APP_DESTINATION:=../build
+OPEN_COMMAND=xdg-open
+APP_DESTINATION:=build_desktop
 
 
 # Create .so file from all backend and common sources
 ${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
 	$(CXX) $^ -shared -fPIC -o $(SHARED_LIB_NAME)
+
+# IMPORTANT!! For Linux you need to add library manually
+add_library_to_path:
+	$(echo "export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH") >> zshrc.txt
+
 
 lib: ${SHARED_LIB_NAME}
 
@@ -73,10 +84,6 @@ install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
 #	$(CXX) $(LIBRARIES) $^ \
 #	brick_game/common/common/color_handler.c \
 #	-o brickgame_cli.out
-
-DESKTOP_SOURCES := src/gui/desktop/view
-DESKTOP_BUILD := build_desktop
-APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
 
 install_desktop:
 	cmake -DCMAKE_BUILD_TYPE=Release -S ${DESKTOP_SOURCES} -B ${DESKTOP_BUILD}
@@ -108,7 +115,7 @@ test: test_tetris test_snake
 test_tetris: ${SHARED_LIB_NAME}
 	@${CXX} ${SOURCES_FOR_TESTS} ${SHARED_LIB_NAME} -lcheck -lm  -o test.out
 	@./test.out
-	@make clean
+	@#make clean
 
 TEST_SNAKE_SRC := tests/snake
 TEST_SNAKE_DEST := tests/snake/build
@@ -162,23 +169,23 @@ clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov 
 
 clean_project:
 clean_dist:
-	@cd ../ && rm -rf archive
-	@cd ../ && rm -rf archive.tar.gz
+	@cd . && rm -rf archive
+	@cd . && rm -rf archive.tar.gz
 clean_after_building:
 	@rm -rf ${OBJ_DIR}
 clean_static_lib:
-	@find .. -type f -name "*.a" -exec rm {} \;
+	@find . -type f -name "*.a" -exec rm {} \;
 clean_log:
-	@find .. -type f -name "*.log" -exec rm {} \;
+	@find . -type f -name "*.log" -exec rm {} \;
 clean_exec:
-	@find .. -type f -name "*.out" -exec rm {} \;
+	@find . -type f -name "*.out" -exec rm {} \;
 clean_obj:
-	@find .. -type f -name "*.o" -exec rm {} \;
+	@find . -type f -name "*.o" -exec rm {} \;
 clean_gcov:
-	@find .. -type f -name "*.gcda" -exec rm {} \;
-	@find .. -type f -name "*.gcno" -exec rm {} \;
+	@find . -type f -name "*.gcda" -exec rm {} \;
+	@find . -type f -name "*.gcno" -exec rm {} \;
 clean_lcov:
-	@find .. -type f -name "*.info" -exec rm {} \;
+	@find . -type f -name "*.info" -exec rm {} \;
 clean_lcov_report:
 	@rm -rf report
 clean_dynamic_libs:

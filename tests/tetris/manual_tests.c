@@ -7,7 +7,7 @@
 int main() {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
-  LoadRecords(records, "../../../"TETRIS_RECORDS_FILE_NAME);
+//  LoadRecords(records, "../../../"TETRIS_RECORDS_FILE_NAME);
   InitRecords(records);
   InitRecords(records2);
 

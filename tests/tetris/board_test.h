@@ -9,8 +9,7 @@
 
 START_TEST(HandleBoardCompleteLinesTest) {
   Board *board = AllocBoard();
-  board->width_ = 10;
-  board->height_ = 20;
+  InitBoard(board);
 
   for (int i = 0; i < board->width_; ++i) {
     board->cells_[19][i].is_set_ = true;
