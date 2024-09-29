@@ -44,6 +44,8 @@ typedef struct {
 Parameters* AllocParameters();
 void FreeParameters(Parameters* p_parameters);
 
+void InitParametersTetris(Parameters* p_parameters);
+
 
 char* AllocUsername();
 long long * AllocLastMovedTime();
@@ -51,6 +53,8 @@ void FreeUsername(char*username);
 void FreeLastMovedTime(long long* last_move_time);
 
 State * GetTState(Parameters* p_parameters);
+State GetTStateValue(Parameters* p_parameters);
+
 GameStatus * GetTGameStatus(Parameters* p_parameters);
 Board * GetTBoard(Parameters* p_parameters);
 Player * GetTPlayer(Parameters* p_parameters);
