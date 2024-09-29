@@ -56,7 +56,13 @@ func main() {
 	r.GET("/api/games", handlerGetGames())
 	r.POST("/api/games/:gameId", handlerPostGames(activeGameID))
 	r.POST("/api/actions", handlerPostActions(activeGameID))
-	r.GET("/api/parameters", func(c *gin.Context) {
+	r.GET("/api/parameters", handlerGetParameters(activeGameID))
+
+	r.Run(":8080")
+}
+
+func handlerGetParameters(activeGameID *int) func(c *gin.Context) {
+	return func(c *gin.Context) {
 		if *activeGameID == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
 			return
@@ -65,17 +71,7 @@ func main() {
 		board := GetBoardFromParameters()
 		parameters := Parameters{tState, board}
 		c.JSON(http.StatusOK, parameters)
-	})
-
-	//r.GET("/api/state", func(c *gin.Context) {
-	//	if activeGameID == nil {
-	//		c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
-	//		return
-	//	}
-	//	//c.JSON(http.StatusOK, gameState)
-	//})
-
-	r.Run(":8080") // Start the server
+	}
 }
 
 func handlerGetGames() func(c *gin.Context) {
