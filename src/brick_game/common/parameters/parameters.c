@@ -77,6 +77,7 @@ GameStatus * GetTGameStatus(Parameters* p_parameters){
 Board * GetTBoard(Parameters* p_parameters){
     return p_parameters->t_board_;
 }
+
 Player * GetTPlayer(Parameters* p_parameters){
     return p_parameters->t_player_;
 }

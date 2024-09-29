@@ -12,150 +12,152 @@ type GameInfo struct {
 	Name string `json:"name"`
 }
 
-//type GameState struct {
-//	Speed     int  `json:"speed"`
-//	Score     int  `json:"score"`
-//	HighScore int  `json:"high_score"`
-//	Level     int  `json:"level"`
-//	Pause     bool `json:"pause"`
-//}
-//
-//type UserAction struct {
-//	ActionID int  `json:"action_id"`
-//	Hold     bool `json:"hold"`
-//}
+type Cell struct {
+	Color int
+	IsSet int
+	X     int
+	Y     int
+}
+
+type Board struct {
+	Height int
+	Width  int
+	Board  [20][10]Cell `json:"board"`
+}
+
+type Parameters struct {
+	State int
+	Board Board
+}
+
+func GetBoardFromParameters() Board {
+	board := Board{}
+	tBoard := con.GetTBoard(con.Parameters)
+	board.Height = con.BoardGetHeight(tBoard)
+	board.Width = con.BoardGetWidth(tBoard)
+	for i := 0; i < board.Height; i++ {
+		for j := 0; j < board.Width; j++ {
+			cell := con.BoardGetCellXY(tBoard, i, j)
+			board.Board[i][j].X = con.CellGetX(cell)
+			board.Board[i][j].Y = con.CellGetY(cell)
+			board.Board[i][j].IsSet = con.CellGetIsSet(cell)
+			board.Board[i][j].Color = con.CellGetIsSet(cell)
+		}
+	}
+	return board
+}
 
 func main() {
 	con.InitController()
 
-	parameters := con.AllocParameters()
-	con.InitParametersTetris(parameters)
-
 	r := gin.Default()
+	var activeGameID = new(int)
 
-	r.GET("/api/games", func(c *gin.Context) {
+	r.GET("/api/games", handlerGetGames())
+	r.POST("/api/games/:gameId", handlerPostGames(activeGameID))
+	r.POST("/api/actions", handlerPostActions(activeGameID))
+	r.GET("/api/parameters", func(c *gin.Context) {
+		if *activeGameID == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
+			return
+		}
+		tState := con.GetTStateValue(con.Parameters)
+		board := GetBoardFromParameters()
+		parameters := Parameters{tState, board}
+		c.JSON(http.StatusOK, parameters)
+	})
+
+	//r.GET("/api/state", func(c *gin.Context) {
+	//	if activeGameID == nil {
+	//		c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
+	//		return
+	//	}
+	//	//c.JSON(http.StatusOK, gameState)
+	//})
+
+	r.Run(":8080") // Start the server
+}
+
+func handlerGetGames() func(c *gin.Context) {
+	return func(c *gin.Context) {
 		games := []GameInfo{
 			{ID: 1, Name: "Tetris"},
 			{ID: 2, Name: "Snake"},
 			{ID: 3, Name: "Car Racing"},
 		}
 		c.JSON(http.StatusOK, gin.H{"games": games})
-	})
+	}
+}
 
-	var activeGameID *int // Tracks the currently active game ID
-
-	//if *activeGameID == 1 { //tetris
-	//
-	//} else if *activeGameID == 2 { // snake
-	//
-	//} else if *activeGameID == 3 { // racing
-	//
-	//}
-
-	r.POST("/api/games/:gameId", func(c *gin.Context) {
-		gameID := c.Param("gameId")
-
-		// Convert gameID to int and check
-		if gameID == "1" {
-			if activeGameID != nil {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
-			activeGameID = new(int)
-			*activeGameID = 1
-			c.String(http.StatusOK, "Tetris game started")
-		} else if gameID == "2" {
-			if activeGameID != nil {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
-			activeGameID = new(int)
-			*activeGameID = 2
-			c.String(http.StatusOK, "Snake game started")
-		} else if gameID == "3" {
-			if activeGameID != nil {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
-			activeGameID = new(int)
-			*activeGameID = 3
-			c.String(http.StatusOK, "Car Racing game started")
-		} else {
-			c.JSON(http.StatusNotFound, gin.H{"message": "Game not found"})
-		}
-	})
-
-	//r.POST("/api/actions", func(c *gin.Context) {
-	//	var action UserAction
-	//	if err := c.ShouldBindJSON(&action); err != nil {
-	//		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid action"})
-	//		return
-	//	}
-	//
-	//	// Process action
-	//	if activeGameID == nil {
-	//		c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
-	//		return
-	//	}
-	//
-
-	//kSignalNone = 0,
-	//	kSignalMoveUp = 1,
-	//	kSignalMoveDown = 2,
-	//	kSignalMoveLeft = 3,
-	//	kSignalMoveRight = 4,
-	//	kSignalEscapeButton = 5,
-	//	kSignalEnterButton = 6,
-	//	kSignalPauseButton = 7,
-
-	r.POST("/api/actions", func(c *gin.Context) {
-		var action int32
-		if err := c.ShouldBindJSON(&action); err != nil {
+func handlerPostActions(activeGameID *int) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		body := struct {
+			Action string `json:"action"`
+		}{}
+		if err := c.ShouldBindJSON(&body); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid action"})
 			return
 		}
 
 		// Process action
-		if activeGameID == nil {
+		if *activeGameID == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
 			return
 		}
-		switch action {
-		case 0: //kSignalNone
-		case 1: //kSignalMoveUp
-		case 2: //kSignalMoveDown
-		case 3: //kSignalMoveLeft
-		case 4: //kSignalMoveRight
-		case 5: //kSignalEscapeButton
-		case 6: //kSignalEnterButton
-		case 7: //kSignalPauseButton
+		switch body.Action {
+		case "0": //kSignalNone
+			con.SignalAction(0, con.Parameters)
+		case "1": //kSignalMoveUp
+			con.SignalAction(1, con.Parameters)
+		case "2": //kSignalMoveDown
+			con.SignalAction(2, con.Parameters)
+		case "3": //kSignalMoveLeft
+			con.SignalAction(3, con.Parameters)
+		case "4": //kSignalMoveRight
+			con.SignalAction(4, con.Parameters)
+		case "5": //kSignalEscapeButton
+			con.SignalAction(5, con.Parameters)
+		case "6": //kSignalEnterButton
+			con.SignalAction(6, con.Parameters)
+		case "7": //kSignalPauseButton
+			con.SignalAction(7, con.Parameters)
 		default:
 			c.JSON(http.StatusBadRequest, gin.H{"message": "Unknown action"})
 			return
 		}
 
 		c.String(http.StatusOK, "Action performed")
-	})
+	}
+}
 
-	//
-	//	c.String(http.StatusOK, "Action performed")
-	//})
-	//
-	//var gameState = GameState{
-	//	Speed:     100,
-	//	Score:     0,
-	//	HighScore: 5000,
-	//	Level:     1,
-	//	Pause:     false,
-	//}
-	//
-	//r.GET("/api/state", func(c *gin.Context) {
-	//	if activeGameID == nil {
-	//		c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
-	//		return
-	//	}
-	//	c.JSON(http.StatusOK, gameState)
-	//})
+func handlerPostGames(activeGameID *int) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		gameID := c.Param("gameId")
 
-	r.Run(":8080") // Start the server
+		if gameID == "1" { // tetris
+			if *activeGameID != 0 {
+				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
+				return
+			}
+			*activeGameID = 1
+			con.InitParametersTetris(con.Parameters)
+			c.String(http.StatusOK, "Tetris game started")
+		} else if gameID == "2" {
+			if *activeGameID != 0 {
+				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
+				return
+			}
+			*activeGameID = 2
+			c.String(http.StatusOK, "Snake game started")
+		} else if gameID == "3" {
+			if *activeGameID != 0 {
+				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
+				return
+			}
+			*activeGameID = 3
+			c.String(http.StatusOK, "Car Racing game started")
+		} else {
+			c.JSON(http.StatusNotFound, gin.H{"message": "Game not found"})
+		}
+	}
 }

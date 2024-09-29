@@ -34,7 +34,7 @@ var FreeParameters func(*C.struct_Parameters)
 var ControllerSnake func(int, *C.struct_Parameters)
 var SignalAction func(int, *C.struct_Parameters)
 var GetTState func(*C.struct_Parameters) *int32
-var GetTStateValue func(*C.struct_Parameters) int32
+var GetTStateValue func(*C.struct_Parameters) int
 var GetTGameStatus func(*C.struct_Parameters) *C.struct_GameStatus
 var GetTBoard func(*C.struct_Parameters) *C.struct_Board
 var GetTPlayer func(*C.struct_Parameters) *C.struct_Player
@@ -43,6 +43,15 @@ var GetTPredictPlayer func(*C.struct_Parameters) *C.struct_Player
 var GetTRecords func(*C.struct_Parameters) *C.struct_Records
 var GetTLastMoveTime func(*C.struct_Parameters) *int64
 var GetTUserName func(*C.struct_Parameters) *C.char
+
+var BoardGetHeight func(*C.struct_Board) int
+var BoardGetWidth func(*C.struct_Board) int
+var BoardGetCellXY func(*C.struct_Board, int, int) *C.struct_Cell
+
+var CellGetColor func(*C.struct_Cell) int
+var CellGetIsSet func(*C.struct_Cell) int
+var CellGetX func(*C.struct_Cell) int
+var CellGetY func(*C.struct_Cell) int
 
 var InitPlayer func(*C.struct_Player)
 var InitNextPlayer func(*C.struct_Player)
@@ -76,6 +85,15 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&GetTLastMoveTime, handle, "GetTLastMoveTime")
 	purego.RegisterLibFunc(&GetTUserName, handle, "GetTUserName")
 
+	purego.RegisterLibFunc(&BoardGetHeight, handle, "BoardGetHeight")
+	purego.RegisterLibFunc(&BoardGetWidth, handle, "BoardGetWidth")
+	purego.RegisterLibFunc(&BoardGetCellXY, handle, "BoardGetCellXY")
+
+	purego.RegisterLibFunc(&CellGetColor, handle, "CellGetColor")
+	purego.RegisterLibFunc(&CellGetIsSet, handle, "CellGetIsSet")
+	purego.RegisterLibFunc(&CellGetX, handle, "CellGetX")
+	purego.RegisterLibFunc(&CellGetY, handle, "CellGetY")
+
 	purego.RegisterLibFunc(&InitPlayer, handle, "InitPlayer")
 	purego.RegisterLibFunc(&InitNextPlayer, handle, "InitNextPlayer")
 	purego.RegisterLibFunc(&InitBoard, handle, "InitBoard")
@@ -90,6 +108,8 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&AllocUsername, handle, "AllocUsername")
 }
 
+var Parameters *C.struct_Parameters
+
 func InitController() {
 	handle, err := GetLibrary()
 	if err != nil {
@@ -97,4 +117,5 @@ func InitController() {
 	}
 
 	InitFunctions(handle)
+	Parameters = AllocParameters()
 }

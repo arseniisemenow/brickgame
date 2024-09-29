@@ -19,6 +19,17 @@ void FreeBoard(Board *board) {
   free(board->cells_);
 }
 
+int BoardGetHeight(const Board* board){
+  return board->height_;
+}
+int BoardGetWidth(const Board* board){
+  return board->width_;
+}
+Cell* BoardGetCellXY(const Board* board, const int x, const int y){
+  return &board->cells_[x][y];
+}
+
+
 void InitBoard(Board *p_board) {
   p_board->width_ = BOARD_WIDTH;
   p_board->height_ = BOARD_HEIGHT;

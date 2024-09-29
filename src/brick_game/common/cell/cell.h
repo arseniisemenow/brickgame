@@ -8,7 +8,7 @@ extern "C" {
 #include <stdbool.h>
 
 typedef struct {
-  unsigned char color_;
+  char color_;
   bool is_set_;
   int x_;
   int y_;
@@ -16,6 +16,11 @@ typedef struct {
 
 Cell* AllocCell();
 void FreeCell(Cell* p_cell);
+
+char CellGetColor(Cell* p_cell);
+int CellGetIsSet(Cell* p_cell);
+int CellGetX(Cell* p_cell);
+int CellGetY(Cell* p_cell);
 
 void InitCell(Cell *p_cell);
 void CopyCell(Cell *p_cell_dest, Cell cell_src);

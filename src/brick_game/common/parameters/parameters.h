@@ -57,6 +57,7 @@ State GetTStateValue(Parameters* p_parameters);
 
 GameStatus * GetTGameStatus(Parameters* p_parameters);
 Board * GetTBoard(Parameters* p_parameters);
+int** GetTBoardBoard(Parameters* p_parameters);
 Player * GetTPlayer(Parameters* p_parameters);
 Player * GetTNextPlayer(Parameters* p_parameters);
 Player * GetTPredictPlayer(Parameters* p_parameters);
