@@ -16,4 +16,5 @@ export const keyCodes = {
     right: ['ArrowRight', 'KeyD', 'KeyL'],
     down: ['ArrowDown', 'KeyS', 'KeyK'],
     left: ['ArrowLeft', 'KeyA', 'KeyJ'],
+    enter: ['Enter'],
 };

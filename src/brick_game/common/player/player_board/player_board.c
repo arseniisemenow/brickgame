@@ -18,6 +18,11 @@ void FreePlayerBoard(PlayerBoard *p_player_board){
   free(p_player_board);
 }
 
+Cell* PlayerBoardGetCellXY(const PlayerBoard * player_board, const int x, const int y){
+  return &player_board->board_[x][y];
+}
+
+
 void InitPlayerBoard(PlayerBoard *p_player_board) {
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {

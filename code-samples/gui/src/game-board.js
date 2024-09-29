@@ -4,8 +4,8 @@ export class GameBoard {
     constructor($gameBoard) {
         this.element = $gameBoard;
         this.tiles = [];
-        for (let i = 0; i < GAME_BOARD_WIDTH; ++i) {
-            for (let j = 0; j < GAME_BOARD_HEIGHT; ++j) {
+        for (let i = 0; i < GAME_BOARD_HEIGHT; ++i) {
+            for (let j = 0; j < GAME_BOARD_WIDTH; ++j) {
                 const $tile = document.createElement('div');
                 $tile.classList.add('tile');
                 $tile.id = `position-${i}-${j}`;
@@ -16,7 +16,7 @@ export class GameBoard {
     }
 
     getTile(x, y) {
-        return this.tiles[y * GAME_BOARD_WIDTH + x];
+        return this.tiles[x * GAME_BOARD_WIDTH + y];
     }
 
     enableTile(x, y) {

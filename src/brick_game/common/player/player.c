@@ -10,6 +10,28 @@ Player *AllocPlayer() {
 }
 void FreePlayer(Player *p_player) { free(p_player); }
 
+Direction PlayerGetDirection(const Player* player){
+  return player->direction_;
+}
+int PlayerGetSnakeLength(const Player* player){
+  return player->snake_length_;
+}
+Cell* PlayerGetSnakeBodyIndex(const Player* player, const int index){
+  return &player->snake_body_[index];
+}
+PlayerBoard* PlayerGetPlayerBoard(const Player* player){
+  return player->board_;
+}
+BlockType PlayerGetBlockType(const Player* player){
+  return player->block_type_;
+}
+int PlayerGetX(const Player* player){
+  return player->x_;
+}
+int PlayerGetY(const Player* player){
+  return player->y_;
+}
+
 void InitPlayer(Player *p_player) {
   InitPlayerBoard(p_player->board_);
   SetPlayerBlockType(p_player, GetRandomBlockType());
@@ -35,7 +57,7 @@ void CopyPlayer(Player *p_player_dest, const Player *p_player_src) {
   p_player_dest->y_ = p_player_src->y_;
   p_player_dest->block_type_ = p_player_src->block_type_;
   p_player_dest->direction_ = p_player_src->direction_;
-  p_player_dest->board_ = p_player_src->board_;
+//  p_player_dest->board_ = p_player_src->board_;
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     for (int j = 0; j < PLAYER_BOARD_SIZE; ++j) {

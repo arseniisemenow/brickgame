@@ -58,6 +58,26 @@ var InitNextPlayer func(*C.struct_Player)
 var InitBoard func(*C.struct_Board)
 var InitGameStatus func(*C.struct_GameStatus)
 
+var PlayerGetDirection func(*C.struct_Player) int
+var PlayerGetSnakeLength func(*C.struct_Player) int
+var PlayerGetSnakeBodyIndex func(*C.struct_Player, int) *C.struct_Cell
+var PlayerGetPlayerBoard func(*C.struct_Player) *C.struct_PlayerBoard
+var PlayerGetBlockType func(*C.struct_Player) int
+var PlayerGetX func(*C.struct_Player) int
+var PlayerGetY func(*C.struct_Player) int
+
+var PlayerBoardGetCellXY func(*C.struct_PlayerBoard, int, int) *C.struct_Cell
+
+//Cell* PlayerBoardGetCellXY(const PlayerBoard * player_board, const int x, const int y){
+
+//Direction PlayerGetDirection(const Player* player);
+//int PlayerSnakeLength(const Player* player);
+//Cell* PlayerGetSnakeBodyXY(const Player* player, const int index);
+//PlayerBoard* PlayerGetPlayerBoard(const Player* player);
+//BlockType PlayerGetBlockType(const Player* player);
+//int PlayerGetX(const Player* player);
+//int PlayerGetY(const Player* player);
+
 func GetLibrary() (uintptr, error) {
 	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	return handle, err
@@ -106,6 +126,16 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&AllocRecords, handle, "AllocRecords")
 	purego.RegisterLibFunc(&AllocLastMovedTime, handle, "AllocLastMovedTime")
 	purego.RegisterLibFunc(&AllocUsername, handle, "AllocUsername")
+
+	purego.RegisterLibFunc(&PlayerGetDirection, handle, "PlayerGetDirection")
+	purego.RegisterLibFunc(&PlayerGetSnakeLength, handle, "PlayerGetSnakeLength")
+	purego.RegisterLibFunc(&PlayerGetSnakeBodyIndex, handle, "PlayerGetSnakeBodyIndex")
+	purego.RegisterLibFunc(&PlayerGetPlayerBoard, handle, "PlayerGetPlayerBoard")
+	purego.RegisterLibFunc(&PlayerGetBlockType, handle, "PlayerGetBlockType")
+	purego.RegisterLibFunc(&PlayerGetX, handle, "PlayerGetX")
+	purego.RegisterLibFunc(&PlayerGetY, handle, "PlayerGetY")
+
+	purego.RegisterLibFunc(&PlayerBoardGetCellXY, handle, "PlayerBoardGetCellXY")
 }
 
 var Parameters *C.struct_Parameters
