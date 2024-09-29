@@ -1,50 +1,22 @@
-package main
+package controller
 
+import "C"
 import (
 	"fmt"
 	"github.com/ebitengine/purego"
-	"log"
 	"runtime"
 )
-
-// #cgo CFLAGS: -g -Wall
-// #cgo LDFLAGS: -lstdc++
-// #include <stdlib.h>
-// #include "brick_game/common/parameters/parameters.h"
-// #include "brick_game/common/fsm_types.h"
-import "C"
 
 func getSystemLibrary() string {
 	switch runtime.GOOS {
 	case "darwin":
-		return "../libbrickgame.so"
+		return "../../../libbrickgame.so"
 	case "linux":
-		return "../libbrickgame.so"
+		return "../../../libbrickgame.so"
 	default:
 		panic(fmt.Errorf("GOOS=%s is not supported", runtime.GOOS))
 	}
 }
-
-//const (
-//	kStart = iota
-//	kSpawn
-//	kMoving
-//	kCollide
-//	kGameOver
-//	kExitState
-//	kPause
-//)
-//
-//const (
-//	kSignalNone = iota
-//	kSignalMoveUp
-//	kSignalMoveDown
-//	kSignalMoveLeft
-//	kSignalMoveRight
-//	kSignalEscapeButton
-//	kSignalEnterButton
-//	kSignalPauseButton
-//)
 
 var GetTimeInMS func() int64
 
@@ -118,22 +90,11 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&AllocUsername, handle, "AllocUsername")
 }
 
-func main() {
+func InitController() {
 	handle, err := GetLibrary()
 	if err != nil {
 		panic(err)
 	}
 
 	InitFunctions(handle)
-
-	parameters := AllocParameters()
-	InitParametersTetris(parameters)
-
-	kState := GetTState(parameters)
-	log.Println("kState: ", *kState)
-
-	SignalAction(C.kSignalEnterButton, parameters)
-	log.Println("kState: ", *kState)
-
-	//FreeParameters(parameters)
 }

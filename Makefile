@@ -64,6 +64,9 @@ add_library_to_path:
 	$(echo "export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH") >> zshrc.txt
 
 
+server:
+	cd src/brick_game/go-server && go build -o server.out && ./server.out
+
 lib: ${SHARED_LIB_NAME}
 
 all: install run_cli
@@ -97,19 +100,7 @@ run_desktop:
 dvi:
 	${OPEN_COMMAND} ../dvi/README.html
 
-dist: clean_dist
-	cd ../ && mkdir -p ${DIST_DIR}
-	cd ../ && cp -rf src/brick_game ${DIST_DIR}/brick_game
-	cd ../ && cp -rf src/gui ${DIST_DIR}/gui
-	cd ../ && cp -rf src/Makefile ${DIST_DIR}/
-	cd ../ && tar -czvf archive.tar.gz ${DIST_DIR}
-	cd ../ && rm -rf ${DIST_DIR}
-dist_unpack:
-	cd ../ && tar -xzvf archive.tar.gz
 
-#test_manual:
-#	${CXX} ${CXXFLAGS} ${BACKEND} ${BACKEND_CXX} ${COMMON}  main.cc -o manual_test.out
-#	./manual_test.out
 test: test_tetris test_snake
 
 test_tetris: ${SHARED_LIB_NAME}
@@ -129,25 +120,6 @@ test_snake:
 test_valgrind:
 	@${CC} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o test.out
 	@valgrind ${VALGRIND_FLAGS} ./test.out
-
-gcov_report:
-ifeq ($(OS), Linux)
-	@${CXX} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o gcov_report.out
-else
-	@${CXX} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o gcov_report.out
-endif
-	./gcov_report.out
-	lcov -t "gcov_report" --ignore-errors mismatch --no-external -c -d . -o report.info
-	genhtml report.info -o report
-	-@$(OPEN_COMMAND) ./report/index.html
-	@make clean_gcov
-	@make clean_lcov
-
-cppcheck:
-	@find .. -type f -name "*.cc" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find .. -type f -name "*.c" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@find .. -type f -name "*.h" -exec cppcheck --enable=all --suppress=missingIncludeSystem {} \;
-	@echo "Cppcheck is finished"
 
 style_check:
 	@cp ../materials/linters/.clang-format .
@@ -191,4 +163,14 @@ clean_lcov_report:
 	@rm -rf report
 clean_dynamic_libs:
 	@find . -type f -name "*.so" -exec rm {} \;
+
+dist: clean_dist
+	cd ../ && mkdir -p ${DIST_DIR}
+	cd ../ && cp -rf src/brick_game ${DIST_DIR}/brick_game
+	cd ../ && cp -rf src/gui ${DIST_DIR}/gui
+	cd ../ && cp -rf src/Makefile ${DIST_DIR}/
+	cd ../ && tar -czvf archive.tar.gz ${DIST_DIR}
+	cd ../ && rm -rf ${DIST_DIR}
+dist_unpack:
+	cd ../ && tar -xzvf archive.tar.gz
 
