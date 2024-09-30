@@ -122,8 +122,8 @@ void RemoveRecord(Records *p_records, const char *name, const char *filename) {
     p_records->records_[RECORDS_NUMBER - 1].name_[0] = '\0';
   }
   SortRecords(p_records);
-  //    SaveRecords(p_records, filename);
-  //    LoadRecords(p_records, filename);
+  SaveRecords(p_records, filename);
+  LoadRecords(p_records, filename);
 }
 bool SaveRecords(const Records *p_records, const char *filename) {
   FILE *p_file = fopen(filename, "wb");

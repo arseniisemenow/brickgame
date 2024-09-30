@@ -33,7 +33,7 @@ void InitParametersForSnakeBeforeStart(Parameters *p_params) {
   *p_params->s_last_moved_time_ = GetTimeInMS();
 
   LoadRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
-//  SaveRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
+  SaveRecords(p_params->s_records_, SNAKE_RECORDS_FILE_NAME);
 }
 
 void InitParametersForTetrisBeforeStart(Parameters *p_params) {
@@ -116,6 +116,9 @@ void View::UpdateSnake() {
   ControllerSnake(signal, p_parameters_);
 
   PrintState(*p_parameters_->s_state_, ui_->label_state_snake);
+  if (*p_parameters_->s_state_ == kStart) {
+    InitParametersForSnakeBeforeStart(p_parameters_);
+  }
 
   if (*p_parameters_->s_state_ != kStart &&
       *p_parameters_->s_state_ != kPause) {
@@ -131,7 +134,7 @@ void View::UpdateSnake() {
     PrintSnakeRecords();
   }
   if (*p_parameters_->s_state_ == kGameOver) {
-    InitParametersForSnakeBeforeStart(p_parameters_);
+    *p_parameters_->s_state_ = kStart;
     bool ok;
     QString name = QInputDialog::getText(this, "Enter Your Name",
                                          "Name:", QLineEdit::Normal, "", &ok);
@@ -180,29 +183,32 @@ void View::StartSnakeGame() {
 }
 void View::PrintTetrisRecords() {
   auto records = p_parameters_->t_records_;
-  ui_->label_records_1_value->setText(
-      QString::number(records->records_[0].score_, 10));
-  ui_->label_records_2_value->setText(
-      QString::number(records->records_[1].score_, 10));
-  ui_->label_records_3_value->setText(
-      QString::number(records->records_[2].score_, 10));
-  ui_->label_records_4_value->setText(
-      QString::number(records->records_[3].score_, 10));
-  ui_->label_records_5_value->setText(
-      QString::number(records->records_[4].score_, 10));
+  QLabel* records_labels[] = {
+      ui_->label_records_1_value, ui_->label_records_2_value,
+      ui_->label_records_3_value, ui_->label_records_4_value,
+      ui_->label_records_5_value};
+  for (int i = 0; i < 5; ++i) {
+    auto username =  QString(records->records_[i].name_);
+    username.truncate(3);
+    records_labels[i]->setText(username + " " +
+                               QString::number(records->records_[i].score_, 10));
+  }
 }
+
+
 void View::PrintSnakeRecords() {
   auto records = p_parameters_->s_records_;
-  ui_->label_records_snake_1_value->setText(
-      QString::number(records->records_[0].score_, 10));
-  ui_->label_records_snake_2_value->setText(
-      QString::number(records->records_[1].score_, 10));
-  ui_->label_records_snake_3_value->setText(
-      QString::number(records->records_[2].score_, 10));
-  ui_->label_records_snake_4_value->setText(
-      QString::number(records->records_[3].score_, 10));
-  ui_->label_records_snake_5_value->setText(
-      QString::number(records->records_[4].score_, 10));
+  QLabel* records_labels[] = {
+      ui_->label_records_snake_1_value, ui_->label_records_snake_2_value,
+      ui_->label_records_snake_3_value, ui_->label_records_snake_4_value,
+      ui_->label_records_snake_5_value};
+  for (int i = 0; i < 5; ++i) {
+    auto username =  QString(records->records_[i].name_);
+    username.truncate(3);
+    records_labels[i]->setText(username + " " +
+        QString::number(records->records_[i].score_, 10));
+  }
+
 }
 void View::PrintState(State state, QLabel *label) {
   QString state_string{};

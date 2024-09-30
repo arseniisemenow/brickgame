@@ -5,7 +5,7 @@
 
 #define RECORDS_NUMBER (5)
 #define TETRIS_RECORDS_FILE_NAME "tetris_records.log"
-#define SNAKE_RECORDS_FILE_NAME "snake_xerzia_records.log"
+#define SNAKE_RECORDS_FILE_NAME "snake_xenzia_records.log"
 
 #ifdef __cplusplus
 extern "C" {
