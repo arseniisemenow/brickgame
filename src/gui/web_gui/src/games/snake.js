@@ -1,12 +1,16 @@
     import {applyRootStyles} from '../utils.js';
     import {GameBoard} from '../game-board.js';
+    import {SidePanel} from '../side-panel.js';
     import {keyCodes, rootStyles} from '../config.js';
     import {FetchGameParameters, URL, PORT, ResetBoard, SelectGame} from "./game-utils.js";
+    import {UsernameInput} from "../username-input.js";
 
     applyRootStyles(rootStyles);
     const gameBoard = new GameBoard(document.querySelector('#game-board'));
-
+    const sidePanel = new SidePanel(document.querySelector('#side-panel'));
     const $sidePanel = document.querySelector('#side-panel');
+
+    const usernameInput = new UsernameInput(document.querySelector('#username'));
 
     const MakeAction = async (direction) => {
         return await fetch(URL + ":" + PORT + "/api/actions", {
@@ -29,6 +33,12 @@
         }
     }
 
+    function DrawRecords(json) {
+        let records = json.records_snake.records
+        sidePanel.updateRecords(records)
+        console.log("records", records)
+    }
+
     function ClearBoard() {
         ResetBoard(gameBoard, 20, 10);
     }
@@ -40,6 +50,7 @@
             const json = await FetchGameParameters();
             ClearBoard();
             DrawSnake(json);
+            DrawRecords(json);
         } catch (error) {
             console.error('Error updating the game board:', error);
         }

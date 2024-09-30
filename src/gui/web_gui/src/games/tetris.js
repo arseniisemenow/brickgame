@@ -4,11 +4,19 @@ import {NextPlayerBoard} from "../next-player-board.js";
 import {SidePanel} from "../side-panel.js";
 import {FetchGameParameters, MakeAction, ResetBoard, SelectGame} from './game-utils.js';
 import {keyCodes, rootStyles} from '../config.js';
+import {UsernameInput} from "../username-input.js";
 
 applyRootStyles(rootStyles);
 const gameBoard = new GameBoard(document.querySelector('#game-board'));
 const nextPlayerBoard = new NextPlayerBoard(document.querySelector('#next-player-board'));
 const sidePanel = new SidePanel(document.querySelector('#side-panel'));
+const usernameInput = new UsernameInput(document.querySelector('#username'));
+
+function DrawRecords(json) {
+    let records = json.records_tetris.records
+    sidePanel.updateRecords(records)
+    console.log("records", records)
+}
 
 function DrawPlayerBoard(player) {
     let playerPosX = player.x;
@@ -26,6 +34,7 @@ function DrawPlayerBoard(player) {
         }
     }
 }
+
 
 function DrawNextPlayerBoard(json) {
     for (let i = 0; i < 4; i++) {
@@ -69,6 +78,7 @@ const Update = async () => {
         DrawNextPlayerBoard(json);
         DrawPlayerBoard(json.predict_player_tetris);
         DrawPlayerBoard(json.player_tetris);
+        DrawRecords(json)
         DrawBoard(json);
     } catch (error) {
         console.error('Error updating the game board:', error);

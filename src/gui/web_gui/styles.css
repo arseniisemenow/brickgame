@@ -4,6 +4,7 @@ html {
 }
 
 body {
+    background-color: #303030;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,8 +85,6 @@ body {
     font-size: 2rem;
 }
 
-
-
 .game-buttons {
     display: flex;
     justify-content: center;
@@ -112,4 +111,28 @@ body {
 
 .game-btn:focus {
     outline: none; /* Remove focus outline */
+}
+.username-input {
+    margin-bottom: 10px;
+    background-color: #35353a; /* Match button background color */
+    border: none;
+    color: white;
+    padding: 15px 30px; /* Same padding as buttons */
+    font-size: 16px;
+    border-radius: 25px; /* Make it fully rounded */
+    cursor: text; /* Change cursor to indicate text input */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-align: center; /* Center the placeholder text */
+    width: 100%; /* Full width */
+}
+
+.username-input::placeholder {
+    color: #ccc; /* Placeholder text color */
+}
+
+.username-input:focus {
+    background-color: #43434d; /* Darken the background on focus */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on focus */
 }
