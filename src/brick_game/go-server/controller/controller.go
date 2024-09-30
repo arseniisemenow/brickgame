@@ -30,6 +30,7 @@ var AllocUsername func() *C.char
 
 var AllocParameters func() *C.struct_Parameters
 var InitParametersTetris func(*C.struct_Parameters)
+var InitParametersSnake func(*C.struct_Parameters)
 var FreeParameters func(*C.struct_Parameters)
 var ControllerSnake func(int, *C.struct_Parameters)
 var SignalAction func(int, *C.struct_Parameters)
@@ -43,6 +44,16 @@ var GetTPredictPlayer func(*C.struct_Parameters) *C.struct_Player
 var GetTRecords func(*C.struct_Parameters) *C.struct_Records
 var GetTLastMoveTime func(*C.struct_Parameters) *int64
 var GetTUserName func(*C.struct_Parameters) *C.char
+
+var GetSState func(*C.struct_Parameters) *int32
+var GetSStateValue func(*C.struct_Parameters) int
+var GetSGameStatus func(*C.struct_Parameters) *C.struct_GameStatus
+var GetSBoard func(*C.struct_Parameters) *C.struct_Board
+var GetSPlayer func(*C.struct_Parameters) *C.struct_Player
+var GetSRecords func(*C.struct_Parameters) *C.struct_Records
+var GetSLastMoveTime func(*C.struct_Parameters) *int64
+var GetSUserName func(*C.struct_Parameters) *C.char
+var GetSFruit func(*C.struct_Parameters) *C.struct_Cell
 
 var BoardGetHeight func(*C.struct_Board) int
 var BoardGetWidth func(*C.struct_Board) int
@@ -68,16 +79,6 @@ var PlayerGetY func(*C.struct_Player) int
 
 var PlayerBoardGetCellXY func(*C.struct_PlayerBoard, int, int) *C.struct_Cell
 
-//Cell* PlayerBoardGetCellXY(const PlayerBoard * player_board, const int x, const int y){
-
-//Direction PlayerGetDirection(const Player* player);
-//int PlayerSnakeLength(const Player* player);
-//Cell* PlayerGetSnakeBodyXY(const Player* player, const int index);
-//PlayerBoard* PlayerGetPlayerBoard(const Player* player);
-//BlockType PlayerGetBlockType(const Player* player);
-//int PlayerGetX(const Player* player);
-//int PlayerGetY(const Player* player);
-
 func GetLibrary() (uintptr, error) {
 	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	return handle, err
@@ -89,6 +90,7 @@ func InitFunctions(handle uintptr) {
 
 	purego.RegisterLibFunc(&AllocParameters, handle, "AllocParameters")
 	purego.RegisterLibFunc(&InitParametersTetris, handle, "InitParametersTetris")
+	purego.RegisterLibFunc(&InitParametersSnake, handle, "InitParametersSnake")
 	purego.RegisterLibFunc(&FreeParameters, handle, "FreeParameters")
 
 	purego.RegisterLibFunc(&ControllerSnake, handle, "ControllerSnake")
@@ -104,6 +106,16 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&GetTRecords, handle, "GetTRecords")
 	purego.RegisterLibFunc(&GetTLastMoveTime, handle, "GetTLastMoveTime")
 	purego.RegisterLibFunc(&GetTUserName, handle, "GetTUserName")
+
+	purego.RegisterLibFunc(&GetSState, handle, "GetSState")
+	purego.RegisterLibFunc(&GetSStateValue, handle, "GetSStateValue")
+	purego.RegisterLibFunc(&GetSGameStatus, handle, "GetSGameStatus")
+	purego.RegisterLibFunc(&GetSBoard, handle, "GetSBoard")
+	purego.RegisterLibFunc(&GetSPlayer, handle, "GetSPlayer")
+	purego.RegisterLibFunc(&GetSRecords, handle, "GetSRecords")
+	purego.RegisterLibFunc(&GetSLastMoveTime, handle, "GetSLastMoveTime")
+	purego.RegisterLibFunc(&GetSUserName, handle, "GetSUserName")
+	purego.RegisterLibFunc(&GetSFruit, handle, "GetSFruit")
 
 	purego.RegisterLibFunc(&BoardGetHeight, handle, "BoardGetHeight")
 	purego.RegisterLibFunc(&BoardGetWidth, handle, "BoardGetWidth")

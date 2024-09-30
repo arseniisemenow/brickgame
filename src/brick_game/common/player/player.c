@@ -32,6 +32,7 @@ int PlayerGetY(const Player* player){
   return player->y_;
 }
 
+
 void InitPlayer(Player *p_player) {
   InitPlayerBoard(p_player->board_);
   SetPlayerBlockType(p_player, GetRandomBlockType());

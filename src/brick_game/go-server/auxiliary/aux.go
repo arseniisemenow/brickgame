@@ -22,24 +22,15 @@ func GetBoardFromParameters() t.Board {
 	return board
 }
 
-func GetPlayerFromParameters() t.Player {
+func GetTetrisPlayerFromParameters() t.Player {
 	player := t.Player{}
 	tPlayer := con.GetTPlayer(con.Parameters)
 	player.X = con.PlayerGetX(tPlayer)
 	player.Y = con.PlayerGetY(tPlayer)
 	player.BlockType = con.PlayerGetBlockType(tPlayer)
-	player.SnakeLength = con.PlayerGetSnakeLength(tPlayer)
 	player.Direction = con.PlayerGetDirection(tPlayer)
 
 	tPlayerBoard := con.PlayerGetPlayerBoard(tPlayer)
-
-	for i := 0; i < 200; i++ {
-		tCell := con.PlayerGetSnakeBodyIndex(tPlayer, i)
-		player.SnakeBody.Body[i].X = con.CellGetX(tCell)
-		player.SnakeBody.Body[i].Y = con.CellGetY(tCell)
-		player.SnakeBody.Body[i].IsSet = con.CellGetIsSet(tCell)
-		player.SnakeBody.Body[i].Color = con.CellGetColor(tCell)
-	}
 
 	for i := 0; i < 4; i++ {
 		for j := 0; j < 4; j++ {
@@ -51,5 +42,29 @@ func GetPlayerFromParameters() t.Player {
 		}
 	}
 
+	return player
+}
+
+func GetSnakePlayerFromParameters() t.Player {
+	player := t.Player{}
+	sPlayer := con.GetSPlayer(con.Parameters)
+	player.X = con.PlayerGetX(sPlayer)
+	player.Y = con.PlayerGetY(sPlayer)
+	player.BlockType = con.PlayerGetBlockType(sPlayer)
+	player.SnakeLength = con.PlayerGetSnakeLength(sPlayer)
+	player.Direction = con.PlayerGetDirection(sPlayer)
+	sFruit := con.GetSFruit(con.Parameters)
+	player.Fruit.X = con.CellGetX(sFruit)
+	player.Fruit.Y = con.CellGetY(sFruit)
+	player.Fruit.IsSet = con.CellGetIsSet(sFruit)
+	player.Fruit.Color = con.CellGetColor(sFruit)
+
+	for i := 0; i < 200; i++ {
+		sCell := con.PlayerGetSnakeBodyIndex(sPlayer, i)
+		player.SnakeBody.Body[i].X = con.CellGetX(sCell)
+		player.SnakeBody.Body[i].Y = con.CellGetY(sCell)
+		player.SnakeBody.Body[i].IsSet = con.CellGetIsSet(sCell)
+		player.SnakeBody.Body[i].Color = con.CellGetColor(sCell)
+	}
 	return player
 }

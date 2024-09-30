@@ -35,6 +35,9 @@ BlockType PlayerGetBlockType(const Player* player);
 int PlayerGetX(const Player* player);
 int PlayerGetY(const Player* player);
 
+
+
+
 void InitPlayer(Player *p_player);
 void InitNextPlayer(Player *p_player);
 void CopyPlayer(Player *p_player_dest, const Player *p_player_src);

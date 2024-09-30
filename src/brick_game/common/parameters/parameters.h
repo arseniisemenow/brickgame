@@ -45,6 +45,7 @@ Parameters* AllocParameters();
 void FreeParameters(Parameters* p_parameters);
 
 void InitParametersTetris(Parameters* p_parameters);
+void InitParametersSnake(Parameters* p_parameters);
 
 
 char* AllocUsername();
@@ -64,6 +65,18 @@ Player * GetTPredictPlayer(Parameters* p_parameters);
 Records * GetTRecords(Parameters* p_parameters);
 long long * GetTLastMoveTime(Parameters* p_parameters);
 char * GetTUserName(Parameters* p_parameters);
+
+
+State * GetSState(Parameters* p_parameters);
+State GetSStateValue(Parameters* p_parameters);
+GameStatus * GetSGameStatus(Parameters* p_parameters);
+Board * GetSBoard(Parameters* p_parameters);
+int** GetSBoardBoard(Parameters* p_parameters);
+Player * GetSPlayer(Parameters* p_parameters);
+Records * GetSRecords(Parameters* p_parameters);
+long long * GetSLastMoveTime(Parameters* p_parameters);
+char * GetSUserName(Parameters* p_parameters);
+Cell* GetSFruit(Parameters* p_parameters);
 
 #ifdef __cplusplus
 }

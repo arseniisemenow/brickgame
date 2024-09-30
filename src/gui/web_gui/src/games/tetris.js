@@ -1,6 +1,6 @@
-import {applyRootStyles} from './src/utils.js';
-import {GameBoard} from './src/game-board.js';
-import {keyCodes, rootStyles} from './src/config.js';
+import {applyRootStyles} from '../utils.js';
+import {GameBoard} from '../game-board.js';
+import {keyCodes, rootStyles} from '../config.js';
 
 applyRootStyles(rootStyles);
 const gameBoard = new GameBoard(document.querySelector('#game-board'));
@@ -26,31 +26,8 @@ const MoveSide = async (direction) => {
     });
 }
 
-
-// void PrintBlock(Player *p_player) {
-//     int player_pos_x = p_player->x_;
-//     int player_pos_y = p_player->y_;
-//     const PlayerBoard *player_board = (const PlayerBoard *)p_player->board_;
-//
-//     for (int row_index = 0; row_index < PLAYER_BOARD_SIZE; ++row_index) {
-//         for (int column_index = 0; column_index < PLAYER_BOARD_SIZE;
-//         ++column_index) {
-//             int print_y = player_pos_y + BOARDS_BEGIN + 1 + row_index;
-//             int print_x = player_pos_x + BOARDS_BEGIN + 1 + column_index;
-//             if (player_board->board_[row_index][column_index].is_set_) {
-//                 int color = player_board->board_[row_index][column_index].color_;
-//                 attron(COLOR_PAIR(kBlockColorPairsArray[color]));
-//                 mvprintw(print_y, print_x, "F");
-//                 attroff(COLOR_PAIR(kBlockColorPairsArray[color]));
-//             }
-//         }
-//     }
-// }
-//
-
-
 function DrawPlayerBoard(json) {
-    let player = json.player
+    let player = json.player_tetris
     let playerPosX = player.x;
     let playerPosY = player.y;
     console.log(playerPosX)

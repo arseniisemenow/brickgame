@@ -18,16 +18,6 @@ type Board struct {
 	Board  [20][10]Cell `json:"board"`
 }
 
-//typedef struct {
-//int x_;
-//int y_;
-//BlockType block_type_;
-//PlayerBoard *board_;
-//Cell *snake_body_;
-//int snake_length_;
-//Direction direction_;
-//} Player;
-
 type PlayerBoard struct {
 	Board [4][4]Cell `json:"board"`
 }
@@ -42,10 +32,13 @@ type Player struct {
 	SnakeBody   SnakeBody   `json:"snake_body"`
 	SnakeLength int         `json:"snake_length"`
 	Direction   int         `json:"direction"`
+	Fruit       Cell        `json:"fruit"`
 }
 
 type Parameters struct {
-	State  int    `json:"state"`
-	Board  Board  `json:"board"`
-	Player Player `json:"player"`
+	StateTetris  int    `json:"state_tetris"`
+	StateSnake   int    `json:"state_snake"`
+	Board        Board  `json:"board"`
+	PlayerTetris Player `json:"player_tetris"`
+	PlayerSnake  Player `json:"player_snake"`
 }

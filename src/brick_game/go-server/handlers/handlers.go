@@ -6,6 +6,7 @@ import (
 	con "myserver/controller"
 	t "myserver/types"
 	"net/http"
+	"strconv"
 )
 
 func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
@@ -15,9 +16,11 @@ func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
 			return
 		}
 		tState := con.GetTStateValue(con.Parameters)
+		sState := con.GetSStateValue(con.Parameters)
 		board := auxiliary.GetBoardFromParameters()
-		player := auxiliary.GetPlayerFromParameters()
-		parameters := t.Parameters{State: tState, Board: board, Player: player}
+		tetrisPlayer := auxiliary.GetTetrisPlayerFromParameters()
+		snakePlayer := auxiliary.GetSnakePlayerFromParameters()
+		parameters := t.Parameters{StateTetris: tState, StateSnake: sState, Board: board, PlayerTetris: tetrisPlayer, PlayerSnake: snakePlayer}
 		c.JSON(http.StatusOK, parameters)
 	}
 }
@@ -48,26 +51,17 @@ func HandlerPostActions(activeGameID *int) func(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
 			return
 		}
-		switch body.Action {
-		case "0": //kSignalNone
-			con.SignalAction(0, con.Parameters)
-		case "1": //kSignalMoveUp
-			con.SignalAction(1, con.Parameters)
-		case "2": //kSignalMoveDown
-			con.SignalAction(2, con.Parameters)
-		case "3": //kSignalMoveLeft
-			con.SignalAction(3, con.Parameters)
-		case "4": //kSignalMoveRight
-			con.SignalAction(4, con.Parameters)
-		case "5": //kSignalEscapeButton
-			con.SignalAction(5, con.Parameters)
-		case "6": //kSignalEnterButton
-			con.SignalAction(6, con.Parameters)
-		case "7": //kSignalPauseButton
-			con.SignalAction(7, con.Parameters)
-		default:
+
+		signalNumber, _ := strconv.Atoi(body.Action)
+		if signalNumber < 0 && signalNumber > 7 {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "Unknown action"})
 			return
+		}
+		if *activeGameID == 1 {
+			con.SignalAction(signalNumber, con.Parameters)
+
+		} else if *activeGameID == 2 {
+			con.ControllerSnake(signalNumber, con.Parameters)
 		}
 
 		c.String(http.StatusOK, "Action performed")
@@ -79,19 +73,22 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 		gameID := c.Param("gameId")
 
 		if gameID == "1" { // tetris
+			con.InitParametersTetris(con.Parameters)
+
 			if *activeGameID != 0 {
 				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
 				return
 			}
 			*activeGameID = 1
-			con.InitParametersTetris(con.Parameters)
 			c.String(http.StatusOK, "Tetris game started")
 		} else if gameID == "2" {
+			con.InitParametersSnake(con.Parameters)
 			if *activeGameID != 0 {
 				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
 				return
 			}
 			*activeGameID = 2
+
 			c.String(http.StatusOK, "Snake game started")
 		} else if gameID == "3" {
 			if *activeGameID != 0 {
