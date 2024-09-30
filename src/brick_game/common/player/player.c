@@ -36,12 +36,14 @@ int PlayerGetY(const Player* player){
 void InitPlayer(Player *p_player) {
   InitPlayerBoard(p_player->board_);
   SetPlayerBlockType(p_player, GetRandomBlockType());
+  SetPlayerBoardBlock(p_player->board_, p_player->block_type_, p_player->direction_);
 }
 
 void InitNextPlayer(Player *p_player) {
   InitPlayer(p_player);
   p_player->x_ = INIT_NEXT_PLAYER_POS_X;
   p_player->y_ = INIT_NEXT_PLAYER_POS_Y;
+  SetPlayerBoardBlock(p_player->board_, p_player->block_type_, kDirectionFirst);
 }
 
 void InitPlayerPosition(Player *p_player) {
@@ -72,12 +74,13 @@ void CopyPlayer(Player *p_player_dest, const Player *p_player_src) {
 
 void SetPlayerBlockType(Player *p_player, BlockType block_type) {
   p_player->block_type_ = block_type;
-  UpdatePlayerBoard(p_player);
+//  UpdatePlayerBoard(p_player);
 }
 
 void SetPlayerBlockRotation(Player *p_player, Direction block_rotation) {
   p_player->direction_ = block_rotation;
-  UpdatePlayerBoard(p_player);
+//  SetPlayerBoardBlock(p_player->board_, p_player->block_type_, block_rotation);
+//  UpdatePlayerBoard(p_player);
 }
 
 void SetPlayerPosition(Player *p_player, int x, int y) {

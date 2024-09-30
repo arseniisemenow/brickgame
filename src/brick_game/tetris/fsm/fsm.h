@@ -42,7 +42,7 @@ void ActionExitState(Parameters *p_parameters);
 
 void ActionPause(Parameters *p_parameters);
 
-bool CheckCollisions(Parameters *p_parameters);
+bool CheckCollisions(const Parameters *p_parameters);
 #ifdef __cplusplus
 }
 #endif
