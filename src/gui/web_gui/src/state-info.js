@@ -5,7 +5,7 @@ const STATE_NAMES = [
     "The object is collided!",
     "The Game is Over, Press Enter",
     "I am ready to exit",
-    "Game is Paused",
+    "Game is Paused. Resting...",
 ]
 // kStart = 0,
 //     kSpawn = 1,

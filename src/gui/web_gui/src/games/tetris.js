@@ -109,22 +109,26 @@ const Update = async () => {
 
 setInterval(await Update, 100);
 document.addEventListener('keydown', async function (event) {
+    console.log("event.code", event.code)
     if (keyCodes.enter.includes(event.code)) {
         await SelectGame(1) // snake
         const data = await response.text();
         console.log(data);
     }
-    if (keyCodes.up.includes(event.code)) {
+    else if (keyCodes.up.includes(event.code)) {
         const response = MakeAction(1);
     }
-    if (keyCodes.right.includes(event.code)) {
+    else if (keyCodes.right.includes(event.code)) {
         const response = MakeAction(4);
     }
-    if (keyCodes.down.includes(event.code)) {
+    else if (keyCodes.down.includes(event.code)) {
         const response = MakeAction(2);
     }
-    if (keyCodes.left.includes(event.code)) {
+    else if (keyCodes.left.includes(event.code)) {
         const response = MakeAction(3);
+    }
+    else if (keyCodes.pause.includes(event.code)) {
+        const response = MakeAction(7);
     } else {
         const response = MakeAction(0);
     }
