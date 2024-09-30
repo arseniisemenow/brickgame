@@ -74,27 +74,13 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 
 		if gameID == "1" { // tetris
 			con.InitParametersTetris(con.Parameters)
-
-			if *activeGameID != 0 {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
 			*activeGameID = 1
 			c.String(http.StatusOK, "Tetris game started")
 		} else if gameID == "2" {
 			con.InitParametersSnake(con.Parameters)
-			if *activeGameID != 0 {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
 			*activeGameID = 2
-
 			c.String(http.StatusOK, "Snake game started")
 		} else if gameID == "3" {
-			if *activeGameID != 0 {
-				c.JSON(http.StatusConflict, gin.H{"message": "Another game is already running"})
-				return
-			}
 			*activeGameID = 3
 			c.String(http.StatusOK, "Car Racing game started")
 		} else {

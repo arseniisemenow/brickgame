@@ -129,7 +129,7 @@ Cell* GetSFruit(Parameters* p_parameters){
 
 
 void InitParametersTetris(Parameters* p_parameters){
-  *   p_parameters->t_state_ = kStart;
+  *p_parameters->t_state_ = kStart;
   InitPlayer(p_parameters->t_player_);
     InitNextPlayer(p_parameters->t_next_player_);
     InitBoard(p_parameters->t_board_);
