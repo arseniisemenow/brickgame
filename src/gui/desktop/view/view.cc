@@ -181,35 +181,32 @@ void View::StartSnakeGame() {
   current_game_ = CurrentGame::kSnake;
   InitParametersForSnakeBeforeStart(p_parameters_);
 }
-void View::PrintTetrisRecords() {
-  auto records = p_parameters_->t_records_;
-  QLabel* records_labels[] = {
-      ui_->label_records_1_value, ui_->label_records_2_value,
-      ui_->label_records_3_value, ui_->label_records_4_value,
-      ui_->label_records_5_value};
+
+void View::PrintRecords(QLabel **array, const Records *records) {
   for (int i = 0; i < 5; ++i) {
-    auto username =  QString(records->records_[i].name_);
+    auto username = QString(records->records_[i].name_);
     username.truncate(3);
-    records_labels[i]->setText(username + " " +
-                               QString::number(records->records_[i].score_, 10));
+    array[i]->setText(username + " " +
+                      QString::number(records->records_[i].score_, 10));
   }
 }
 
+void View::PrintTetrisRecords() {
+  QLabel *records_labels[5] = {
+      ui_->label_records_1_value, ui_->label_records_2_value,
+      ui_->label_records_3_value, ui_->label_records_4_value,
+      ui_->label_records_5_value};
+  PrintRecords(records_labels, p_parameters_->t_records_);
+}
 
 void View::PrintSnakeRecords() {
-  auto records = p_parameters_->s_records_;
   QLabel* records_labels[] = {
       ui_->label_records_snake_1_value, ui_->label_records_snake_2_value,
       ui_->label_records_snake_3_value, ui_->label_records_snake_4_value,
       ui_->label_records_snake_5_value};
-  for (int i = 0; i < 5; ++i) {
-    auto username =  QString(records->records_[i].name_);
-    username.truncate(3);
-    records_labels[i]->setText(username + " " +
-        QString::number(records->records_[i].score_, 10));
-  }
-
+  PrintRecords(records_labels, p_parameters_->s_records_);
 }
+
 void View::PrintState(State state, QLabel *label) {
   QString state_string{};
   if (state == kGameOver) {
