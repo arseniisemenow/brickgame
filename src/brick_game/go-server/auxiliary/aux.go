@@ -1,5 +1,6 @@
 package auxiliary
 
+import "C"
 import (
 	con "myserver/controller"
 	t "myserver/types"
@@ -116,4 +117,25 @@ func GetSnakePlayerFromParameters() t.Player {
 		player.SnakeBody.Body[i].Color = con.CellGetColor(sCell)
 	}
 	return player
+}
+
+func GetRecords() (t.Records, t.Records) {
+	tetrisRecords := t.Records{}
+	tRecords := con.GetTRecords(con.Parameters)
+	for i := 0; i < 5; i++ {
+		tRecord := con.RecordGetRecordIndex(tRecords, i)
+		cLikeString := con.RecordGetName(tRecord)
+		tetrisRecords.Records[i].Name = C.GoString((*C.char)(cLikeString))
+		tetrisRecords.Records[i].Score = con.RecordGetScore(tRecord)
+		tetrisRecords.Records[i].IsCurrentPlayer = con.RecordGetIsCurrentPlayer(tRecord)
+	}
+	snakeRecords := t.Records{}
+	sRecords := con.GetSRecords(con.Parameters)
+	for i := 0; i < 5; i++ {
+		sRecord := con.RecordGetRecordIndex(sRecords, i)
+		snakeRecords.Records[i].Name = C.GoString((*C.char)(con.RecordGetName(sRecord)))
+		snakeRecords.Records[i].Score = con.RecordGetScore(sRecord)
+		snakeRecords.Records[i].IsCurrentPlayer = con.RecordGetIsCurrentPlayer(sRecord)
+	}
+	return tetrisRecords, snakeRecords
 }

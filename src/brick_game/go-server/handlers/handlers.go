@@ -20,7 +20,11 @@ func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
 		board := auxiliary.GetBoardFromParameters()
 		tetrisPlayer, tetrisPredictPlayer, tetrisNextPlayer := auxiliary.GetTetrisPlayersFromParameters()
 		snakePlayer := auxiliary.GetSnakePlayerFromParameters()
-		parameters := t.Parameters{StateTetris: tState,
+		tetrisRecords, snakeRecords := auxiliary.GetRecords()
+		parameters := t.Parameters{
+			RecordsTetris:       tetrisRecords,
+			RecordsSnake:        snakeRecords,
+			StateTetris:         tState,
 			StateSnake:          sState,
 			Board:               board,
 			PlayerTetris:        tetrisPlayer,

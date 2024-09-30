@@ -24,6 +24,14 @@ type PlayerBoard struct {
 type SnakeBody struct {
 	Body [200]Cell `json:"body"`
 }
+type Record struct {
+	Name            string `json:"name"`
+	Score           int    `json:"score"`
+	IsCurrentPlayer int    `json:"is_current_player"`
+}
+type Records struct {
+	Records [5]Record `json:"records"`
+}
 type Player struct {
 	X           int         `json:"x"`
 	Y           int         `json:"y"`
@@ -36,11 +44,13 @@ type Player struct {
 }
 
 type Parameters struct {
-	StateTetris         int    `json:"state_tetris"`
-	StateSnake          int    `json:"state_snake"`
-	Board               Board  `json:"board"`
-	PlayerTetris        Player `json:"player_tetris"`
-	PredictPlayerTetris Player `json:"predict_player_tetris"`
-	NextPlayerTetris    Player `json:"next_player_tetris"`
-	PlayerSnake         Player `json:"player_snake"`
+	StateTetris         int     `json:"state_tetris"`
+	StateSnake          int     `json:"state_snake"`
+	Board               Board   `json:"board"`
+	PlayerTetris        Player  `json:"player_tetris"`
+	PredictPlayerTetris Player  `json:"predict_player_tetris"`
+	NextPlayerTetris    Player  `json:"next_player_tetris"`
+	PlayerSnake         Player  `json:"player_snake"`
+	RecordsTetris       Records `json:"records_tetris"`
+	RecordsSnake        Records `json:"records_snake"`
 }

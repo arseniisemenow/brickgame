@@ -79,6 +79,16 @@ var PlayerGetY func(*C.struct_Player) int
 
 var PlayerBoardGetCellXY func(*C.struct_PlayerBoard, int, int) *C.struct_Cell
 
+var RecordGetRecordIndex func(*C.struct_Records, int) *C.struct_Record
+var RecordGetName func(*C.struct_Record) *C.char
+var RecordGetScore func(*C.struct_Record) int
+var RecordGetIsCurrentPlayer func(*C.struct_Record) int
+
+//Record * RecordGetRecordIndex(const Records* records, const int index);
+//char* RecordGetName(const Record* record);
+//int RecordGetScore(const Record* record);
+//int RecordGetIsCurrentPlayer(const Record* record);
+
 func GetLibrary() (uintptr, error) {
 	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
 	return handle, err
@@ -148,6 +158,11 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&PlayerGetY, handle, "PlayerGetY")
 
 	purego.RegisterLibFunc(&PlayerBoardGetCellXY, handle, "PlayerBoardGetCellXY")
+
+	purego.RegisterLibFunc(&RecordGetRecordIndex, handle, "RecordGetRecordIndex")
+	purego.RegisterLibFunc(&RecordGetName, handle, "RecordGetName")
+	purego.RegisterLibFunc(&RecordGetScore, handle, "RecordGetScore")
+	purego.RegisterLibFunc(&RecordGetIsCurrentPlayer, handle, "RecordGetIsCurrentPlayer")
 }
 
 var Parameters *C.struct_Parameters

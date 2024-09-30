@@ -24,6 +24,11 @@ typedef struct {
 Records* AllocRecords();
 void FreeRecords(Records*);
 
+Record * RecordGetRecordIndex(const Records* records, const int index);
+char* RecordGetName(const Record* record);
+int RecordGetScore(const Record* record);
+int RecordGetIsCurrentPlayer(const Record* record);
+
 void CopyRecord(Record* dest, const Record* src);
 void InitRecords(Records *p_records);
 

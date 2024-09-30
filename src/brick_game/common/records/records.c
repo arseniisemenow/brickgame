@@ -20,6 +20,15 @@ void FreeRecords(Records *p_records) {
   free(p_records);
 }
 
+Record *RecordGetRecordIndex(const Records *records, const int index) {
+  return &records->records_[index];
+}
+char *RecordGetName(const Record *record) { return record->name_; }
+int RecordGetScore(const Record *record) { return record->score_; }
+int RecordGetIsCurrentPlayer(const Record *record) {
+  return record->is_current_player_;
+}
+
 void CopyRecord(Record *dest, const Record *src) {
   strncpy(dest->name_, src->name_, 20);
   dest->score_ = src->score_;
