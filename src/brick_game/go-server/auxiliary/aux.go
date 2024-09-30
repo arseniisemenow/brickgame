@@ -22,7 +22,14 @@ func GetBoardFromParameters() t.Board {
 	return board
 }
 
-func GetTetrisPlayerFromParameters() t.Player {
+func GetTetrisPlayersFromParameters() (t.Player, t.Player, t.Player) {
+	player := GetPlayer()
+	predictPlayer := GetPredictPlayer()
+	nextPlayer := GetNextPlayer()
+	return player, predictPlayer, nextPlayer
+}
+
+func GetPlayer() t.Player {
 	player := t.Player{}
 	tPlayer := con.GetTPlayer(con.Parameters)
 	player.X = con.PlayerGetX(tPlayer)
@@ -41,7 +48,49 @@ func GetTetrisPlayerFromParameters() t.Player {
 			player.PlayerBoard.Board[i][j].Color = con.CellGetColor(tCell)
 		}
 	}
+	return player
+}
+func GetNextPlayer() t.Player {
+	player := t.Player{}
+	tPlayer := con.GetTNextPlayer(con.Parameters)
+	player.X = con.PlayerGetX(tPlayer)
+	player.Y = con.PlayerGetY(tPlayer)
+	player.BlockType = con.PlayerGetBlockType(tPlayer)
+	player.Direction = con.PlayerGetDirection(tPlayer)
 
+	tPlayerBoard := con.PlayerGetPlayerBoard(tPlayer)
+
+	for i := 0; i < 4; i++ {
+		for j := 0; j < 4; j++ {
+			tCell := con.PlayerBoardGetCellXY(tPlayerBoard, i, j)
+			player.PlayerBoard.Board[i][j].X = con.CellGetX(tCell)
+			player.PlayerBoard.Board[i][j].Y = con.CellGetY(tCell)
+			player.PlayerBoard.Board[i][j].IsSet = con.CellGetIsSet(tCell)
+			player.PlayerBoard.Board[i][j].Color = con.CellGetColor(tCell)
+		}
+	}
+	return player
+}
+
+func GetPredictPlayer() t.Player {
+	player := t.Player{}
+	tPlayer := con.GetTPredictPlayer(con.Parameters)
+	player.X = con.PlayerGetX(tPlayer)
+	player.Y = con.PlayerGetY(tPlayer)
+	player.BlockType = con.PlayerGetBlockType(tPlayer)
+	player.Direction = con.PlayerGetDirection(tPlayer)
+
+	tPlayerBoard := con.PlayerGetPlayerBoard(tPlayer)
+
+	for i := 0; i < 4; i++ {
+		for j := 0; j < 4; j++ {
+			tCell := con.PlayerBoardGetCellXY(tPlayerBoard, i, j)
+			player.PlayerBoard.Board[i][j].X = con.CellGetX(tCell)
+			player.PlayerBoard.Board[i][j].Y = con.CellGetY(tCell)
+			player.PlayerBoard.Board[i][j].IsSet = con.CellGetIsSet(tCell)
+			player.PlayerBoard.Board[i][j].Color = con.CellGetColor(tCell)
+		}
+	}
 	return player
 }
 

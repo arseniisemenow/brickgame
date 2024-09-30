@@ -32,11 +32,11 @@
         let playerPosY = player[0].y;
         console.log("playerPosX, playerPosY", playerPosX, playerPosY)
 
-        gameBoard.enableTile(json.player_snake.fruit.y, json.player_snake.fruit.x, 3)
+        gameBoard.enableTile(json.player_snake.fruit.y, json.player_snake.fruit.x, 0)
 
         for (let snake_index = 0; snake_index < json.player_snake.snake_length; ++snake_index) {
             gameBoard.enableTile(json.player_snake.snake_body.body[snake_index].y,
-                json.player_snake.snake_body.body[snake_index].x, 2) // Green color
+                json.player_snake.snake_body.body[snake_index].x, 4) // Green color
         }
     }
     function ClearBoard(json) {

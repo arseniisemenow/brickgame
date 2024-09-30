@@ -18,9 +18,15 @@ func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
 		tState := con.GetTStateValue(con.Parameters)
 		sState := con.GetSStateValue(con.Parameters)
 		board := auxiliary.GetBoardFromParameters()
-		tetrisPlayer := auxiliary.GetTetrisPlayerFromParameters()
+		tetrisPlayer, tetrisPredictPlayer, tetrisNextPlayer := auxiliary.GetTetrisPlayersFromParameters()
 		snakePlayer := auxiliary.GetSnakePlayerFromParameters()
-		parameters := t.Parameters{StateTetris: tState, StateSnake: sState, Board: board, PlayerTetris: tetrisPlayer, PlayerSnake: snakePlayer}
+		parameters := t.Parameters{StateTetris: tState,
+			StateSnake:          sState,
+			Board:               board,
+			PlayerTetris:        tetrisPlayer,
+			PredictPlayerTetris: tetrisPredictPlayer,
+			NextPlayerTetris:    tetrisNextPlayer,
+			PlayerSnake:         snakePlayer}
 		c.JSON(http.StatusOK, parameters)
 	}
 }

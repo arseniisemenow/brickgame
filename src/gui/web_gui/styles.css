@@ -26,6 +26,21 @@ body {
             var(--game-board-gap)
     );
 }
+#next-player-board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(----next-player-board-gap);
+    background: var(----next-player-board-background);
+    padding: var(----next-player-board-gap);
+    width: calc(
+        (var(--tile-size) + var(--next-player-board-gap)) * var(--next-player-board-width) -
+            var(--next-player-board-gap)
+    );
+    height: calc(
+        (var(--tile-size) + var(--next-player-board-gap)) * var(--next-player-board-width) -
+            var(--next-player-board-gap) * 4
+    );
+}
 
 .tile {
     width: var(--tile-size);
@@ -60,6 +75,9 @@ body {
 }
 .gray {
     background: var(--tile-active-color-gray);
+}
+.darkgreen {
+    background: var(--tile-active-color-darkgreen);
 }
 
 .dashboard-text {

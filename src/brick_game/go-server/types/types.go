@@ -36,9 +36,11 @@ type Player struct {
 }
 
 type Parameters struct {
-	StateTetris  int    `json:"state_tetris"`
-	StateSnake   int    `json:"state_snake"`
-	Board        Board  `json:"board"`
-	PlayerTetris Player `json:"player_tetris"`
-	PlayerSnake  Player `json:"player_snake"`
+	StateTetris         int    `json:"state_tetris"`
+	StateSnake          int    `json:"state_snake"`
+	Board               Board  `json:"board"`
+	PlayerTetris        Player `json:"player_tetris"`
+	PredictPlayerTetris Player `json:"predict_player_tetris"`
+	NextPlayerTetris    Player `json:"next_player_tetris"`
+	PlayerSnake         Player `json:"player_snake"`
 }

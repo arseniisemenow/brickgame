@@ -1,11 +1,11 @@
-import { GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT, kColorArray } from './config.js';
+import {GAME_BOARD_WIDTH, GAME_BOARD_HEIGHT, kColorArray, NEXT_PLAYER_BOARD_WIDTH} from './config.js';
 
-export class GameBoard {
-    constructor($gameBoard) {
-        this.element = $gameBoard;
+export class NextPlayerBoard {
+    constructor($nextPlayerBoard) {
+        this.element = $nextPlayerBoard;
         this.tiles = [];
-        for (let i = 0; i < GAME_BOARD_HEIGHT; ++i) {
-            for (let j = 0; j < GAME_BOARD_WIDTH; ++j) {
+        for (let i = 0; i < 4; ++i) {
+            for (let j = 0; j < 4; ++j) {
                 const $tile = document.createElement('div');
                 $tile.classList.add('tile');
                 $tile.id = `position-${i}-${j}`;
@@ -16,11 +16,10 @@ export class GameBoard {
     }
 
     getTile(row, col) {
-        return this.tiles[row * GAME_BOARD_WIDTH + col];
+        return this.tiles[row * NEXT_PLAYER_BOARD_WIDTH + col];
     }
 
     enableTile(row, col, color) {
-        this.disableTile(row, col)
         this.getTile(row, col).classList.add('active');
         this.getTile(row, col).classList.add(kColorArray[color]);
     }

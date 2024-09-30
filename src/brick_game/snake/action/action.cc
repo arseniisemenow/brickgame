@@ -24,7 +24,7 @@ void Action::Spawn(Parameters *p_parameters) {
   MoveFruitToRandomPlace(p_parameters);
 }
 void Action::MovingUp(Parameters *p_parameters) {
-  if (p_parameters->s_player_->direction_ != kDi    rectionSecond) {
+  if (p_parameters->s_player_->direction_ != kDirectionSecond) {
     p_parameters->s_player_->direction_ = kDirectionFirst;
     MoveSnake(p_parameters);
     *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
