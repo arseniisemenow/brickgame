@@ -83,3 +83,33 @@ body {
 .dashboard-text {
     font-size: 2rem;
 }
+
+
+
+.game-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.game-btn {
+    background-color: #35353a; /* Green background */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-btn:hover {
+    background-color: #43434d; /* Darker green on hover */
+}
+
+.game-btn:focus {
+    outline: none; /* Remove focus outline */
+}

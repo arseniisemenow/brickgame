@@ -1,32 +1,14 @@
 import {applyRootStyles} from '../utils.js';
 import {GameBoard} from '../game-board.js';
-import {keyCodes, rootStyles} from '../config.js';
 import {NextPlayerBoard} from "../next-player-board.js";
+import {SidePanel} from "../side-panel.js";
+import {FetchGameParameters, MakeAction, ResetBoard, SelectGame} from './game-utils.js';
+import {keyCodes, rootStyles} from '../config.js';
 
 applyRootStyles(rootStyles);
 const gameBoard = new GameBoard(document.querySelector('#game-board'));
 const nextPlayerBoard = new NextPlayerBoard(document.querySelector('#next-player-board'));
-
-const $sidePanel = document.querySelector('#side-panel');
-
-const url = "http://0.0.0.0"
-const port = "8080"
-
-const MoveCodeNone = 0
-const MoveCodeUp = 1
-const MoveCodeDown = 2
-const MoveCodeLeft = 3
-const MoveCodeRight = 4
-const MoveCodeEnter = 5
-const MoveCodeEscape = 6
-const MoveCodePause = 7
-
-const MoveSide = async (direction) => {
-    return await fetch(url + ":" + port + "/api/actions", {
-        method: 'POST',
-        body: JSON.stringify({"action": "" + direction})
-    });
-}
+const sidePanel = new SidePanel(document.querySelector('#side-panel'));
 
 function DrawPlayerBoard(player) {
     let playerPosX = player.x;
@@ -65,11 +47,7 @@ function DrawNextPlayerBoard(json) {
 }
 
 function ClearBoard(json) {
-    for (let i = 0; i < json.board.height; i++) {
-        for (let j = 0; j < json.board.width; j++) {
-            gameBoard.disableTile(i, j)
-        }
-    }
+    ResetBoard(gameBoard, json.board.height, json.board.width);
 }
 
 function DrawBoard(json) {
@@ -84,35 +62,40 @@ function DrawBoard(json) {
 }
 
 const Update = async () => {
-    const response = await fetch('http://0.0.0.0:8080/api/parameters', {method: 'GET'})
-    var json = await response.json();
+    try {
+        await MakeAction(0);
+        const json = await FetchGameParameters();
+        ClearBoard(json);
+        DrawNextPlayerBoard(json);
+        DrawPlayerBoard(json.predict_player_tetris);
+        DrawPlayerBoard(json.player_tetris);
+        DrawBoard(json);
+    } catch (error) {
+        console.error('Error updating the game board:', error);
+    }
+};
 
-    ClearBoard(json);
-
-    DrawNextPlayerBoard(json);
-    DrawPlayerBoard(json.predict_player_tetris);
-    DrawPlayerBoard(json.player_tetris);
-    DrawBoard(json);
-}
-
+setInterval(await Update, 100);
 document.addEventListener('keydown', async function (event) {
     if (keyCodes.enter.includes(event.code)) {
-        const response = await fetch('http://0.0.0.0:8080/api/games/1', {method: 'POST'});
-        await MoveSide(6);
+        await SelectGame(1) // snake
         const data = await response.text();
         console.log(data);
     }
     if (keyCodes.up.includes(event.code)) {
-        const response = MoveSide(1);
+        const response = MakeAction(1);
     }
     if (keyCodes.right.includes(event.code)) {
-        const response = MoveSide(4);
+        const response = MakeAction(4);
     }
     if (keyCodes.down.includes(event.code)) {
-        const response = MoveSide(2);
+        const response = MakeAction(2);
     }
     if (keyCodes.left.includes(event.code)) {
-        const response = MoveSide(3);
+        const response = MakeAction(3);
+    } else {
+        const response = MakeAction(0);
     }
-    Update()
+
+    await Update();
 });

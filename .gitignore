@@ -137,3 +137,4 @@ build*
 .idea
 *.log
 *.txt.user
+*.DS_Store
