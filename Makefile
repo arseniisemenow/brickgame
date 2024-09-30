@@ -78,6 +78,9 @@ uninstall:
 	@rm -rf ${DESKTOP_BUILD}
 	@echo "Uninstallation is finished"
 
+run_web_ui:
+	open http://localhost:8080/static/tetris.html
+
 install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
 	$(CXX) $(LIBRARIES) $^ -L. \
 	src/brick_game/common/common/color_handler.c \
