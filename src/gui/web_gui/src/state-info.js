@@ -29,7 +29,7 @@ export class StateInfo {
         inputField.maxLength = 100;
         inputField.id = "state-id";
         inputField.placeholder = 'No State';
-        inputField.classList.add('username-input');
+        inputField.classList.add('username-input'); // for style
         inputField.disabled = 'true'
 
         this.container.appendChild(inputField);

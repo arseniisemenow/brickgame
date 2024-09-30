@@ -9,8 +9,9 @@ export class UsernameInput {
         inputField.type = 'text';
         inputField.maxLength = 20-1;
         inputField.id = 'user-name';
-        inputField.placeholder = 'Your name';
+        inputField.placeholder = 'Your name [Implement me]';
         inputField.classList.add('username-input');
+        inputField.disabled = 'true'
 
         this.container.appendChild(inputField);
     }

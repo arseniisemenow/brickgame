@@ -21,9 +21,12 @@ func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
 		tetrisPlayer, tetrisPredictPlayer, tetrisNextPlayer := auxiliary.GetTetrisPlayersFromParameters()
 		snakePlayer := auxiliary.GetSnakePlayerFromParameters()
 		tetrisRecords, snakeRecords := auxiliary.GetRecords()
+		tetrisGameStatus, snakeGameStatus := auxiliary.GetGameStates()
 		parameters := t.Parameters{
 			RecordsTetris:       tetrisRecords,
 			RecordsSnake:        snakeRecords,
+			GameStatusTetris:    tetrisGameStatus,
+			GameStatusSnake:     snakeGameStatus,
 			StateTetris:         tState,
 			StateSnake:          sState,
 			Board:               board,
@@ -98,3 +101,24 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 		}
 	}
 }
+
+//func HandlerPostUsername(activeGameID *int) func(c *gin.Context) {
+//	return func(c *gin.Context) {
+//		gameID := c.Param("username")
+//
+//		if gameID == "1" { // tetris
+//			con.InitParametersTetris(con.Parameters)
+//			*activeGameID = 1
+//			c.String(http.StatusOK, "Tetris game started")
+//		} else if gameID == "2" {
+//			con.InitParametersSnake(con.Parameters)
+//			*activeGameID = 2
+//			c.String(http.StatusOK, "Snake game started")
+//		} else if gameID == "3" {
+//			*activeGameID = 3
+//			c.String(http.StatusOK, "Car Racing game started")
+//		} else {
+//			c.JSON(http.StatusNotFound, gin.H{"message": "Game not found"})
+//		}
+//	}
+//}

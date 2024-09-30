@@ -17,7 +17,8 @@ const stateInfo = new StateInfo(document.querySelector('#state-info'));
 function DrawRecords(json) {
     let records = json.records_tetris.records
     sidePanel.updateRecords(records)
-    console.log("records", records)
+    sidePanel.updateScore(json.game_status_tetris.score)
+    sidePanel.updateLevel(json.game_status_tetris.level)
 }
 
 function DrawPlayerBoard(player) {

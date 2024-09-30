@@ -84,10 +84,11 @@ var RecordGetName func(*C.struct_Record) *C.char
 var RecordGetScore func(*C.struct_Record) int
 var RecordGetIsCurrentPlayer func(*C.struct_Record) int
 
-//Record * RecordGetRecordIndex(const Records* records, const int index);
-//char* RecordGetName(const Record* record);
-//int RecordGetScore(const Record* record);
-//int RecordGetIsCurrentPlayer(const Record* record);
+var GameStateGetScore func(*C.struct_GameStatus) int
+var GameStateGetLevel func(*C.struct_GameStatus) int
+
+//int GameStateGetScore(const GameStatus* p_game_status);
+//int GameStateGetLevel(const GameStatus* p_game_status);
 
 func GetLibrary() (uintptr, error) {
 	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)
@@ -163,6 +164,9 @@ func InitFunctions(handle uintptr) {
 	purego.RegisterLibFunc(&RecordGetName, handle, "RecordGetName")
 	purego.RegisterLibFunc(&RecordGetScore, handle, "RecordGetScore")
 	purego.RegisterLibFunc(&RecordGetIsCurrentPlayer, handle, "RecordGetIsCurrentPlayer")
+
+	purego.RegisterLibFunc(&GameStateGetScore, handle, "GameStateGetScore")
+	purego.RegisterLibFunc(&GameStateGetLevel, handle, "GameStateGetLevel")
 }
 
 var Parameters *C.struct_Parameters

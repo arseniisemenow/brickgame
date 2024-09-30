@@ -1,8 +1,17 @@
 #include "game_status.h"
 #include <stdlib.h>
 
-GameStatus *AllocGameStatus() { return (GameStatus*)calloc(sizeof(GameStatus), 1); }
+GameStatus *AllocGameStatus() {
+  return (GameStatus *)calloc(sizeof(GameStatus), 1);
+}
 void FreeGameStatus(GameStatus *p_game_status) { free(p_game_status); }
+
+int GameStateGetScore(const GameStatus *p_game_status) {
+  return p_game_status->score_;
+}
+int GameStateGetLevel(const GameStatus *p_game_status) {
+  return p_game_status->level_;
+}
 
 void InitGameStatus(GameStatus *p_game_status) {
   p_game_status->level_ = 0;

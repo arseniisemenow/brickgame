@@ -119,6 +119,20 @@ func GetSnakePlayerFromParameters() t.Player {
 	return player
 }
 
+func GetGameStates() (t.GameStatus, t.GameStatus) {
+	tetrisGameStatus := t.GameStatus{}
+	tGameStatus := con.GetTGameStatus(con.Parameters)
+	tetrisGameStatus.Score = con.GameStateGetScore(tGameStatus)
+	tetrisGameStatus.Level = con.GameStateGetLevel(tGameStatus)
+
+	snakeGameStatus := t.GameStatus{}
+	sGameStatus := con.GetSGameStatus(con.Parameters)
+
+	snakeGameStatus.Score = con.GameStateGetScore(sGameStatus)
+	snakeGameStatus.Level = con.GameStateGetLevel(sGameStatus)
+	return tetrisGameStatus, snakeGameStatus
+}
+
 func GetRecords() (t.Records, t.Records) {
 	tetrisRecords := t.Records{}
 	tRecords := con.GetTRecords(con.Parameters)

@@ -38,6 +38,8 @@ function DrawSnake(json) {
 function DrawRecords(json) {
     let records = json.records_snake.records
     sidePanel.updateRecords(records)
+    sidePanel.updateScore(json.game_status_snake.score)
+    sidePanel.updateLevel(json.game_status_snake.level)
     console.log("records", records)
 }
 
