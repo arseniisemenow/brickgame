@@ -2,7 +2,8 @@ import {applyRootStyles} from '../utils.js';
 import {GameBoard} from '../game-board.js';
 import {NextPlayerBoard} from "../next-player-board.js";
 import {SidePanel} from "../side-panel.js";
-import {FetchGameParameters, MakeAction, ResetBoard, SelectGame} from './game-utils.js';
+import {StateInfo} from "../state-info.js";
+import {FetchGameParameters, MakeAction, ResetBoard, SelectGame, STATE_TETRIS, STATE_SNAKE} from './game-utils.js';
 import {keyCodes, rootStyles} from '../config.js';
 import {UsernameInput} from "../username-input.js";
 
@@ -11,6 +12,7 @@ const gameBoard = new GameBoard(document.querySelector('#game-board'));
 const nextPlayerBoard = new NextPlayerBoard(document.querySelector('#next-player-board'));
 const sidePanel = new SidePanel(document.querySelector('#side-panel'));
 const usernameInput = new UsernameInput(document.querySelector('#username'));
+const stateInfo = new StateInfo(document.querySelector('#state-info'));
 
 function DrawRecords(json) {
     let records = json.records_tetris.records
@@ -80,6 +82,26 @@ const Update = async () => {
         DrawPlayerBoard(json.player_tetris);
         DrawRecords(json)
         DrawBoard(json);
+        // STATE_TETRIS = json.state_tetris
+        stateInfo.Update(json.state_tetris)
+
+        // if (*p_parameters->t_state_ != kStart &&
+        //     *p_parameters->t_state_ != kPause) {
+        //     PrintTetrisGame(p_parameters);
+        // }
+        // if (*p_parameters->t_state_ == kPause) {
+        //     PrintPause();
+        // }
+        // if (*p_parameters->t_state_ == kGameOver) {
+        //     GetPlayerName(p_parameters->t_username);
+        //     PrintBegin();
+        //     RemoveRecord(p_parameters->t_records_, "Unnamed",
+        //         TETRIS_RECORDS_FILE_NAME);
+        //     AddRecord(p_parameters->t_records_, p_parameters->t_username,
+        //         p_parameters->t_game_status_->  score_, TETRIS_RECORDS_FILE_NAME);
+        // }
+
+
     } catch (error) {
         console.error('Error updating the game board:', error);
     }

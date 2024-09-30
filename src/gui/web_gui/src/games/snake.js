@@ -2,13 +2,16 @@
     import {GameBoard} from '../game-board.js';
     import {SidePanel} from '../side-panel.js';
     import {keyCodes, rootStyles} from '../config.js';
-    import {FetchGameParameters, URL, PORT, ResetBoard, SelectGame} from "./game-utils.js";
+    import {FetchGameParameters, URL, PORT, ResetBoard, SelectGame, STATE_TETRIS, STATE_SNAKE} from "./game-utils.js";
     import {UsernameInput} from "../username-input.js";
+    import {StateInfo} from "../state-info.js";
+
 
     applyRootStyles(rootStyles);
     const gameBoard = new GameBoard(document.querySelector('#game-board'));
     const sidePanel = new SidePanel(document.querySelector('#side-panel'));
     const $sidePanel = document.querySelector('#side-panel');
+    const stateInfo = new StateInfo(document.querySelector('#state-info'));
 
     const usernameInput = new UsernameInput(document.querySelector('#username'));
 
@@ -23,7 +26,6 @@
         let player = json.player_snake.snake_body.body
         let playerPosX = player[0].x;
         let playerPosY = player[0].y;
-        console.log("playerPosX, playerPosY", playerPosX, playerPosY)
 
         gameBoard.enableTile(json.player_snake.fruit.y, json.player_snake.fruit.x, 0)
 
@@ -48,9 +50,15 @@
         try {
             await MakeAction(0);
             const json = await FetchGameParameters();
-            ClearBoard();
-            DrawSnake(json);
-            DrawRecords(json);
+            try {
+                ClearBoard();
+                DrawSnake(json);
+                DrawRecords(json);
+            } catch (e){
+                console.log(e)
+            }
+
+            stateInfo.Update(json.state_snake)
         } catch (error) {
             console.error('Error updating the game board:', error);
         }

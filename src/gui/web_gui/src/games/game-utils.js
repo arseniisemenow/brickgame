@@ -1,5 +1,7 @@
 export const URL = "http://0.0.0.0";
 export const PORT = "8080";
+export let STATE_TETRIS = 0;
+export let STATE_SNAKE = 0;
 
 export const MoveCode = {
     None: 0,
