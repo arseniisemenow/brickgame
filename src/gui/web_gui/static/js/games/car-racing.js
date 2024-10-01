@@ -46,43 +46,6 @@ function DrawRecords(json) {
     sidePanel.updateLevel(json.car_racing_parameters.level)
 }
 
-function DrawPlayerBoard(player) {
-    let playerPosX = player.x;
-    let playerPosY = player.y;
-    if (playerPosX === 4294967295) playerPosX = -1;
-    if (playerPosX === 4294967294) playerPosX = -2;
-    for (let row = 0; row < 4; ++row) {
-        for (let col = 0; col < 4; ++col) {
-            let printY = playerPosY + row;
-            let printX = playerPosX + col;
-            if (player.player_board.board[row][col].is_set) {
-                let color = player.player_board.board[row][col].color
-                gameBoard.enableTile(printY, printX, color)
-            }
-        }
-    }
-}
-
-
-function DrawNextPlayerBoard(json) {
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            nextPlayerBoard.disableTile(i, j)
-        }
-    }
-    let player = json.next_player_tetris
-    for (let row = 0; row < 4; ++row) {
-        for (let col = 0; col < 4; ++col) {
-            if (player.player_board.board[row][col].is_set) {
-                let color = player.player_board.board[row][col].color
-                nextPlayerBoard.enableTile(row, col, color)
-            } else {
-                nextPlayerBoard.disableTile(row, col)
-            }
-        }
-    }
-}
-
 function ClearBoard(json) {
     ResetBoard(gameBoard, json.car_racing_parameters.track_height, 10);
 }

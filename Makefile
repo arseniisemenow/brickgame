@@ -30,7 +30,8 @@ BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
 				src/brick_game/snake/model/model.cc \
 				src/brick_game/snake/action/action.cc \
 				src/brick_game/snake/move_snake/move_snake.cc
-FRONTEND:=		src/gui/cli/frontend.c
+FRONTEND:=		src/gui/cli/frontend.c \
+				src/gui/cli/cjson.c
 
 SOURCES_FOR_TESTS:= tests/tetris/main_test.c
 
@@ -88,7 +89,7 @@ run_web_ui:
 	open http://localhost:8080/static/tetris.html
 
 install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
-	$(CXX) $(LIBRARIES) $^ -L. \
+	$(CXX) $(LIBRARIES) $^ -L. -lcurl \
 	src/brick_game/common/common/color_handler.c \
 	-lbrickgame -o brickgame_cli.out
 
