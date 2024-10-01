@@ -16,6 +16,16 @@ body {
     gap: 20px;
 }
 
+#snake {
+    display: flex;
+    gap: 20px;
+}
+
+#car-racing {
+    display: flex;
+    gap: 20px;
+}
+
 #game-board {
     display: flex;
     flex-wrap: wrap;
