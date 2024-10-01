@@ -2,11 +2,12 @@ package carracing
 
 import (
 	"fmt"
-	"time"
 )
 
+var Parameters *CarRacingGame
+
 // SignalAction processes a signal and performs the corresponding action
-func SignalAction(game *CarRacingGame, signal Signal) {
+func SignalAction(signal Signal, game *CarRacingGame) {
 	switch game.State {
 	case KStart:
 		if signal == KSignalSpawn {
@@ -47,11 +48,27 @@ func SignalAction(game *CarRacingGame, signal Signal) {
 	}
 }
 
+//func SignalAction(game *CarRacingGame, signal Signal) {
+//	switch game.State {
+//	case KMoving:
+//		switch signal {
+//		case KSignalMoveLeft:
+//			ActionMoveLeft(game)
+//		case KSignalMoveRight:
+//			ActionMoveRight(game)
+//		case KSignalMoveUp:
+//			ActionMoveUp(game)
+//		case KSignalMoveDown:
+//			ActionMoveDown(game)
+//		}
+//		HandleRivalCars(game)
+//		CheckForCollision(game)
+//	}
+//}
+
 //func GameLoop(game *CarRacingGame) {
 //	for game.State != KExitState {
-//		signal := GetUserInput(0) // you will need to pass here the data that comes from post request
 //		SignalAction(game, signal)
 //		time.Sleep(200 * time.Millisecond) // Control game speed
 //	}
-//
-}
+//}

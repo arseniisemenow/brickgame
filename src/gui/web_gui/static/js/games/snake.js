@@ -79,6 +79,7 @@ setInterval(await Update, 200);
 
 document.addEventListener('keydown', async function (event) {
     if (keyCodes.enter.includes(event.code)) {
+        // const response = MakeAction(6);
         await SelectGame(2) // snake
         const data = await response.text();
         console.log(data);

@@ -57,7 +57,7 @@ void Action::Collide(Parameters *p_parameters) {
   *p_parameters->s_state_ = kGameOver;
 }
 void Action::GameOver(Parameters *p_parameters) {
-  *p_parameters->t_state_ = *p_parameters->t_state_;
+  *p_parameters->t_state_ = kStart;
 }
 void Action::Exit(Parameters *p_parameters) {
       *p_parameters->s_state_ = kExitState;

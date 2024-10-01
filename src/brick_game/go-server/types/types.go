@@ -1,5 +1,7 @@
 package types
 
+import "myserver/carracing"
+
 type GameInfo struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
@@ -49,15 +51,16 @@ type Player struct {
 }
 
 type Parameters struct {
-	StateTetris         int        `json:"state_tetris"`
-	StateSnake          int        `json:"state_snake"`
-	GameStatusTetris    GameStatus `json:"game_status_tetris"`
-	GameStatusSnake     GameStatus `json:"game_status_snake"`
-	Board               Board      `json:"board"`
-	PlayerTetris        Player     `json:"player_tetris"`
-	PredictPlayerTetris Player     `json:"predict_player_tetris"`
-	NextPlayerTetris    Player     `json:"next_player_tetris"`
-	PlayerSnake         Player     `json:"player_snake"`
-	RecordsTetris       Records    `json:"records_tetris"`
-	RecordsSnake        Records    `json:"records_snake"`
+	StateTetris         int                     `json:"state_tetris"`
+	StateSnake          int                     `json:"state_snake"`
+	GameStatusTetris    GameStatus              `json:"game_status_tetris"`
+	GameStatusSnake     GameStatus              `json:"game_status_snake"`
+	Board               Board                   `json:"board"`
+	PlayerTetris        Player                  `json:"player_tetris"`
+	PredictPlayerTetris Player                  `json:"predict_player_tetris"`
+	NextPlayerTetris    Player                  `json:"next_player_tetris"`
+	PlayerSnake         Player                  `json:"player_snake"`
+	RecordsTetris       Records                 `json:"records_tetris"`
+	RecordsSnake        Records                 `json:"records_snake"`
+	CarRacingParameters carracing.CarRacingGame `json:"car_racing_parameters"`
 }

@@ -3,7 +3,7 @@ package main
 import "C"
 import (
 	"github.com/gin-gonic/gin"
-	carracing "myserver/carracing"
+	con "myserver/controller"
 	h "myserver/handlers"
 	"net/http"
 )
@@ -39,21 +39,9 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
-//func main() {
-//	con.InitController()
-//	r := setupRouter()
-//
-//	r.Run(":8080")
-//}
-
 func main() {
-	// Initialize the game
-	game := &carracing.CarRacingGame{
-		Player:      carracing.Car{Lane: 1, Y: 9},
-		TrackHeight: 10,
-		State:       carracing.KStart,
-	}
+	con.InitController()
+	r := setupRouter()
 
-	// Start the game loop
-	carracing.GameLoop(game)
+	r.Run(":8080")
 }

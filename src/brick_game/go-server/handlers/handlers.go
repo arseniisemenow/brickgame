@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 	"myserver/auxiliary"
+	"myserver/carracing"
 	con "myserver/controller"
 	t "myserver/types"
 	"net/http"
@@ -33,7 +34,9 @@ func HandlerGetParameters(activeGameID *int) func(c *gin.Context) {
 			PlayerTetris:        tetrisPlayer,
 			PredictPlayerTetris: tetrisPredictPlayer,
 			NextPlayerTetris:    tetrisNextPlayer,
-			PlayerSnake:         snakePlayer}
+			PlayerSnake:         snakePlayer,
+			CarRacingParameters: *carracing.Parameters,
+		}
 		c.JSON(http.StatusOK, parameters)
 	}
 }
@@ -59,12 +62,10 @@ func HandlerPostActions(activeGameID *int) func(c *gin.Context) {
 			return
 		}
 
-		// Process action
 		if *activeGameID == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "No game is currently running"})
 			return
 		}
-
 		signalNumber, _ := strconv.Atoi(body.Action)
 		if signalNumber < 0 && signalNumber > 7 {
 			c.JSON(http.StatusBadRequest, gin.H{"message": "Unknown action"})
@@ -72,9 +73,10 @@ func HandlerPostActions(activeGameID *int) func(c *gin.Context) {
 		}
 		if *activeGameID == 1 {
 			con.SignalAction(signalNumber, con.Parameters)
-
 		} else if *activeGameID == 2 {
 			con.ControllerSnake(signalNumber, con.Parameters)
+		} else if *activeGameID == 3 {
+			carracing.SignalAction(carracing.Signal(signalNumber), carracing.Parameters)
 		}
 
 		c.String(http.StatusOK, "Action performed")
@@ -94,6 +96,7 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 			*activeGameID = 2
 			c.String(http.StatusOK, "Snake game started")
 		} else if gameID == "3" {
+			carracing.InitParametersCarRacing()
 			*activeGameID = 3
 			c.String(http.StatusOK, "Car Racing game started")
 		} else {
@@ -101,3 +104,21 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 		}
 	}
 }
+
+//func StartGameLoop() {
+//	go func() {
+//		for {
+//			if activeGameID == 3 { // Car Racing game is active
+//				currentTime := time.Now().UnixMilli()
+//
+//				// Call the timed movement logic (moving obstacles down)
+//				if currentTime-game.LastMovedTime > game.TimeStep {
+//					game.LastMovedTime = currentTime
+//					carracing.ActionMoveDown(game)
+//				}
+//
+//				time.Sleep(100 * time.Millisecond)
+//			}
+//		}
+//	}()
+//}

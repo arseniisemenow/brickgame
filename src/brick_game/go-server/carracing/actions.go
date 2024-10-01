@@ -4,43 +4,6 @@ import (
 	"fmt"
 )
 
-type State int
-
-const (
-	KStart State = iota
-	KSpawn
-	KMoving
-	KCollide
-	KGameOver
-	KExitState
-	KPause
-)
-
-type Signal int
-
-const (
-	KSignalNone Signal = iota
-	KSignalMoveUp
-	KSignalMoveDown
-	KSignalMoveLeft
-	KSignalMoveRight
-	KSignalExit
-	KSignalSpawn
-	KSignalPause
-)
-
-type Car struct {
-	Lane int // Lane position (0, 1, or 2)
-	Y    int // Vertical position on the track
-}
-
-type CarRacingGame struct {
-	Player      Car
-	RivalCars   [2]Car
-	TrackHeight int
-	State       State
-}
-
 func GetUserInput(code int) Signal {
 	return Signal(code)
 }
