@@ -122,6 +122,73 @@ cJSON *GetGameStateFromServer() {
   return game_state;
 }
 
+//
+//export const FetchGameParameters = async () => {
+//  try {
+//    const response = await fetch(`${URL}:${PORT}/api/parameters`, {method: 'GET'});
+//    return await response.json();
+//  } catch (error) {
+//    console.error('Error fetching game parameters:', error);
+//  }
+//};
+//export const SelectGame = async (gameId) => {
+//  try {
+//    const response = await fetch(`${URL}:${PORT}/api/games/${gameId}`, {method: 'POST'});
+//    await MakeAction(6);
+//    return await response.json();
+//  } catch (error) {
+//    console.error('Error fetching game parameters:', error);
+//  }
+//};
+//
+//export const MakeAction = async (action) => {
+//  try {
+//    return await fetch(`${URL}:${PORT}/api/actions`, {
+//                         method: 'POST',
+//                         body: JSON.stringify({"action": "" + action})
+//                       });
+//  } catch (error) {
+//    console.error('Error during MakeAction:', error);
+//  }
+//};
+
+
+void SelectGame(const int game_id) {
+  CURL *curl;
+  CURLcode res;
+
+  curl = curl_easy_init();
+  if (curl) {
+//    const char *json = "{\"name\": \"daniel\"}";
+    struct curl_slist *slist1 = NULL;
+    slist1 = curl_slist_append(slist1, "Content-Type: application/json");
+    slist1 = curl_slist_append(slist1, "Accept: application/json");
+
+    /* set custom headers */
+//    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
+
+    char full_url[64] = {0};
+    curl_easy_setopt(curl, CURLOPT_POST, 1);
+    snprintf(full_url, 64-1, "http://localhost:8080/api/games/%d", game_id);
+
+    curl_easy_setopt(curl, CURLOPT_URL, full_url);
+
+    /* pass in a pointer to the data - libcurl does not copy */
+//    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields);
+
+    // Perform the request
+    res = curl_easy_perform(curl);
+
+    // Check for errors
+    if (res != CURLE_OK)
+      fprintf(stderr, "curl_easy_perform() failed: %s\n",
+              curl_easy_strerror(res));
+
+    // Cleanup
+    curl_easy_cleanup(curl);
+  }
+}
+
 void SendAction(char *action) {
   CURL *curl;
   CURLcode res;

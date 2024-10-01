@@ -75,7 +75,7 @@ fix_docker:
 run_postgres:
 	cd docker && docker-compose up -d
 
-server:
+server: run_postgres
 	cd src/brick_game/server && go build -o server.out && ./server.out
 
 lib: ${SHARED_LIB_NAME}
