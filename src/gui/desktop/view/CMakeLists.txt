@@ -42,6 +42,14 @@ set(PROJECT_SOURCES
         ../../../brick_game/tetris/backend/backend.c
         ../../../brick_game/common/fsm_types.h
         ../../../brick_game/common/fsm_types.c
+        ../../../brick_game/common/retrieve_data/retrieve_data.c
+        ../../../brick_game/common/cjson/cjson.c
+
+        ../../../brick_game/snake/controller/controller.cc
+        ../../../brick_game/snake/model/model.cc
+        ../../../brick_game/snake/action/action.cc
+        ../../../brick_game/snake/move_snake/move_snake.cc
+
         main.cc
         view.cc
         view.h
@@ -55,10 +63,6 @@ set(PROJECT_SOURCES
         next_player_grid_widget/next_player_grid_widget.cc
         next_player_grid_widget/next_player_grid_widget.hpp
         constants.h
-        ../../../brick_game/snake/controller/controller.cc
-        ../../../brick_game/snake/model/model.cc
-        ../../../brick_game/snake/action/action.cc
-        ../../../brick_game/snake/move_snake/move_snake.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -84,7 +88,17 @@ else()
     endif()
 endif()
 
-target_link_libraries(brickgame_desktop PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+include(FindPkgConfig)
+pkg_check_modules(CURL libcurl REQUIRED)
+include_directories(
+        SYSTEM ${CURL_INCLUDE_DIRS}
+)
+#target_link_libraries(brickgame_desktop
+#        ${CURL_LIBRARIES}
+#)
+
+target_link_libraries(brickgame_desktop PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CURL_LIBRARIES})
 
 set_target_properties(brickgame_desktop PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
