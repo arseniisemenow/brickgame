@@ -15,10 +15,8 @@
 #include "../../brick_game/tetris/fsm/fsm.h"
 
 #include "cjson.h"
-#include "retrieve_data.h"
 #include "draw_objects.h"
-
-
+#include "retrieve_data.h"
 
 void SnakeLoop(Parameters *p_parameters) {
   int user_input = 0;
@@ -83,7 +81,7 @@ void HandleCarRacingLoop() {
   char input = 0;
 
   while (1) {
-
+    sleep(1);
     cJSON *game_state = GetGameStateFromServer();
 
     // Extract car racing parameters
@@ -94,26 +92,50 @@ void HandleCarRacingLoop() {
     DrawCarRacingBoard(car_racing_parameters);
 
     // Wait for input before exiting
-    getch();
+//    getch();
     input = GET_USER_INPUT;
     //
     // Convert input into an action and send to server
-    if (input == 'w') {
+//    if (input == 'w') {
+//      MakeAction(1);
+//    } else if (input == 's') {
+//      MakeAction(2);
+//    } else if (input == 'a') {
+//      MakeAction(3);
+//    } else if (input == 'd') {
+//      MakeAction(4);
+//    }
+
+
+    switch (input) {
+    case KEY_UP:
       MakeAction(1);
-    }
-    else if (input == 's') {
+      break;
+    case KEY_DOWN:
       MakeAction(2);
-    } else if (input == 'a') {
+      break;
+    case KEY_RIGHT:
       MakeAction(3);
-    } else if (input == 'd') {
+      break;
+    case KEY_LEFT:
       MakeAction(4);
+      break;
+    case 10:
+      MakeAction(6);
+      break;
+    case 'p':
+      MakeAction(7);
+      break;
+    default:
+      MakeAction(0);
     }
+  }
+
 
     //    // Exit if user presses 'q'
     //    if (input == 'q') {
     //      break;
     //    }
-  }
 }
 
 void TetrisLoop(Parameters *p_parameters) {

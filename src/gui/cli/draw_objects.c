@@ -5,9 +5,9 @@ void DrawCar(int y, int lane, int color) {
   attron(COLOR_PAIR(color));
 
   mvprintw(y, lane, "####");
-  mvprintw(y - 1, lane, " ## ");
-  mvprintw(y - 2, lane, "####");
-  mvprintw(y - 3, lane, " ## ");
+//  mvprintw(y - 1, lane, " ## ");
+//  mvprintw(y - 2, lane, "####");
+//  mvprintw(y - 3, lane, " ## ");
 
   attroff(COLOR_PAIR(color));
 }

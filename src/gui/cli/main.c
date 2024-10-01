@@ -4,8 +4,13 @@ int main() {
   SelectGame(3);
   MakeAction(6);
   MakeAction(6);
-  cJSON *data = GetGameStateFromServer();
+  CarRacingParameters parameters = GetGameStateFromServer();
   MakeAction(7);
   MakeAction(7);
+
+  parameters = GetGameStateFromServer();
+
+
+
   return 0;
 }

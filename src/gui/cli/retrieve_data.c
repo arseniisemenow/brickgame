@@ -56,7 +56,7 @@ int MakeAction(const int action) {
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
               curl_easy_strerror(res));
     } else {
-//      printf("Action \"%d\" sent successfully.\n", action);
+      //      printf("Action \"%d\" sent successfully.\n", action);
       success = 1;
     }
 
@@ -71,10 +71,11 @@ int MakeAction(const int action) {
   return success;
 }
 
-cJSON *GetGameStateFromServer() {
+CarRacingParameters GetGameStateFromServer() {
   CURL *curl;
   CURLcode res;
   struct MemoryStruct chunk;
+  CarRacingParameters parameters = {0};
 
   // Initialize the response memory
   chunk.memory = (char *)malloc(1);
@@ -119,39 +120,46 @@ cJSON *GetGameStateFromServer() {
   // Clean up cURL global environment
   curl_global_cleanup();
 
-  return game_state;
+  cJSON *car_racing_parameters =
+      cJSON_GetObjectItem(game_state, "car_racing_parameters");
+
+  cJSON *player_car_racing =
+      cJSON_GetObjectItem(car_racing_parameters, "player_car_racing");
+  cJSON *rival_cars = cJSON_GetObjectItem(car_racing_parameters, "rival_cars");
+
+  parameters.state_ =
+      cJSON_GetObjectItem(car_racing_parameters, "state_car_racing")->valueint;
+  parameters.score_ =
+      cJSON_GetObjectItem(car_racing_parameters, "score")->valueint;
+  parameters.level_ =
+      cJSON_GetObjectItem(car_racing_parameters, "level")->valueint;
+  parameters.record_score_ =
+      cJSON_GetObjectItem(car_racing_parameters, "record_score")->valueint;
+  parameters.time_step_ =
+      cJSON_GetObjectItem(car_racing_parameters, "time_step")->valueint;
+  parameters.last_moved_time_ =
+      cJSON_GetObjectItem(car_racing_parameters, "last_moved_time")->valueint;
+
+  parameters.track_height_ =
+      cJSON_GetObjectItem(car_racing_parameters, "track_height")->valueint;
+  parameters.track_width_ =
+      cJSON_GetObjectItem(car_racing_parameters, "track_width")->valueint;
+
+  parameters.player_car_racing_.lane_ =
+      cJSON_GetObjectItem(player_car_racing, "lane")->valueint;
+  parameters.player_car_racing_.y_ =
+      cJSON_GetObjectItem(player_car_racing, "y")->valueint;
+
+  for (int i = 0; i < cJSON_GetArraySize(rival_cars); i++) {
+    cJSON *rival_car = cJSON_GetArrayItem(rival_cars, i);
+    parameters.rival_cars_[i].lane_ =
+        cJSON_GetObjectItem(rival_car, "lane")->valueint;
+    parameters.rival_cars_[i].y_ =
+        cJSON_GetObjectItem(rival_car, "y")->valueint;
+  }
+
+  return parameters;
 }
-
-//
-//export const FetchGameParameters = async () => {
-//  try {
-//    const response = await fetch(`${URL}:${PORT}/api/parameters`, {method: 'GET'});
-//    return await response.json();
-//  } catch (error) {
-//    console.error('Error fetching game parameters:', error);
-//  }
-//};
-//export const SelectGame = async (gameId) => {
-//  try {
-//    const response = await fetch(`${URL}:${PORT}/api/games/${gameId}`, {method: 'POST'});
-//    await MakeAction(6);
-//    return await response.json();
-//  } catch (error) {
-//    console.error('Error fetching game parameters:', error);
-//  }
-//};
-//
-//export const MakeAction = async (action) => {
-//  try {
-//    return await fetch(`${URL}:${PORT}/api/actions`, {
-//                         method: 'POST',
-//                         body: JSON.stringify({"action": "" + action})
-//                       });
-//  } catch (error) {
-//    console.error('Error during MakeAction:', error);
-//  }
-//};
-
 
 void SelectGame(const int game_id) {
   CURL *curl;
@@ -165,49 +173,13 @@ void SelectGame(const int game_id) {
     slist1 = curl_slist_append(slist1, "Accept: application/json");
 
     /* set custom headers */
-//    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
+    //    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
 
     char full_url[64] = {0};
     curl_easy_setopt(curl, CURLOPT_POST, 1);
-    snprintf(full_url, 64-1, "http://localhost:8080/api/games/%d", game_id);
+    snprintf(full_url, 64 - 1, "http://localhost:8080/api/games/%d", game_id);
 
     curl_easy_setopt(curl, CURLOPT_URL, full_url);
-
-    /* pass in a pointer to the data - libcurl does not copy */
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
-
-    // Perform the request
-    res = curl_easy_perform(curl);
-
-    // Check for errors
-    if (res != CURLE_OK)
-      fprintf(stderr, "curl_easy_perform() failed: %s\n",
-              curl_easy_strerror(res));
-
-    // Cleanup
-    curl_easy_cleanup(curl);
-  }
-}
-
-void SendAction(const int action_id) {
-  CURL *curl;
-  CURLcode res;
-
-  curl = curl_easy_init();
-  if (curl) {
-    const char *json = "{\"action\": %d}";
-    struct curl_slist *slist1 = NULL;
-    slist1 = curl_slist_append(slist1, "Content-Type: application/json");
-    slist1 = curl_slist_append(slist1, "Accept: application/json");
-
-    /* set custom headers */
-    //    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
-
-    char full_json[64] = {0};
-    curl_easy_setopt(curl, CURLOPT_POST, 1);
-    snprintf(full_json, 64-1, json, action_id);
-
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8080/api/actions");
 
     /* pass in a pointer to the data - libcurl does not copy */
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
