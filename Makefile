@@ -31,7 +31,11 @@ BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
 				src/brick_game/snake/action/action.cc \
 				src/brick_game/snake/move_snake/move_snake.cc
 FRONTEND:=		src/gui/cli/frontend.c \
-				src/gui/cli/cjson.c
+				src/gui/cli/cjson.c \
+				src/gui/cli/draw_objects.c \
+				src/gui/cli/get_player_name.c \
+				src/gui/cli/retrieve_data.c
+
 
 SOURCES_FOR_TESTS:= tests/tetris/main_test.c
 
