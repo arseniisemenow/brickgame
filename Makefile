@@ -34,7 +34,10 @@ FRONTEND:=		src/gui/cli/frontend.c \
 				src/gui/cli/cjson.c \
 				src/gui/cli/draw_objects.c \
 				src/gui/cli/get_player_name.c \
-				src/gui/cli/retrieve_data.c
+				src/gui/cli/retrieve_data.c \
+				src/gui/cli/tetris_loop.c \
+				src/gui/cli/snake_loop.c \
+				src/gui/cli/car_racing_loop.c
 
 
 SOURCES_FOR_TESTS:= tests/tetris/main_test.c

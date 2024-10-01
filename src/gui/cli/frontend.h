@@ -59,8 +59,12 @@ void PrintPause();
 void ClearRecords();
 void PrintRecords(int shift, Records *p_records);
 
+void TetrisLoop(Parameters *p_parameters);
 void HandleTetrisLoop();
-void SnakeLoop();
+void SnakeLoop(Parameters *p_parameters);
+void HandleSnakeLoop();
+void HandleCarRacingLoop();
+
 
 int CreateMenu(const char *options[], int size);
 

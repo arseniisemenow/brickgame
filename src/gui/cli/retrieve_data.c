@@ -19,6 +19,13 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
   return realsize;
 }
 
+// Dummy callback function to ignore response data
+static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+  // Simply ignore the response data
+  return size * nmemb;
+}
+
+
 int MakeAction(const int action) {
   CURL *curl;
   CURLcode res;
@@ -48,6 +55,9 @@ int MakeAction(const int action) {
     headers = curl_slist_append(headers, "Content-Type: application/json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, IgnoreResponseCallback);
+
+
     // Perform the POST request
     res = curl_easy_perform(curl);
 
@@ -56,7 +66,6 @@ int MakeAction(const int action) {
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
               curl_easy_strerror(res));
     } else {
-      //      printf("Action \"%d\" sent successfully.\n", action);
       success = 1;
     }
 

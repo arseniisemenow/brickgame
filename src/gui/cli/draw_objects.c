@@ -5,48 +5,22 @@ void DrawCar(int y, int lane, int color) {
   attron(COLOR_PAIR(color));
 
   mvprintw(y, lane, "####");
-//  mvprintw(y - 1, lane, " ## ");
-//  mvprintw(y - 2, lane, "####");
-//  mvprintw(y - 3, lane, " ## ");
+  mvprintw(y - 1, lane, " ## ");
+  mvprintw(y - 2, lane, "####");
+  mvprintw(y - 3, lane, " ## ");
 
   attroff(COLOR_PAIR(color));
 }
 
-// Function to draw the game board based on car racing parameters
-void DrawCarRacingBoard(cJSON *car_racing_parameters) {
-  cJSON *player_car_racing =
-      cJSON_GetObjectItem(car_racing_parameters, "player_car_racing");
-  cJSON *rival_cars = cJSON_GetObjectItem(car_racing_parameters, "rival_cars");
-  int track_height =
-      cJSON_GetObjectItem(car_racing_parameters, "track_height")->valueint;
-  int track_width =
-      cJSON_GetObjectItem(car_racing_parameters, "track_width")->valueint;
+void DrawCarRacingBoard(CarRacingParameters *p) {
 
-  clear();
+  DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_, COLOR_BLUE);
 
-  // Draw the track
-  for (int i = 0; i < track_height; i++) {
-    mvprintw(i, 0, "|");
-    for (int j = 1; j < track_width * 3; j++) {
-      printw(" ");
-    }
-    printw("|");
+  for (int i = 0; i < 2; i++) {
+    DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_, 2);
   }
 
-  // Draw player car
-  int player_lane = cJSON_GetObjectItem(player_car_racing, "lane")->valueint;
-  int player_y = cJSON_GetObjectItem(player_car_racing, "y")->valueint;
-  DrawCar(player_y, player_lane, 1); // Using color pair 1 for player car
-
-  // Draw rival cars
-  for (int i = 0; i < cJSON_GetArraySize(rival_cars); i++) {
-    cJSON *rival_car = cJSON_GetArrayItem(rival_cars, i);
-    int rival_lane = cJSON_GetObjectItem(rival_car, "lane")->valueint;
-    int rival_y = cJSON_GetObjectItem(rival_car, "y")->valueint;
-    DrawCar(rival_y, rival_lane, 2); // Using color pair 2 for rival cars
-  }
-
-  refresh();
+//  refresh();
 }
 
 void PrintTetrisOverlay(void) {
@@ -63,6 +37,7 @@ void PrintTetrisOverlay(void) {
   MVPRINTW(7, BOARD_WIDTH + 5, "Score");
   MVPRINTW(10, BOARD_WIDTH + 5, "Level");
 }
+
 void PrintSnakeOverlay(void) {
   PrintRectangle(0, BOARD_HEIGHT + 1, 0, BOARD_WIDTH + 1);
   PrintRectangle(0, BOARD_HEIGHT + 1, BOARD_WIDTH + 2,
@@ -73,6 +48,20 @@ void PrintSnakeOverlay(void) {
 
   MVPRINTW(1, BOARD_WIDTH + 5, "Score");
   MVPRINTW(4, BOARD_WIDTH + 5, "Level");
+}
+
+void PrintCarRacingOverlay(void) {
+  PrintRectangle(0, BOARD_HEIGHT + 1, 0, BOARD_WIDTH + 1);
+  PrintRectangle(0, BOARD_HEIGHT + 1, BOARD_WIDTH + 2,
+                 BOARD_WIDTH + HUD_WIDTH + 3);
+
+  PrintRectangle(1, 6, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
+
+  PrintRectangle(7, 9, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
+  PrintRectangle(10, 12, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
+
+  MVPRINTW(1, BOARD_WIDTH + 5, "Score");
+  MVPRINTW(7, BOARD_WIDTH + 5, "Level");
 }
 
 void PrintUserNamePrompt() {
@@ -147,6 +136,12 @@ void PrintSnakeGame(Parameters *p_parameters) {
   PrintSnakeAndFruit(p_parameters);
 }
 
+void PrintCarRacingGame(CarRacingParameters* p_parameters){
+  ClearGame();
+  PrintCarRacingOverlay();
+  DrawCarRacingBoard(p_parameters);
+}
+
 void PrintSnakeAndFruit(Parameters *p_parameters) {
   for (int y = 0; y < p_parameters->s_board_->height_; ++y) {
     for (int x = 0; x < p_parameters->s_board_->width_; ++x) {
@@ -217,8 +212,6 @@ void PrintBlock(Player *p_player) {
   }
 }
 
-
-
 void PrintBegin() {
   ClearGame();
 
@@ -242,7 +235,6 @@ void PrintPause() {
 }
 
 void ClearRecords() {}
-
 
 void PrintRecords(int shift, Records *p_records) {
   ClearRecords();

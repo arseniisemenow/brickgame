@@ -9,8 +9,5 @@ int main() {
   MakeAction(7);
 
   parameters = GetGameStateFromServer();
-
-
-
   return 0;
 }

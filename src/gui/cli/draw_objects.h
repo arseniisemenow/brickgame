@@ -11,15 +11,18 @@
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
 
+#include "retrieve_data.h"
+
 #define NAME_LENGTH (4)
 
 void DrawCar(int y, int lane, int color);
 
 // Function to draw the game board based on car racing parameters
-void DrawCarRacingBoard(cJSON *car_racing_parameters);
+void DrawCarRacingBoard(CarRacingParameters *car_racing_parameters);
 
 void PrintTetrisOverlay(void);
 void PrintSnakeOverlay(void);
+void PrintCarRacingOverlay(void);
 
 void PrintUserNamePrompt();
 
@@ -32,6 +35,8 @@ void ClearGame();
 void PrintTetrisGame(Parameters *p_parameters);
 
 void PrintSnakeGame(Parameters *p_parameters);
+void PrintCarRacingGame(CarRacingParameters* p_parameters);
+
 
 void PrintSnakeAndFruit(Parameters *p_parameters);
 
