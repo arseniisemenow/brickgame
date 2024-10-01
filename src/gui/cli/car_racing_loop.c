@@ -5,7 +5,7 @@
 #include "draw_objects.h"
 #include "retrieve_data.h"
 
-void HandleCarRacingLoop() {
+void CarRacingLoop() {
   int input = 0;
   bool key_held = 0;
   bool break_flag = FALSE;
@@ -31,4 +31,10 @@ void HandleCarRacingLoop() {
     MakeAction(signal);
     input = GET_USER_INPUT;
   }
+}
+
+void HandleCarRacingLoop() {
+  InitGameColors();
+  PrintBegin();
+  CarRacingLoop();
 }

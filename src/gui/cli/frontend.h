@@ -63,6 +63,7 @@ void TetrisLoop(Parameters *p_parameters);
 void HandleTetrisLoop();
 void SnakeLoop(Parameters *p_parameters);
 void HandleSnakeLoop();
+void CarRacingLoop();
 void HandleCarRacingLoop();
 
 

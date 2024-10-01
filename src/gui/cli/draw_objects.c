@@ -1,26 +1,38 @@
 #include "draw_objects.h"
 
+
 void DrawCar(int y, int lane, int color) {
-  lane *= 3; // Adjust lane spacing
+
+  lane *= 3;
+  y += BOARDS_BEGIN + 1;
+  lane += BOARDS_BEGIN + 1;
   attron(COLOR_PAIR(color));
+  mvprintw(y, lane + 0, "%s", "####");
+  attroff(COLOR_PAIR(color));
 
-  mvprintw(y, lane, "####");
-  mvprintw(y - 1, lane, " ## ");
-  mvprintw(y - 2, lane, "####");
-  mvprintw(y - 3, lane, " ## ");
+  attron(COLOR_PAIR(color));
+  mvprintw(y - 1, lane + 1, "##");
+  attroff(COLOR_PAIR(color));
 
+
+  attron(COLOR_PAIR(color));
+  mvprintw(y - 2, lane + 0, "%s", "####");
+  attroff(COLOR_PAIR(color));
+
+
+  attron(COLOR_PAIR(color));
+  mvprintw(y - 3, lane + 1, "##");
   attroff(COLOR_PAIR(color));
 }
 
 void DrawCarRacingBoard(CarRacingParameters *p) {
-
-  DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_, COLOR_BLUE);
+  DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_, RED_COLOR_PAIR_INDEX);
 
   for (int i = 0; i < 2; i++) {
-    DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_, 2);
+    DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_, ORANGE_COLOR_PAIR_INDEX);
   }
 
-  //  refresh();
+  refresh();
 }
 
 void PrintTetrisOverlay(void) {
@@ -141,12 +153,13 @@ void PrintSnakeGame(Parameters *p_parameters) {
 void PrintCarRacingGame(CarRacingParameters *p_parameters) {
   ClearGame();
   PrintCarRacingOverlay();
-  DrawCarRacingBoard(p_parameters);
-  PrintCarRacingStatus(p_parameters);
   Records *records = AllocRecords();
   strcpy(records->records_[0].name_, "Unnamed");
   records->records_[0].score_ = p_parameters->record_score_;
   PrintRecords(7, records);
+  FreeRecords(records);
+  DrawCarRacingBoard(p_parameters);
+  PrintCarRacingStatus(p_parameters);
 }
 
 void PrintSnakeAndFruit(Parameters *p_parameters) {
@@ -264,7 +277,7 @@ void PrintRecords(int shift, Records *p_records) {
     attron(COLOR_PAIR(kColorPair[i]));
     mvprintw(shift + 3 + i, 16, "%d.%s %4d", i + 1, name,
              p_records->records_[i].score_);
-    attron(COLOR_PAIR(kColorPair[i]));
+    attroff(COLOR_PAIR(kColorPair[i]));
   }
   //
   //  attron(COLOR_PAIR(RECORD_1_COLOR_PAIR_INDEX));
