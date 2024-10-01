@@ -6,16 +6,16 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include "cjson.h"
 
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
 
-#include "retrieve_data.h"
+#include "../../brick_game/common/retrieve_data/retrieve_data.h"
 
 #define NAME_LENGTH (4)
 
 void DrawCar(int y, int lane, int color);
+void PrintState(const State state);
 
 // Function to draw the game board based on car racing parameters
 void DrawCarRacingBoard(CarRacingParameters *car_racing_parameters);

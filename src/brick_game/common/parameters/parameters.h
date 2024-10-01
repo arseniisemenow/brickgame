@@ -41,6 +41,26 @@ typedef struct {
 
 } Parameters;
 
+
+
+typedef struct {
+  int lane_;
+  int y_;
+} Car;
+
+typedef struct {
+  int state_;
+  int score_;
+  int level_;
+  int record_score_;
+  Car player_car_racing_;
+  Car rival_cars_[2];
+  int track_height_;
+  int track_width_;
+  int time_step_;
+  int last_moved_time_;
+} CarRacingParameters;
+
 Parameters* AllocParameters();
 void FreeParameters(Parameters* p_parameters);
 

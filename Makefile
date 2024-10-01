@@ -24,6 +24,8 @@ COMMON :=   	src/brick_game/common/common/colors.c \
 				src/brick_game/common/records/records.c \
 				src/brick_game/common/player/player_board/player_board.c \
  				src/brick_game/common/time_handler/time_handler.c \
+ 				src/brick_game/common/retrieve_data/retrieve_data.c \
+ 				src/brick_game/common/cjson/cjson.c \
  				src/brick_game/common/fsm_types.c
 TETRIS_SRC := 	src/brick_game/tetris/fsm/fsm_matrix.c
 BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
@@ -31,10 +33,8 @@ BACKEND_CXX:=	src/brick_game/snake/controller/controller.cc \
 				src/brick_game/snake/action/action.cc \
 				src/brick_game/snake/move_snake/move_snake.cc
 FRONTEND:=		src/gui/cli/frontend.c \
-				src/gui/cli/cjson.c \
 				src/gui/cli/draw_objects.c \
 				src/gui/cli/get_player_name.c \
-				src/gui/cli/retrieve_data.c \
 				src/gui/cli/tetris_loop.c \
 				src/gui/cli/snake_loop.c \
 				src/gui/cli/car_racing_loop.c
@@ -52,7 +52,6 @@ ifeq ($(OS_NAME), GNU/Linux)
 endif
 
 
-
 DESKTOP_SOURCES := src/gui/desktop/view
 DESKTOP_BUILD := build_desktop
 APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
@@ -65,7 +64,7 @@ OPEN_COMMAND =open
 
 # Create .so file from all backend and common sources
 ${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
-	$(CXX) -g $^ -shared -fPIC -o $(SHARED_LIB_NAME)
+	$(CXX) -g $^ -shared -fPIC -lcurl -o $(SHARED_LIB_NAME)
 
 # IMPORTANT!! For Linux you need to add library manually
 add_library_to_path:

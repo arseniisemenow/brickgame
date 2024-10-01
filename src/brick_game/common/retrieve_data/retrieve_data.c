@@ -1,6 +1,9 @@
 #include "retrieve_data.h"
 
-// Callback function for handling data received by cURL
+static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+  return size * nmemb;
+}
+
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
                                   void *userp) {
   size_t realsize = size * nmemb;
@@ -17,12 +20,6 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
   mem->memory[mem->size] = 0;
 
   return realsize;
-}
-
-// Dummy callback function to ignore response data
-static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb, void *userp) {
-  // Simply ignore the response data
-  return size * nmemb;
 }
 
 

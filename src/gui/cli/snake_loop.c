@@ -3,9 +3,7 @@
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
 
-#include "cjson.h"
 #include "draw_objects.h"
-#include "retrieve_data.h"
 
 void SnakeLoop(Parameters *p_parameters) {
   int user_input = 0;
@@ -19,13 +17,10 @@ void SnakeLoop(Parameters *p_parameters) {
 
     SignalType signal = GetSignal(user_input, 0, &key_held);
     ControllerSnake(signal, p_parameters);
-    if (*p_parameters->s_state_ != kStart &&
-        *p_parameters->s_state_ != kPause) {
+    if (*p_parameters->s_state_ != kStart) {
       PrintSnakeGame(p_parameters);
     }
-    if (*p_parameters->s_state_ == kPause) {
-      PrintPause();
-    } else if (*p_parameters->s_state_ == kGameOver) {
+    if (*p_parameters->s_state_ == kGameOver) {
       GetPlayerName(p_parameters->s_username);
       PrintBegin();
       RemoveRecord(p_parameters->s_records_, "Unnamed",

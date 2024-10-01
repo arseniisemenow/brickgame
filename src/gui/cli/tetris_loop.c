@@ -2,10 +2,7 @@
 
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
-
-#include "cjson.h"
 #include "draw_objects.h"
-#include "retrieve_data.h"
 
 
 void TetrisLoop(Parameters *p_parameters) {
@@ -20,12 +17,8 @@ void TetrisLoop(Parameters *p_parameters) {
 
     SignalType signal = GetSignal(user_input, 0, &key_held);
     SignalAction(signal, p_parameters);
-    if (*p_parameters->t_state_ != kStart &&
-        *p_parameters->t_state_ != kPause) {
+    if (*p_parameters->t_state_ != kStart) {
       PrintTetrisGame(p_parameters);
-    }
-    if (*p_parameters->t_state_ == kPause) {
-      PrintPause();
     }
     if (*p_parameters->t_state_ == kGameOver) {
       GetPlayerName(p_parameters->t_username);

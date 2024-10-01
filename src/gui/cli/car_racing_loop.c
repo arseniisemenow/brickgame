@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 #include "draw_objects.h"
-#include "retrieve_data.h"
+#include "../../brick_game/common/retrieve_data/retrieve_data.h"
 
 void CarRacingLoop() {
   int input = 0;
@@ -11,24 +11,23 @@ void CarRacingLoop() {
   bool break_flag = FALSE;
 
   SelectGame(3);
-//  MakeAction(6);
+//  MakeAction(6); // If wanna skip spawn state at the beginning
 
   while (!break_flag) {
     usleep(100000);
     CarRacingParameters game_state = GetGameStateFromServer();
     if (game_state.state_ == kExitState) {
       break_flag = true;
-      break;
     }
-    if (game_state.state_ == kMoving || game_state.state_ == kSpawn) {
+    if (game_state.state_ != kStart) {
       PrintCarRacingGame(&game_state);
+    }
+    if (game_state.state_ == kGameOver) {
+      PrintBegin();
     }
 
     SignalType signal = GetSignal(input, 0, &key_held);
 
-    if (game_state.state_ == kPause) {
-      PrintPause();
-    }
     MakeAction(signal);
     input = GET_USER_INPUT;
   }

@@ -25,6 +25,22 @@ void DrawCar(int y, int lane, int color) {
   attroff(COLOR_PAIR(color));
 }
 
+const char* kStateLabels[] = {
+    "kStart",
+    "kSpawn",
+    "kMoving",
+    "kCollide",
+    "kGameOver",
+    "kExitState",
+    "kPause"
+};
+void PrintState(const State state){
+//  attron(COLOR_PAIR(color));
+
+  mvprintw(22, 15, "%12s", kStateLabels[state]);
+//  attroff(COLOR_PAIR(color));
+}
+
 void DrawCarRacingBoard(CarRacingParameters *p) {
   DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_, RED_COLOR_PAIR_INDEX);
 
@@ -140,6 +156,7 @@ void PrintTetrisGame(Parameters *p_parameters) {
   PrintBlock(p_parameters->t_predict_player_);
   PrintBlock(p_parameters->t_player_);
   PrintBlock(p_parameters->t_next_player_);
+  PrintState(*p_parameters->t_state_);
 }
 
 void PrintSnakeGame(Parameters *p_parameters) {
@@ -148,6 +165,7 @@ void PrintSnakeGame(Parameters *p_parameters) {
   PrintRecords(7, p_parameters->s_records_);
   PrintSnakeGameStatus(p_parameters->s_game_status_);
   PrintSnakeAndFruit(p_parameters);
+  PrintState(*p_parameters->s_state_);
 }
 
 void PrintCarRacingGame(CarRacingParameters *p_parameters) {
@@ -160,6 +178,7 @@ void PrintCarRacingGame(CarRacingParameters *p_parameters) {
   FreeRecords(records);
   DrawCarRacingBoard(p_parameters);
   PrintCarRacingStatus(p_parameters);
+  PrintState((State)p_parameters->state_);
 }
 
 void PrintSnakeAndFruit(Parameters *p_parameters) {
@@ -258,7 +277,7 @@ void ClearRecords() {}
 
 void PrintRecords(int shift, Records *p_records) {
   ClearRecords();
-  PrintRectangle(shift, 20, 13, 24);
+  PrintRectangle(shift, shift + 6, 13, 24);
   mvprintw(shift + 2, 16, "Records");
 
   const unsigned char kColorPair[5] = {
