@@ -53,6 +53,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+  /state:
+    get:
+      summary: Получение текущего состояния игры
+      responses:
+        '200':
+          description: Состояние игры
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameState'
+        '400':
+          description: Пользователь не запустил игру
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /actions:
     post:
       summary: Выполнить команду игрока
@@ -66,28 +88,6 @@ paths:
           description: Действие выполнено
         '400':
           description: Ошибка в теле запроса или пользователь не запустил игру
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-        '500':
-          description: Ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
-  /state:
-    get:
-      summary: Получение текущего состояния игры
-      responses:
-        '200':
-          description: Состояние игры
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GameState'
-        '400':
-          description: Пользователь не запустил игру
           content:
             application/json:
               schema:

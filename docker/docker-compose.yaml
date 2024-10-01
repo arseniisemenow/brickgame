@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: carracinguser
+      POSTGRES_PASSWORD: carracingpassword
+      POSTGRES_DB: carracingdb
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data

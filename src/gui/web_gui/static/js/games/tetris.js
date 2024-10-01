@@ -11,8 +11,9 @@ applyRootStyles(rootStyles);
 const gameBoard = new GameBoard(document.querySelector('#game-board'));
 const nextPlayerBoard = new NextPlayerBoard(document.querySelector('#next-player-board'));
 const sidePanel = new SidePanel(document.querySelector('#side-panel'));
-const usernameInput = new UsernameInput(document.querySelector('#username'));
 const stateInfo = new StateInfo(document.querySelector('#state-info'));
+
+// const usernameInput = new UsernameInput(document.querySelector('#username'));
 
 function DrawRecords(json) {
     let records = json.records_tetris.records

@@ -64,8 +64,14 @@ add_library_to_path:
 	$(echo "export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH") >> zshrc.txt
 
 
+fix_docker:
+	sed -ie 's/credsStore/credStore/g' ~/.docker/config.json
+
+run_postgres:
+	cd docker && docker-compose up -d
+
 server:
-	cd src/brick_game/go-server && go build -o server.out && ./server.out
+	cd src/brick_game/server && go build -o server.out && ./server.out
 
 lib: ${SHARED_LIB_NAME}
 

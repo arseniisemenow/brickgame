@@ -138,3 +138,4 @@ build*
 *.log
 *.txt.user
 *.DS_Store
+docker/db_data

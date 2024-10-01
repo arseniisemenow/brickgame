@@ -11,10 +11,39 @@ const sidePanel = new SidePanel(document.querySelector('#side-panel'));
 const stateInfo = new StateInfo(document.querySelector('#state-info'));
 
 function DrawRecords(json) {
-    let records = json.records_tetris.records
+    // let records = json.records_tetris.records
+    let records = [
+        {
+            name: "",
+            score: 0,
+            is_current_player: 0
+        },
+        {
+            name: "",
+            score: 0,
+            is_current_player: 0
+        },
+        {
+            name: "",
+            score: 0,
+            is_current_player: 0
+        },
+        {
+            name: "",
+            score: 0,
+            is_current_player: 0
+        },
+        {
+            name: "",
+            score: 0,
+            is_current_player: 0
+        }
+    ];
+    records[0].name = "Unnamed"
+    records[0].score = json.car_racing_parameters.record_score
     sidePanel.updateRecords(records)
-    sidePanel.updateScore(json.game_status_tetris.score)
-    sidePanel.updateLevel(json.game_status_tetris.level)
+    sidePanel.updateScore(json.car_racing_parameters.score)
+    sidePanel.updateLevel(json.car_racing_parameters.level)
 }
 
 function DrawPlayerBoard(player) {
@@ -95,8 +124,8 @@ const Update = async () => {
         await MakeAction(0);
         const json = await FetchGameParameters();
         ClearBoard(json);
+        DrawRecords(json);
         stateInfo.Update(json.car_racing_parameters.state_car_racing)
-        // console.log(json)
         DrawBoard(json)
     } catch (error) {
         console.error('Error updating the game board:', error);

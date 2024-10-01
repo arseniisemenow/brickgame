@@ -13,7 +13,7 @@ const sidePanel = new SidePanel(document.querySelector('#side-panel'));
 const $sidePanel = document.querySelector('#side-panel');
 const stateInfo = new StateInfo(document.querySelector('#state-info'));
 
-const usernameInput = new UsernameInput(document.querySelector('#username'));
+// const usernameInput = new UsernameInput(document.querySelector('#username'));
 
 const MakeAction = async (direction) => {
     return await fetch(URL + ":" + PORT + "/api/actions", {
