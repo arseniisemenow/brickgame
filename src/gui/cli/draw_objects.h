@@ -30,6 +30,7 @@ void PrintRectangle(int top_y, int bottom_y, int left_x, int right_x);
 
 void PrintTetrisGameStatus(GameStatus *p_game_status);
 void PrintSnakeGameStatus(GameStatus *p_game_status);
+void PrintCarRacingStatus(CarRacingParameters* p_parameters);
 void ClearGame();
 
 void PrintTetrisGame(Parameters *p_parameters);

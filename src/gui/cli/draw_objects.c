@@ -20,7 +20,7 @@ void DrawCarRacingBoard(CarRacingParameters *p) {
     DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_, 2);
   }
 
-//  refresh();
+  //  refresh();
 }
 
 void PrintTetrisOverlay(void) {
@@ -55,13 +55,11 @@ void PrintCarRacingOverlay(void) {
   PrintRectangle(0, BOARD_HEIGHT + 1, BOARD_WIDTH + 2,
                  BOARD_WIDTH + HUD_WIDTH + 3);
 
-  PrintRectangle(1, 6, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
-
-  PrintRectangle(7, 9, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
-  PrintRectangle(10, 12, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
+  PrintRectangle(1, 3, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
+  PrintRectangle(4, 6, BOARD_WIDTH + 3, BOARD_WIDTH + HUD_WIDTH + 2);
 
   MVPRINTW(1, BOARD_WIDTH + 5, "Score");
-  MVPRINTW(7, BOARD_WIDTH + 5, "Level");
+  MVPRINTW(4, BOARD_WIDTH + 5, "Level");
 }
 
 void PrintUserNamePrompt() {
@@ -106,6 +104,10 @@ void PrintSnakeGameStatus(GameStatus *p_game_status) {
   MVPRINTW(2, BOARD_WIDTH + 5, "%7d", p_game_status->score_);
   MVPRINTW(5, BOARD_WIDTH + 5, "%7d", p_game_status->level_);
 }
+void PrintCarRacingStatus(CarRacingParameters *p_parameters) {
+  MVPRINTW(2, BOARD_WIDTH + 5, "%7d", p_parameters->score_);
+  MVPRINTW(5, BOARD_WIDTH + 5, "%7d", p_parameters->level_);
+}
 
 void ClearGame() {
   for (int row_index = 0; row_index < 24; ++row_index) {
@@ -136,10 +138,15 @@ void PrintSnakeGame(Parameters *p_parameters) {
   PrintSnakeAndFruit(p_parameters);
 }
 
-void PrintCarRacingGame(CarRacingParameters* p_parameters){
+void PrintCarRacingGame(CarRacingParameters *p_parameters) {
   ClearGame();
   PrintCarRacingOverlay();
   DrawCarRacingBoard(p_parameters);
+  PrintCarRacingStatus(p_parameters);
+  Records *records = AllocRecords();
+  strcpy(records->records_[0].name_, "Unnamed");
+  records->records_[0].score_ = p_parameters->record_score_;
+  PrintRecords(7, records);
 }
 
 void PrintSnakeAndFruit(Parameters *p_parameters) {
@@ -255,7 +262,7 @@ void PrintRecords(int shift, Records *p_records) {
       }
     }
     attron(COLOR_PAIR(kColorPair[i]));
-    mvprintw(shift + 3 + i, 16, "%d. %s %4d", i + 1, name,
+    mvprintw(shift + 3 + i, 16, "%d.%s %4d", i + 1, name,
              p_records->records_[i].score_);
     attron(COLOR_PAIR(kColorPair[i]));
   }
@@ -278,4 +285,3 @@ void PrintRecords(int shift, Records *p_records) {
   //  mvprintw(shift + 7, 16, "5. %7d", p_records->records_[4].score_);
   //  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
 }
-
