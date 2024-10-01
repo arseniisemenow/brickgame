@@ -19,7 +19,7 @@ void CarRacingLoop() {
     if (game_state.state_ == kExitState) {
       break_flag = true;
     }
-    if (game_state.state_ != kStart && game_state.state_ != kPause) {
+    if (game_state.state_ == kMoving) {
       PrintCarRacingGame(&game_state);
     }
 
