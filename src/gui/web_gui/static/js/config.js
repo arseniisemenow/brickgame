@@ -3,7 +3,7 @@ export const GAME_BOARD_HEIGHT = 20;
 export const NEXT_PLAYER_BOARD_WIDTH = 4;
 export const NEXT_PLAYER_BOARD_HEIGHT = 4;
 
-export const kColorArray = ["red", "orange", "yellow", "pink", "green", "blue", "magenta", "gray"]
+export const kColorArray = ["red", "orange", "yellow", "pink", "green", "blue", "magenta", "gray", "darkgreen"]
 
 export const rootStyles = {
     '--tile-size': '25px',

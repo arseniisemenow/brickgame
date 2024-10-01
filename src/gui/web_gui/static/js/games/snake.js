@@ -24,14 +24,22 @@ const MakeAction = async (direction) => {
 
 function DrawSnake(json) {
     let player = json.player_snake.snake_body.body
-    let playerPosX = player[0].x;
-    let playerPosY = player[0].y;
 
-    gameBoard.enableTile(json.player_snake.fruit.y, json.player_snake.fruit.x, 0)
+    let fruit_row = json.player_snake.fruit.y;
+    let fruit_col = json.player_snake.fruit.x;
+    gameBoard.enableTile(fruit_row, fruit_col, 0)
 
     for (let snake_index = 0; snake_index < json.player_snake.snake_length; ++snake_index) {
-        gameBoard.enableTile(json.player_snake.snake_body.body[snake_index].y,
-            json.player_snake.snake_body.body[snake_index].x, 4) // Green color
+        let snake_row = json.player_snake.snake_body.body[snake_index].y;
+        let snake_col = json.player_snake.snake_body.body[snake_index].x;
+        if (snake_row === fruit_row &&
+            snake_col === fruit_col) {
+            gameBoard.enableTile(snake_row,
+                snake_col, 8)
+        } else {
+            gameBoard.enableTile(snake_row,
+                snake_col, 4)
+        }
     }
 }
 
