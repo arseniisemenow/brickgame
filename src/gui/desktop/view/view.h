@@ -11,6 +11,7 @@
 
 #include "brick_game/common/fsm_types.h"
 #include "brick_game/common/parameters/parameters.h"
+#include "brick_game/common/retrieve_data/retrieve_data.h"
 #include "brick_game/snake/controller/controller.h"
 #include "brick_game/tetris/fsm/fsm.h"
 #include "grid_widget/grid_widget.h"
@@ -35,6 +36,7 @@ public:
   void HandleSignal(SignalType signal_type);
   void UpdateTetris();
   void UpdateSnake();
+  void UpdateCarRacing();
 
 signals:
   void SignalMoveUp();
@@ -59,6 +61,7 @@ private:
   SignalType signal_type_{};
 
   Parameters *p_parameters_ = AllocParameters();
+  CarRacingParameters car_racing_game_state_{};
 
   QTimer *timer_;
 

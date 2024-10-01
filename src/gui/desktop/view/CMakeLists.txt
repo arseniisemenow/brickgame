@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(brickgame_desktop VERSION 0.1)
 
+project(brickgame_desktop VERSION 0.1)
 
 #enable_language(C)
 enable_language(CXX)
@@ -49,7 +49,6 @@ set(PROJECT_SOURCES
         ../../../brick_game/snake/model/model.cc
         ../../../brick_game/snake/action/action.cc
         ../../../brick_game/snake/move_snake/move_snake.cc
-
         main.cc
         view.cc
         view.h
@@ -89,24 +88,27 @@ else()
 endif()
 
 
-include(FindPkgConfig)
-pkg_check_modules(CURL libcurl REQUIRED)
-include_directories(
-        SYSTEM ${CURL_INCLUDE_DIRS}
-)
+#include(FindPkgConfig)
+#pkg_check_modules(CURL libcurl REQUIRED)
+#include_directories(
+#        SYSTEM ${CURL_INCLUDE_DIRS}
+#)
+
+find_package(CURL REQUIRED)
+
 #target_link_libraries(brickgame_desktop
 #        ${CURL_LIBRARIES}
 #)
 
-target_link_libraries(brickgame_desktop PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${CURL_LIBRARIES})
+target_link_libraries(brickgame_desktop PRIVATE Qt${QT_VERSION_MAJOR}::Widgets CURL::libcurl)
 
-set_target_properties(brickgame_desktop PROPERTIES
-        MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-        MACOSX_BUNDLE TRUE
-        WIN32_EXECUTABLE TRUE
-)
+#set_target_properties(brickgame_desktop PROPERTIES
+#        MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+#        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+#        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+#        MACOSX_BUNDLE TRUE
+#        WIN32_EXECUTABLE TRUE
+#)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(brickgame_desktop)

@@ -152,6 +152,35 @@ void View::UpdateSnake() {
   }
 }
 
+void View::UpdateCarRacing() {
+  SignalType signal = signal_type_;
+
+  PrintState((State)car_racing_game_state_.state_, ui_->label_state_snake);
+
+  if (car_racing_game_state_.state_ == kExitState) {
+    this->close();
+  }
+  if (car_racing_game_state_.state_ != kStart) {
+    ui_->label_score_snake_value->setText(
+        QString::number(p_parameters_->s_game_status_->score_, 10));
+    ui_->label_level_snake_value->setText(
+        QString::number(p_parameters_->s_game_status_->level_, 10));
+//    PrintCarRacingGame(&game_state);
+  }
+  if (car_racing_game_state_.state_ == kGameOver) {
+//    PrintBegin();
+  }
+
+//  SignalType signal = GetSignal(input, 0, &key_held);
+
+  MakeAction(signal);
+//  input = GET_USER_INPUT;
+
+
+//  PrintState(*p_parameters_->c_state_, ui_->label_state_car_racing);
+
+}
+
 void View::InitializeUI() {
   StartTetrisGame();
   //    StartSnakeGame();

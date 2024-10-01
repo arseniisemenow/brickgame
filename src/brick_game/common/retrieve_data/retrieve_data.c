@@ -76,7 +76,7 @@ int MakeAction(const int action) {
 
   return success;
 }
-
+//todo: add a security by checking pointer for NULL
 CarRacingParameters GetGameStateFromServer() {
   CURL *curl;
   CURLcode res;
