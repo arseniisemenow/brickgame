@@ -41,6 +41,10 @@ type CarRacingGame struct {
 	State       State
 }
 
+func GetUserInput(code int) Signal {
+	return Signal(code)
+}
+
 func ActionMoveUp(game *CarRacingGame) {
 	if game.Player.Y > 0 {
 		game.Player.Y--
