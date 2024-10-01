@@ -11,15 +11,16 @@ void CarRacingLoop() {
   bool break_flag = FALSE;
 
   SelectGame(3);
-  MakeAction(6);
+//  MakeAction(6);
 
   while (!break_flag) {
     usleep(100000);
     CarRacingParameters game_state = GetGameStateFromServer();
     if (game_state.state_ == kExitState) {
       break_flag = true;
+      break;
     }
-    if (game_state.state_ == kMoving) {
+    if (game_state.state_ == kMoving || game_state.state_ == kSpawn) {
       PrintCarRacingGame(&game_state);
     }
 

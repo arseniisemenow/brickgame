@@ -10,6 +10,9 @@ func SignalAction(signal Signal, game *CarRacingGame) {
 		if signal == KSignalSpawn {
 			game.State = KSpawn
 		}
+		if signal == KSignalExit {
+			ActionExitState(game)
+		}
 	case KSpawn:
 		if signal == KSignalSpawn {
 			ActionSpawn(game)
@@ -27,6 +30,8 @@ func SignalAction(signal Signal, game *CarRacingGame) {
 			ActionMoveDown(game)
 		case KSignalPause:
 			ActionPause(game)
+		case KSignalExit:
+			ActionExitState(game)
 		}
 		HandleTime(game)
 	case KCollide:

@@ -1,9 +1,5 @@
 package race
 
-import (
-	"fmt"
-)
-
 func ActionMoveUp(game *CarRacingGame) {
 	if game.Player.Y > 0 {
 		game.Player.Y--
@@ -37,18 +33,15 @@ func ActionSpawn(game *CarRacingGame) {
 }
 
 func ActionCollide(game *CarRacingGame) {
-	fmt.Println("Collision! Game Over.")
 	game.State = KGameOver
 }
 
 func ActionGameOver(game *CarRacingGame) {
-	fmt.Println("Resetting game...")
 	game.Player = Car{Lane: 1, Y: game.TrackHeight - 1}
 	game.State = KStart
 }
 
 func ActionExitState(game *CarRacingGame) {
-	fmt.Println("Exiting game...")
 	game.State = KExitState
 }
 
