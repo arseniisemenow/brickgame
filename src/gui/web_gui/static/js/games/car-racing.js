@@ -1,11 +1,9 @@
 import {applyRootStyles} from '../utils.js';
 import {GameBoard} from '../game-board.js';
-import {NextPlayerBoard} from "../next-player-board.js";
 import {SidePanel} from "../side-panel.js";
 import {StateInfo} from "../state-info.js";
-import {FetchGameParameters, MakeAction, ResetBoard, SelectGame, STATE_TETRIS, STATE_SNAKE} from './game-utils.js';
+import {FetchGameParameters, MakeAction, ResetBoard, SelectGame} from './game-utils.js';
 import {keyCodes, rootStyles} from '../config.js';
-import {UsernameInput} from "../username-input.js";
 
 applyRootStyles(rootStyles);
 const gameBoard = new GameBoard(document.querySelector('#game-board'));
@@ -60,16 +58,35 @@ function ClearBoard(json) {
     ResetBoard(gameBoard, json.car_racing_parameters.track_height, 10);
 }
 
+const DrawCar = (y, lane, color) => {
+    lane *= 3
+    gameBoard.enableTile(y, lane, color)
+    gameBoard.enableTile(y, lane + 1, color)
+    gameBoard.enableTile(y, lane + 2, color)
+    gameBoard.enableTile(y, lane + 3, color)
+
+    gameBoard.enableTile(y - 2, lane, color)
+    gameBoard.enableTile(y - 2, lane + 1, color)
+    gameBoard.enableTile(y - 2, lane + 2, color)
+    gameBoard.enableTile(y - 2, lane + 3, color)
+
+    gameBoard.enableTile(y - 1, lane + 1, color)
+    gameBoard.enableTile(y - 1, lane + 2, color)
+
+    gameBoard.enableTile(y - 3, lane + 1, color)
+    gameBoard.enableTile(y - 3, lane + 2, color)
+
+}
+
 function DrawBoard(json) {
-    console.log("DrawBoard", json.car_racing_parameters)
     let lane = json.car_racing_parameters.player_car_racing.lane
     let y = json.car_racing_parameters.player_car_racing.y
-    gameBoard.enableTile(y, lane, 0)
+    DrawCar(y, lane, 0)
 
     for (let i = 0; i < 2; i++) {
         lane = json.car_racing_parameters.rival_cars[i].lane
         y = json.car_racing_parameters.rival_cars[i].y
-        gameBoard.enableTile(y, lane, 1)
+        DrawCar(y, lane, 1)
     }
 }
 
@@ -93,20 +110,15 @@ document.addEventListener('keydown', async function (event) {
         await MakeAction(6);
         const data = await response.text();
         console.log(data);
-    }
-    else if (keyCodes.up.includes(event.code)) {
+    } else if (keyCodes.up.includes(event.code)) {
         const response = MakeAction(1);
-    }
-    else if (keyCodes.right.includes(event.code)) {
+    } else if (keyCodes.right.includes(event.code)) {
         const response = MakeAction(4);
-    }
-    else if (keyCodes.down.includes(event.code)) {
+    } else if (keyCodes.down.includes(event.code)) {
         const response = MakeAction(2);
-    }
-    else if (keyCodes.left.includes(event.code)) {
+    } else if (keyCodes.left.includes(event.code)) {
         const response = MakeAction(3);
-    }
-    else if (keyCodes.pause.includes(event.code)) {
+    } else if (keyCodes.pause.includes(event.code)) {
         const response = MakeAction(7);
     } else {
         const response = MakeAction(0);
