@@ -56,7 +56,7 @@ int MakeAction(const int action) {
       fprintf(stderr, "curl_easy_perform() failed: %s\n",
               curl_easy_strerror(res));
     } else {
-      printf("Action \"%s\" sent successfully.\n", action);
+//      printf("Action \"%d\" sent successfully.\n", action);
       success = 1;
     }
 
@@ -159,7 +159,7 @@ void SelectGame(const int game_id) {
 
   curl = curl_easy_init();
   if (curl) {
-//    const char *json = "{\"name\": \"daniel\"}";
+    const char *json = "{\"gameId\": \"3\"}";
     struct curl_slist *slist1 = NULL;
     slist1 = curl_slist_append(slist1, "Content-Type: application/json");
     slist1 = curl_slist_append(slist1, "Accept: application/json");
@@ -174,7 +174,7 @@ void SelectGame(const int game_id) {
     curl_easy_setopt(curl, CURLOPT_URL, full_url);
 
     /* pass in a pointer to the data - libcurl does not copy */
-//    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
 
     // Perform the request
     res = curl_easy_perform(curl);
@@ -189,17 +189,28 @@ void SelectGame(const int game_id) {
   }
 }
 
-void SendAction(char *action) {
+void SendAction(const int action_id) {
   CURL *curl;
   CURLcode res;
 
   curl = curl_easy_init();
   if (curl) {
+    const char *json = "{\"action\": %d}";
+    struct curl_slist *slist1 = NULL;
+    slist1 = curl_slist_append(slist1, "Content-Type: application/json");
+    slist1 = curl_slist_append(slist1, "Accept: application/json");
+
+    /* set custom headers */
+    //    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
+
+    char full_json[64] = {0};
+    curl_easy_setopt(curl, CURLOPT_POST, 1);
+    snprintf(full_json, 64-1, json, action_id);
+
     curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8080/api/actions");
 
-    // Set the POST data
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS,
-                     action); // Example: "{\"action\": \"move_left\"}"
+    /* pass in a pointer to the data - libcurl does not copy */
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
 
     // Perform the request
     res = curl_easy_perform(curl);

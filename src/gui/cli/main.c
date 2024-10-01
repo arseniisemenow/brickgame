@@ -1,7 +1,11 @@
 #include "retrieve_data.h"
 
-int main(){
+int main() {
   SelectGame(3);
-  cJSON* data = GetGameStateFromServer();
+  MakeAction(6);
+  MakeAction(6);
+  cJSON *data = GetGameStateFromServer();
+  MakeAction(7);
+  MakeAction(7);
   return 0;
 }

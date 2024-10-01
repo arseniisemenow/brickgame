@@ -25,7 +25,7 @@ int MakeAction(const int action);
 
 cJSON *GetGameStateFromServer();
 
-void SendAction(char *action);
+void SendAction(const int action_id);
 
 
 #endif // BRICKGAME_DESKTOP_SRC_GUI_CLI_RETRIEVE_DATA_H_
