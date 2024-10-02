@@ -6,6 +6,8 @@ export class SidePanel {
         this.scoreElement = document.createElement('p');
         this.levelElement = document.createElement('p');
         this.recordsElement = document.createElement('div');
+        this.recordsElement.textContent = "Records:";
+        this.recordsElement.id = "records-element";
 
         // Set initial content for score and level
         this.scoreElement.textContent = 'Score: 0';

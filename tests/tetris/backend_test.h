@@ -24,6 +24,7 @@ START_TEST(BoardOverlayBlockTest) {
   Board *board = AllocBoard();
   InitBoard(board);
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
@@ -39,12 +40,14 @@ START_TEST(BoardOverlayBlockOnAnotherBlockTest) {
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
   BoardOverlayBlock(player, board);
 
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
@@ -62,6 +65,7 @@ START_TEST(UpdatePredictPlayerTest) {
   InitBoard(board);
   InitPlayerPosition(player);
   SetPlayerBlockType(player, kBlockJ);
+  SetPlayerBoardBlock(player->board_, kBlockJ, kDirectionFirst);
   UpdatePredictPlayer(predict_player, player, board);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
@@ -72,8 +76,8 @@ START_TEST(UpdatePredictPlayerTest) {
     }
   }
 }
-
 END_TEST
+
 START_TEST(GetTimeStepMSTest) {
   GameStatus *game_status = AllocGameStatus();
   game_status->level_ = 0;
@@ -87,16 +91,15 @@ START_TEST(GetTimeStepMSTest) {
   time_step_ms = GetTimeStepMS(game_status);
   ck_assert_int_eq(time_step_ms, 625);
 }
-
 END_TEST
 
-void RepeatSignal(SignalType signal, Parameters * p_parameters, int times){
+void RepeatSignal(SignalType signal, Parameters *p_parameters, int times) {
   for (int i = 0; i < times; ++i) {
-     SignalAction(signal, p_parameters);
+    SignalAction(signal, p_parameters);
   }
 }
 
-void PrintBoard(Parameters* p_parameters){
+void PrintBoard(Parameters *p_parameters) {
   for (int i = 0; i < p_parameters->t_board_->height_; ++i) {
     for (int j = 0; j < p_parameters->t_board_->width_; ++j) {
       fprintf(stderr, "%d", p_parameters->t_board_->cells_[i][j].is_set_);
@@ -104,6 +107,7 @@ void PrintBoard(Parameters* p_parameters){
     fprintf(stderr, "\n");
   }
 }
+
 START_TEST(FillFirstLineUsingSquaresTest) {
   Parameters *p_parameters = AllocParameters();
 
@@ -119,37 +123,38 @@ START_TEST(FillFirstLineUsingSquaresTest) {
 
   SignalAction(kSignalEnterButton, p_parameters);
 
-  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+    SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+    SetPlayerBoardBlock(p_parameters->t_player_->board_, kBlockO, kDirectionFirst);
   RepeatSignal(kSignalMoveLeft, p_parameters, 10);
   RepeatSignal(kSignalMoveDown, p_parameters, 20);
-//  PrintBoard(p_parameters);
+//    PrintBoard(p_parameters);
 
-  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+        SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+        SetPlayerBoardBlock(p_parameters->t_player_->board_, kBlockO, kDirectionFirst);
   RepeatSignal(kSignalMoveLeft, p_parameters, 10);
   RepeatSignal(kSignalMoveRight, p_parameters, 2);
   RepeatSignal(kSignalMoveDown, p_parameters, 20);
-//  PrintBoard(p_parameters);
-  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+//    PrintBoard(p_parameters);
+    SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+    SetPlayerBoardBlock(p_parameters->t_player_->board_, kBlockO, kDirectionFirst);
   RepeatSignal(kSignalMoveLeft, p_parameters, 10);
   RepeatSignal(kSignalMoveRight, p_parameters, 4);
   RepeatSignal(kSignalMoveDown, p_parameters, 20);
-//  PrintBoard(p_parameters);
+//    PrintBoard(p_parameters);
   SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+  SetPlayerBoardBlock(p_parameters->t_player_->board_, kBlockO, kDirectionFirst);
   RepeatSignal(kSignalMoveLeft, p_parameters, 10);
   RepeatSignal(kSignalMoveRight, p_parameters, 6);
   RepeatSignal(kSignalMoveDown, p_parameters, 20);
-//  PrintBoard(p_parameters);
-  SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+//    PrintBoard(p_parameters);
+    SetPlayerBlockType(p_parameters->t_player_, kBlockO);
+    SetPlayerBoardBlock(p_parameters->t_player_->board_, kBlockO, kDirectionFirst);
   RepeatSignal(kSignalMoveLeft, p_parameters, 10);
   RepeatSignal(kSignalMoveRight, p_parameters, 8);
   RepeatSignal(kSignalMoveDown, p_parameters, 20);
   ck_assert_int_eq(p_parameters->t_game_status_->score_, 300);
-//  PrintBoard(p_parameters);
-
+//    PrintBoard(p_parameters);
 }
-
-
-
 END_TEST
 
 Suite *backend_suite(void) {
@@ -157,11 +162,11 @@ Suite *backend_suite(void) {
   TCase *tc_core;
   s = suite_create("backend suite");
   tc_core = tcase_create("core");
-  tcase_add_test(tc_core, BoardOverlayBlockTest);
+    tcase_add_test(tc_core, BoardOverlayBlockTest);
   tcase_add_test(tc_core, BoardOverlayBlockOnAnotherBlockTest);
-  tcase_add_test(tc_core, UpdatePredictPlayerTest);
-  tcase_add_test(tc_core, GetTimeStepMSTest);
-  tcase_add_test(tc_core, FillFirstLineUsingSquaresTest);
+    tcase_add_test(tc_core, UpdatePredictPlayerTest);
+    tcase_add_test(tc_core, GetTimeStepMSTest);
+    tcase_add_test(tc_core, FillFirstLineUsingSquaresTest);
   suite_add_tcase(s, tc_core);
   return s;
 }
