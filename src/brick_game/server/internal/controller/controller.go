@@ -11,11 +11,11 @@ import (
 func getSystemLibrary() string {
 	switch runtime.GOOS {
 	case "darwin":
-		return "../../../libbrickgame.so"
+		return "../../../build/libbrickgame.so"
 	case "linux":
-		return "../../../libbrickgame.so"
-	default:
+		return "../../../build/libbrickgame.so"
 		panic(fmt.Errorf("GOOS=%s is not supported", runtime.GOOS))
+	default:
 	}
 }
 
@@ -87,9 +87,6 @@ var RecordGetIsCurrentPlayer func(*C.struct_Record) int
 
 var GameStateGetScore func(*C.struct_GameStatus) int
 var GameStateGetLevel func(*C.struct_GameStatus) int
-
-//int GameStateGetScore(const GameStatus* p_game_status);
-//int GameStateGetLevel(const GameStatus* p_game_status);
 
 func GetLibrary() (uintptr, error) {
 	handle, err := purego.Dlopen(getSystemLibrary(), purego.RTLD_NOW|purego.RTLD_GLOBAL)

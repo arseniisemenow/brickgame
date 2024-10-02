@@ -54,6 +54,7 @@ endif
 
 DESKTOP_SOURCES := src/gui/desktop/view
 DESKTOP_BUILD := build_desktop
+CLI_BUILD := build_cli
 APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
 
 OPEN_COMMAND =open
@@ -64,12 +65,12 @@ OPEN_COMMAND =open
 
 # Create .so file from all backend and common sources
 ${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
-	$(CXX) -g $^ -shared -fPIC -lcurl -o $(SHARED_LIB_NAME)
+	@mkdir -p build
+	$(CXX) -g $^ -shared -fPIC -lcurl -o build/$(SHARED_LIB_NAME)
 
 # IMPORTANT!! For Linux you need to add library manually
 add_library_to_path:
-	$(echo "export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH") >> zshrc.txt
-
+	$(echo "export LD_LIBRARY_PATH=$(pwd)/build:$LD_LIBRARY_PATH") >> zshrc.txt
 
 fix_docker:
 	sed -ie 's/credsStore/credStore/g' ~/.docker/config.json
@@ -102,32 +103,28 @@ uninstall:
 run_web:
 	open http://localhost:8080/static/tetris.html
 
-install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
-	$(CXX) $(LIBRARIES) $^ -L. -lcurl \
+install_cli: ${SHARED_LIB_NAME}
+	mkdir -p build
+	mkdir -p build/${CLI_BUILD}
+	$(CXX) $(LIBRARIES) ${FRONTEND} build/${SHARED_LIB_NAME} -lcurl \
 	src/brick_game/common/common/color_handler.c \
-	-lbrickgame -o brickgame_cli.out
-
-#install_cli: ${BACKEND} ${BACKEND_CXX} ${COMMON} ${TETRIS} ${FRONTEND}
-#	$(CXX) $(LIBRARIES) $^ \
-#	brick_game/common/common/color_handler.c \
-#	-o brickgame_cli.out
+	-o build/${CLI_BUILD}/brickgame_cli.out
 
 install_desktop:
-	cmake -DCMAKE_BUILD_TYPE=Release -S ${DESKTOP_SOURCES} -B ${DESKTOP_BUILD}
-	cmake --build ${DESKTOP_BUILD} --target brickgame_desktop -j 4
+	cmake -DCMAKE_BUILD_TYPE=Release -S ${DESKTOP_SOURCES} -B build/${DESKTOP_BUILD}
+	cmake --build build/${DESKTOP_BUILD} --target brickgame_desktop -j 4
 
 run_cli:
-	./brickgame_cli.out
+	./build/${CLI_BUILD}/brickgame_cli.out
 run_desktop:
-	${DESKTOP_BUILD}/brickgame_desktop
-
+	./build/${DESKTOP_BUILD}/brickgame_desktop
 dvi:
 	${OPEN_COMMAND} dvi-folder/README.html
 
 test: test_tetris test_snake test_race
 
 test_tetris: ${SHARED_LIB_NAME}
-	@${CXX} ${SOURCES_FOR_TESTS} ${SHARED_LIB_NAME} -lcheck -lm  -o test.out
+	@${CXX} ${SOURCES_FOR_TESTS} build/${SHARED_LIB_NAME} -lcheck -lm  -o test.out
 	@./test.out
 	@#make clean
 
@@ -171,6 +168,7 @@ clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov 
 clean_project:
 	@rm -rf ${APP_DESTINATION}
 	@rm -rf ${DESKTOP_BUILD}
+	@rm -rf ${CLI_BUILD}
 	@rm -rf build
 clean_dist:
 	@cd . && rm -rf archive
