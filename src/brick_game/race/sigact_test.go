@@ -23,6 +23,16 @@ func TestSignalAction_MovingState(t *testing.T) {
 	}
 }
 
+func TestSignalAction_MovingState2(t *testing.T) {
+	game := race.NewCarRacingGame()
+	game.State = race.KMoving
+	initialLane := game.Player.Lane
+	race.SignalAction(race.KSignalMoveRight, game)
+	if game.Player.Lane != initialLane+1 {
+		t.Errorf("Expected Lane to decrease to %d, got %d", initialLane+1, game.Player.Lane)
+	}
+}
+
 func TestSignalAction_Collision(t *testing.T) {
 	game := race.NewCarRacingGame()
 	game.Player.Lane = 1

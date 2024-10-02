@@ -136,6 +136,9 @@ test_snake:
 test_race:
 	cd src/brick_game/race && go test -v
 
+coverage_race:
+	cd src/brick_game/race && go test -cover ./...
+
 test_valgrind:
 	@${CC} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o test.out
 	@valgrind ${VALGRIND_FLAGS} ./test.out
