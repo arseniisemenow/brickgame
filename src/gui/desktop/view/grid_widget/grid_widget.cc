@@ -146,7 +146,7 @@ void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player, const C
     return;
 
   int lane_width =
-      s21::constants::kCellSize * 3; // The lane width is three cells
+      s21::constants::kCellSize * 3;
 
   int car_x = player->lane_ * lane_width;
   int car_y = player->y_ * s21::constants::kCellSize;
@@ -159,7 +159,7 @@ void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player, const C
     rival_cars += i;
     car_x = rival_cars->lane_ * lane_width;
     car_y = rival_cars->y_ * s21::constants::kCellSize;
-    DrawCar(painter, car_x, car_y, QColor{250, 80, 0, 250});
+    DrawCar(painter, car_x, car_y, QColor{250, 80, 0, 255});
   }
 }
 void GridWidget::DrawCar(QPainter *painter, int car_x, int car_y,
@@ -169,18 +169,15 @@ void GridWidget::DrawCar(QPainter *painter, int car_x, int car_y,
                     s21::constants::kCellSize * 2, s21::constants::kCellSize,
                     color);
 
-  // Second part: four squares at (x, y-2) to (x+3, y-2)
   painter->fillRect(car_x, car_y - 2 * s21::constants::kCellSize,
                     s21::constants::kCellSize * 4, s21::constants::kCellSize,
                     color);
 
-  // Third part: two squares at (x+1, y-1) and (x+2, y-1)
   painter->fillRect(car_x + s21::constants::kCellSize,
                     car_y - 1 * s21::constants::kCellSize,
                     s21::constants::kCellSize * 2, s21::constants::kCellSize,
                     color);
 
-  // Bottom part: four squares at (x, y) to (x+3, y)
   painter->fillRect(car_x, car_y, s21::constants::kCellSize * 4,
                     s21::constants::kCellSize, color);
 }

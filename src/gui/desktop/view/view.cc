@@ -168,10 +168,11 @@ void View::UpdateCarRacing() {
     ui_->widget_car_racing->SetCar(&car_racing_game_state_.player_car_racing_);
     ui_->widget_car_racing->SetRivalCars(&car_racing_game_state_.rival_cars_[0]);
 
-    ui_->label_score_snake_value->setText(
-        QString::number(p_parameters_->s_game_status_->score_, 10));
-    ui_->label_level_snake_value->setText(
-        QString::number(p_parameters_->s_game_status_->level_, 10));
+    ui_->label_score_car_racing_value->setText(
+        QString::number(car_racing_game_state_.score_, 10));
+    ui_->label_level_car_racing_value->setText(
+        QString::number(car_racing_game_state_.level_, 10));
+    PrintCarRacingRecords();
   }
   if (car_racing_game_state_.state_ == kGameOver) {
   }
@@ -240,6 +241,17 @@ void View::PrintSnakeRecords() {
       ui_->label_records_snake_3_value, ui_->label_records_snake_4_value,
       ui_->label_records_snake_5_value};
   PrintRecords(records_labels, p_parameters_->s_records_);
+}
+void View::PrintCarRacingRecords() {
+  QLabel* records_labels[] = {
+      ui_->label_records_car_racing_1_value, ui_->label_records_car_racing_2_value,
+      ui_->label_records_car_racing_3_value, ui_->label_records_car_racing_4_value,
+      ui_->label_records_car_racing_5_value};
+  Records *records = AllocRecords();
+  strcpy(records->records_[0].name_, "Unnamed");
+  records->records_[0].score_ = car_racing_game_state_.record_score_;
+  PrintRecords(records_labels, records);
+  FreeRecords(records);
 }
 
 void View::PrintState(State state, QLabel *label) {

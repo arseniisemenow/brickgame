@@ -72,6 +72,7 @@ private:
   static void PrintRecords(QLabel **array, const Records* records);
   void PrintTetrisRecords();
   void PrintSnakeRecords();
+  void PrintCarRacingRecords();
   void PrintState(State state, QLabel *label);
 };
 } // namespace s21
