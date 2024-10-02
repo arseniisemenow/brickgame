@@ -57,7 +57,7 @@ View::View(QWidget *parent) : QMainWindow(parent), ui_(new Ui::View) {
 
   connect(timer_, &QTimer::timeout, [=]() { HandleSignal(kSignalNone); });
 
-  timer_->start(1);
+  timer_->start(50);
 }
 
 View::~View() {
@@ -156,30 +156,27 @@ void View::UpdateSnake() {
 void View::UpdateCarRacing() {
   SignalType signal = signal_type_;
 
-  PrintState((State)car_racing_game_state_.state_, ui_->label_state_snake);
+  car_racing_game_state_ = GetGameStateFromServer();
+
+  PrintState((State)car_racing_game_state_.state_, ui_->label_state_car_racing);
 
   if (car_racing_game_state_.state_ == kExitState) {
     this->close();
   }
   if (car_racing_game_state_.state_ != kStart) {
+    ui_->widget_car_racing->SetCurrentGame(s21::CurrentGame::kCarRacing);
+    ui_->widget_car_racing->SetCar(&car_racing_game_state_.player_car_racing_);
+    ui_->widget_car_racing->SetRivalCars(&car_racing_game_state_.rival_cars_[0]);
+
     ui_->label_score_snake_value->setText(
         QString::number(p_parameters_->s_game_status_->score_, 10));
     ui_->label_level_snake_value->setText(
         QString::number(p_parameters_->s_game_status_->level_, 10));
-//    PrintCarRacingGame(&game_state);
   }
   if (car_racing_game_state_.state_ == kGameOver) {
-//    PrintBegin();
   }
 
-//  SignalType signal = GetSignal(input, 0, &key_held);
-
   MakeAction(signal);
-//  input = GET_USER_INPUT;
-
-
-//  PrintState(*p_parameters_->c_state_, ui_->label_state_car_racing);
-
 }
 
 void View::InitializeUI() {
@@ -190,6 +187,8 @@ void View::InitializeUI() {
           &View::StartTetrisGame);
   connect(ui_->push_button_snake, &QPushButton::clicked, this,
           &View::StartSnakeGame);
+  connect(ui_->push_button_car_racing, &QPushButton::clicked, this,
+          &View::StartCarRacingGame);
 
   connect(this, &View::SignalMoveUp, [=]() { HandleSignal(kSignalMoveUp); });
   connect(this, &View::SignalMoveDown,
@@ -211,6 +210,12 @@ void View::StartSnakeGame() {
   current_game_ = CurrentGame::kSnake;
   InitParametersForSnakeBeforeStart(p_parameters_);
 }
+void View::StartCarRacingGame() {
+  current_game_ = CurrentGame::kCarRacing;
+  SelectGame(3);
+//  InitParametersForSnakeBeforeStart(p_parameters_);
+}
+
 
 void View::PrintRecords(QLabel **array, const Records *records) {
   for (int i = 0; i < 5; ++i) {

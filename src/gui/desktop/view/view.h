@@ -53,6 +53,7 @@ protected:
 private slots:
   void StartTetrisGame();
   void StartSnakeGame();
+  void StartCarRacingGame();
 
 private:
   Ui::View *ui_;

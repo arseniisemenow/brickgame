@@ -4,26 +4,34 @@ GridWidget::GridWidget(QWidget *parent, int rows, int columns)
     : QWidget(parent), rows_(rows), columns_(columns) {
   setFixedSize(columns_ * s21::constants::kCellSize,
                rows_ * s21::constants::kCellSize);
-  board_ = AllocBoard(); //todo: free
+  board_ = AllocBoard(); // Leaking at once
   player_ = AllocPlayer();
   predict_player_ = AllocPlayer();
   fruit_ = AllocCell();
 }
 
 void GridWidget::SetBoard(const Board *board) {
-  board_ = const_cast<Board*>(board);
+  board_ = const_cast<Board *>(board);
   update();
 }
 void GridWidget::SetPlayer(const Player *player) {
-  player_ = const_cast<Player*>(player);
+  player_ = const_cast<Player *>(player);
   update();
 }
 void GridWidget::SetPredictPlayer(const Player *player) {
-  predict_player_ = const_cast<Player*>(player);
+  predict_player_ = const_cast<Player *>(player);
   update();
 }
 void GridWidget::SetFruit(const Cell *fruit) {
-  fruit_ = const_cast<Cell*>(fruit);
+  fruit_ = const_cast<Cell *>(fruit);
+  update();
+}
+void GridWidget::SetCar(const Car *car) {
+  car_ = const_cast<Car *>(car);
+  update();
+}
+void GridWidget::SetRivalCars(const Car *rival_cars) {
+  rival_cars_ = const_cast<Car *>(rival_cars);
   update();
 }
 void GridWidget::SetCurrentGame(s21::CurrentGame current_game) {
@@ -45,7 +53,7 @@ void GridWidget::paintEvent(QPaintEvent *event) {
   }
 
   for (int row = 0; row < s21::constants::kRows; ++row) {
-    for (int col =  0; col < s21::constants::kColumns; ++col) {
+    for (int col = 0; col < s21::constants::kColumns; ++col) {
       if (!board_)
         continue;
       if (!board_->cells_)
@@ -59,13 +67,14 @@ void GridWidget::paintEvent(QPaintEvent *event) {
       }
     }
   }
-  if (current_game_ == s21::CurrentGame::kTetris){
-     DrawPlayer(&painter, predict_player_);
-     DrawPlayer(&painter, player_);
-  } else if (current_game_ == s21::CurrentGame::kSnake){
-     DrawSnakeGame(&painter, player_);
+  if (current_game_ == s21::CurrentGame::kTetris) {
+    DrawPlayer(&painter, predict_player_);
+    DrawPlayer(&painter, player_);
+  } else if (current_game_ == s21::CurrentGame::kSnake) {
+    DrawSnakeGame(&painter, player_);
+  } else if (current_game_ == s21::CurrentGame::kCarRacing) {
+    DrawCarRacingGame(&painter, car_, rival_cars_);
   }
-
 }
 
 void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
@@ -128,4 +137,50 @@ void GridWidget::DrawSnakeGame(QPainter *painter, Player *player) {
       }
     }
   }
+}
+
+void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player, const Car * rival_cars){
+  if (!player)
+    return;
+  if (!rival_cars)
+    return;
+
+  int lane_width =
+      s21::constants::kCellSize * 3; // The lane width is three cells
+
+  int car_x = player->lane_ * lane_width;
+  int car_y = player->y_ * s21::constants::kCellSize;
+
+  painter->setPen(Qt::NoPen);
+
+  DrawCar(painter, car_x, car_y, QColor{250, 0, 0, 250});
+
+  for (int i = 0; i < 2; ++i) {
+    rival_cars += i;
+    car_x = rival_cars->lane_ * lane_width;
+    car_y = rival_cars->y_ * s21::constants::kCellSize;
+    DrawCar(painter, car_x, car_y, QColor{250, 80, 0, 250});
+  }
+}
+void GridWidget::DrawCar(QPainter *painter, int car_x, int car_y,
+                         const QColor &&color) const {
+  painter->fillRect(car_x + s21::constants::kCellSize,
+                    car_y - 3 * s21::constants::kCellSize,
+                    s21::constants::kCellSize * 2, s21::constants::kCellSize,
+                    color);
+
+  // Second part: four squares at (x, y-2) to (x+3, y-2)
+  painter->fillRect(car_x, car_y - 2 * s21::constants::kCellSize,
+                    s21::constants::kCellSize * 4, s21::constants::kCellSize,
+                    color);
+
+  // Third part: two squares at (x+1, y-1) and (x+2, y-1)
+  painter->fillRect(car_x + s21::constants::kCellSize,
+                    car_y - 1 * s21::constants::kCellSize,
+                    s21::constants::kCellSize * 2, s21::constants::kCellSize,
+                    color);
+
+  // Bottom part: four squares at (x, y) to (x+3, y)
+  painter->fillRect(car_x, car_y, s21::constants::kCellSize * 4,
+                    s21::constants::kCellSize, color);
 }

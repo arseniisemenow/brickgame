@@ -2,7 +2,6 @@
 
 
 void DrawCar(int y, int lane, int color) {
-
   lane *= 3;
   y += BOARDS_BEGIN + 1;
   lane += BOARDS_BEGIN + 1;
