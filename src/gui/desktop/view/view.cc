@@ -106,6 +106,7 @@ void View::UpdateTetris() {
       AddRecord(p_parameters_->t_records_, c_string,
                 p_parameters_->t_game_status_->score_,
                 TETRIS_RECORDS_FILE_NAME);
+
     }
   }
   if (*p_parameters_->t_state_ == kExitState) {

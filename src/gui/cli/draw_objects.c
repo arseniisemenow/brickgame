@@ -137,10 +137,10 @@ void PrintCarRacingStatus(CarRacingParameters *p_parameters) {
 }
 
 void ClearGame() {
-  for (int row_index = 0; row_index < 24; ++row_index) {
-    for (int column_index = 0; column_index < 28; ++column_index) {
+  for (int row_index = 0; row_index < 25; ++row_index) {
+    for (int column_index = 0; column_index < 29; ++column_index) {
       attron(COLOR_PAIR(INIT_COLOR_PAIR));
-      mvprintw(row_index + 1, column_index + 1, " ");
+      mvprintw(row_index, column_index, " ");
       attroff(COLOR_PAIR(INIT_COLOR_PAIR));
     }
   }

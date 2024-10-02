@@ -111,7 +111,7 @@ install_desktop:
 run_cli:
 	./brickgame_cli.out
 run_desktop:
-	${APP_DESTINATION}/brickgame_desktop
+	${DESKTOP_BUILD}/brickgame_desktop
 
 dvi:
 	${OPEN_COMMAND} ../dvi/README.html
