@@ -4,7 +4,7 @@ GridWidget::GridWidget(QWidget *parent, int rows, int columns)
     : QWidget(parent), rows_(rows), columns_(columns) {
   setFixedSize(columns_ * s21::constants::kCellSize,
                rows_ * s21::constants::kCellSize);
-  board_ = AllocBoard();
+  board_ = AllocBoard(); //todo: free
   player_ = AllocPlayer();
   predict_player_ = AllocPlayer();
   fruit_ = AllocCell();
@@ -59,10 +59,13 @@ void GridWidget::paintEvent(QPaintEvent *event) {
       }
     }
   }
-  DrawPlayer(&painter, predict_player_);
-  DrawPlayer(&painter, player_);
+  if (current_game_ == s21::CurrentGame::kTetris){
+     DrawPlayer(&painter, predict_player_);
+     DrawPlayer(&painter, player_);
+  } else if (current_game_ == s21::CurrentGame::kSnake){
+     DrawSnakeGame(&painter, player_);
+  }
 
-  DrawSnake(&painter, player_);
 }
 
 void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
@@ -90,7 +93,7 @@ void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
     }
   }
 }
-void GridWidget::DrawSnake(QPainter *painter, Player *player) {
+void GridWidget::DrawSnakeGame(QPainter *painter, Player *player) {
   if (!player)
     return;
   if (!board_)

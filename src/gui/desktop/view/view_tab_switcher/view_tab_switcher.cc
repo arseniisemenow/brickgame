@@ -28,7 +28,6 @@ void ViewTabSwitcher::SetButtons() {
   connect(ui_->push_button_tank_classic, &QPushButton::clicked, this,
           &ViewTabSwitcher::SetDepositCurrentIndex);
 
-  ui_->push_button_car_racing->setDisabled(true);
   ui_->push_button_tank_classic->setDisabled(true);
   SetExpressionCurrentIndex();
 }

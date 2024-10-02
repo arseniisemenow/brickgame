@@ -34,11 +34,11 @@ const char* kStateLabels[] = {
     "kExitState",
     "kPause"
 };
-void PrintState(const State state){
-//  attron(COLOR_PAIR(color));
 
+void PrintState(const State state){
+  attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
   mvprintw(22, 15, "%12s", kStateLabels[state]);
-//  attroff(COLOR_PAIR(color));
+  attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
 }
 
 void DrawCarRacingBoard(CarRacingParameters *p) {

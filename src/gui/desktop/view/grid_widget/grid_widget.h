@@ -7,6 +7,8 @@
 
 #include "brick_game/common/board/board.h"
 #include "brick_game/common/player/player.h"
+#include "brick_game/common/parameters/parameters.h"
+
 #include "constants.h"
 
 class GridWidget : public QWidget {
@@ -23,16 +25,18 @@ class GridWidget : public QWidget {
  protected:
   void paintEvent(QPaintEvent *event) override;
   void DrawPlayer(QPainter *painter, const Player *player);
-  void DrawSnake(QPainter *painter, Player *player);
+  void DrawSnakeGame(QPainter *painter, Player *player);
 
  private:
   Board* board_;
   Player* player_;
   Player* predict_player_;
   Cell* fruit_;
+  Car car_;
+  Car rival_cars[2];
   int rows_;
   int columns_;
-  s21::CurrentGame current_game_{s21::CurrentGame::kSnake};
+  s21::CurrentGame current_game_{s21::CurrentGame::kTetris};
 };
 
 #endif  // CPP3_BRICK_GAME_V_2_0_1_GUI_DESKTOP_VIEW_GRID_WIDGET_GRID_WIDGET_H_

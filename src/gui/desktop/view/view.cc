@@ -72,16 +72,17 @@ void View::HandleSignal(SignalType signal_type) {
     UpdateTetris();
   } else if (current_game_ == CurrentGame::kSnake) {
     UpdateSnake();
+  }else if (current_game_ == CurrentGame::kCarRacing) {
+    UpdateCarRacing();
   }
 }
-
 void View::UpdateTetris() {
   SignalType signal = signal_type_;
   SignalAction(signal, p_parameters_);
   PrintState(*p_parameters_->t_state_, ui_->label_state_tetris);
   if (*p_parameters_->t_state_ != kStart &&
       *p_parameters_->t_state_ != kPause) {
-    ui_->widget_snake->SetCurrentGame(CurrentGame::kTetris);
+    ui_->widget_tetris->SetCurrentGame(CurrentGame::kTetris);
     ui_->widget_tetris->SetBoard(p_parameters_->t_board_);
     ui_->widget_tetris->SetPlayer(p_parameters_->t_player_);
     ui_->widget_tetris->SetPredictPlayer(p_parameters_->t_predict_player_);
