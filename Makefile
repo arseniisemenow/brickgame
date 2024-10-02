@@ -91,7 +91,7 @@ uninstall:
 	@rm -rf ${DESKTOP_BUILD}
 	@echo "Uninstallation is finished"
 
-run_web_ui:
+run_web:
 	open http://localhost:8080/static/tetris.html
 
 install_cli: ${SHARED_LIB_NAME} ${FRONTEND}
@@ -114,7 +114,7 @@ run_desktop:
 	${DESKTOP_BUILD}/brickgame_desktop
 
 dvi:
-	${OPEN_COMMAND} ../dvi/README.html
+	${OPEN_COMMAND} dvi-folder/README.html
 
 
 test: test_tetris test_snake test_race
@@ -163,6 +163,8 @@ clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov 
 
 clean_project:
 	@rm -rf ${APP_DESTINATION}
+	@rm -rf ${DESKTOP_BUILD}
+	@rm -rf build
 clean_dist:
 	@cd . && rm -rf archive
 	@cd . && rm -rf archive.tar.gz
