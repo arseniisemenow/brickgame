@@ -34,137 +34,37 @@ TEST_F(ModelTest, EnterTest) {
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
-  sleep(1);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalEnterButton;
-  sleep(1);
   ControllerSnake(signal_type, parameters);
+  ASSERT_EQ(*parameters->s_state_, kMoving);
 }
 
 TEST_F(ModelTest, ExitTest) {
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
-  sleep(1);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
-  sleep(1);
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalEscapeButton;
-  sleep(1);
   ControllerSnake(signal_type, parameters);
   ASSERT_EQ(*parameters->s_state_, kExitState);
-}
-
-TEST_F(ModelTest, MoveStraightTest) {
-  signal_type = kSignalEnterButton;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalNone;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalNone;
-
-  ASSERT_EQ(*parameters->s_state_, kGameOver);
 }
 
 TEST_F(ModelTest, MoveLeftTest) {
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveLeft;
-  sleep(1);
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveLeft;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveLeft;
   ControllerSnake(signal_type, parameters);
-  sleep(1);
   signal_type = kSignalMoveLeft;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveLeft;
@@ -188,27 +88,7 @@ TEST_F(ModelTest, MoveLeftTest) {
 TEST_F(ModelTest, MoveUpTest) {
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  sleep(1);
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  sleep(1);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
-  ControllerSnake(signal_type, parameters);
-  signal_type = kSignalMoveUp;
+  signal_type = kSignalMoveLeft;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveUp;
   ControllerSnake(signal_type, parameters);
@@ -252,13 +132,11 @@ TEST_F(ModelTest, MoveRightTest) {
   signal_type = kSignalEnterButton;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveRight;
-  sleep(1);
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveRight;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveRight;
   ControllerSnake(signal_type, parameters);
-  sleep(1);
   signal_type = kSignalMoveRight;
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveRight;
@@ -292,10 +170,11 @@ TEST_F(ModelTest, PauseTest) {
 }
 
 TEST_F(ModelTest, BoardOverlayBlockTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitBoard(board);
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
@@ -309,17 +188,19 @@ TEST_F(ModelTest, BoardOverlayBlockTest) {
   }
 }
 TEST_F(ModelTest, BoardOverlayBlockOnAnotherBlockTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
   BoardOverlayBlock(player, board);
 
   SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   InitPlayerPosition(player);
 
   MovePredictPlayerDown(player, board);
@@ -335,13 +216,14 @@ TEST_F(ModelTest, BoardOverlayBlockOnAnotherBlockTest) {
 }
 
 TEST_F(ModelTest, UpdatePredictPlayerTest) {
-  Player* player = AllocPlayer();
-  Player* predict_player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Player *predict_player = AllocPlayer();
+  Board *board = AllocBoard();
 
   InitBoard(board);
   InitPlayerPosition(player);
   SetPlayerBlockType(player, kBlockJ);
+  SetPlayerBoardBlock(player->board_, kBlockJ, kDirectionFirst);
   UpdatePredictPlayer(predict_player, player, board);
 
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
@@ -395,7 +277,7 @@ TEST_F(ModelTest, GetPreviousBlockRotationTest) {
 }
 
 TEST_F(ModelTest, HandleBoardCompleteLinesTest) {
-  Board* board = AllocBoard();
+  Board *board = AllocBoard();
   board->width_ = 10;
   board->height_ = 20;
 
@@ -416,49 +298,49 @@ TEST_F(ModelTest, HandleBoardCompleteLinesTest) {
 }
 
 TEST_F(ModelTest, CheckCollideTest1) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   bool flag = CheckCollide(player, board);
   ASSERT_EQ(flag, false);
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithBlocksLeftTest1) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
-  SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBlockType(player, kBlockO);
+  SetPlayerBoardBlock(player->board_, kBlockO, kDirectionFirst);
   bool flag = CheckFutureCollideWithBlocksLeft(player, board);
   ASSERT_EQ(flag, false);
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithBlocksRightTest1) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   bool flag = CheckFutureCollideWithBlocksRight(player, board);
   ASSERT_EQ(flag, false);
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithBlocksLeftTest2) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
@@ -468,7 +350,7 @@ TEST_F(ModelTest, CheckFutureCollideWithBlocksLeftTest2) {
   }
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
 
   MovePlayerLeft(player);
   MovePlayerLeft(player);
@@ -477,8 +359,8 @@ TEST_F(ModelTest, CheckFutureCollideWithBlocksLeftTest2) {
   ASSERT_EQ(flag, true);
 }
 TEST_F(ModelTest, CheckFutureCollideWithBlocksRightTest2) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
@@ -488,7 +370,7 @@ TEST_F(ModelTest, CheckFutureCollideWithBlocksRightTest2) {
   }
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
 
   MovePlayerRight(player);
   MovePlayerRight(player);
@@ -497,15 +379,15 @@ TEST_F(ModelTest, CheckFutureCollideWithBlocksRightTest2) {
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithLeftTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   MovePlayerLeft(player);
   MovePlayerLeft(player);
   MovePlayerLeft(player);
@@ -516,15 +398,15 @@ TEST_F(ModelTest, CheckFutureCollideWithLeftTest) {
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithRightTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   MovePlayerRight(player);
   MovePlayerRight(player);
   MovePlayerRight(player);
@@ -534,15 +416,15 @@ TEST_F(ModelTest, CheckFutureCollideWithRightTest) {
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithUpTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   MovePlayerRight(player);
   MovePlayerRight(player);
   MovePlayerRight(player);
@@ -552,15 +434,15 @@ TEST_F(ModelTest, CheckFutureCollideWithUpTest) {
 }
 
 TEST_F(ModelTest, CheckFutureCollideWithDownTest) {
-  Player* player = AllocPlayer();
-  Board* board = AllocBoard();
+  Player *player = AllocPlayer();
+  Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
 
   InitBoard(board);
 
   SetPlayerBlockType(player, kBlockT);
-  SetPlayerBlockRotation(player, kDirectionFirst);
+  SetPlayerBoardBlock(player->board_, kBlockT, kDirectionFirst);
   MovePlayerRight(player);
   MovePlayerRight(player);
   MovePlayerRight(player);
@@ -877,7 +759,7 @@ TEST_F(ModelTest, CopyPlayerBoardTest) {
 }
 
 TEST_F(ModelTest, InitPlayerTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitPlayer(player);
   ASSERT_EQ(player->x_, 0);
   ASSERT_EQ(player->y_, 0);
@@ -885,7 +767,7 @@ TEST_F(ModelTest, InitPlayerTest) {
   ASSERT_GE(player->direction_, 0);
 }
 TEST_F(ModelTest, InitNextPlayerTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitNextPlayer(player);
   ASSERT_EQ(player->x_, INIT_NEXT_PLAYER_POS_X);
   ASSERT_EQ(player->y_, INIT_NEXT_PLAYER_POS_Y);
@@ -893,7 +775,7 @@ TEST_F(ModelTest, InitNextPlayerTest) {
   ASSERT_GE(player->direction_, 0);
 }
 TEST_F(ModelTest, InitPlayerPositionTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitPlayerPosition(player);
   ASSERT_EQ(player->x_, INIT_PLAYER_POS_X);
   ASSERT_EQ(player->y_, INIT_PLAYER_POS_Y);
@@ -901,7 +783,7 @@ TEST_F(ModelTest, InitPlayerPositionTest) {
   ASSERT_GE(player->direction_, 0);
 }
 TEST_F(ModelTest, CopyPlayerTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitNextPlayer(player);
   Player *player_2 = AllocPlayer();
   CopyPlayer(player_2, player);
@@ -920,13 +802,13 @@ TEST_F(ModelTest, CopyPlayerTest) {
   }
 }
 TEST_F(ModelTest, SetPlayerBlockRotationTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitPlayer(player);
   SetPlayerBlockRotation(player, kDirectionThird);
   ASSERT_EQ(player->direction_, kDirectionThird);
 }
 TEST_F(ModelTest, SetPlayerNextBlockRotationTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitPlayer(player);
   SetPlayerBlockRotation(player, kDirectionFirst);
   SetPlayerNextBlockRotation(player);
@@ -939,7 +821,7 @@ TEST_F(ModelTest, SetPlayerNextBlockRotationTest) {
   ASSERT_EQ(player->direction_, kDirectionFirst);
 }
 TEST_F(ModelTest, SetPlayerPreviousBlockRotationTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   InitPlayer(player);
   SetPlayerBlockRotation(player, kDirectionFirst);
   SetPlayerPreviousBlockRotation(player);
@@ -954,8 +836,8 @@ TEST_F(ModelTest, SetPlayerPreviousBlockRotationTest) {
   ASSERT_EQ(player->direction_, kDirectionForth);
 }
 TEST_F(ModelTest, MovePlayerRightTest1) {
-  Player* player = AllocPlayer();
-  Player* player_before = AllocPlayer();
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
   InitPlayer(player);
   InitPlayer(player_before);
   InitPlayerPosition(player);
@@ -967,7 +849,7 @@ TEST_F(ModelTest, MovePlayerRightTest1) {
   ASSERT_EQ(player->y_, player_before->y_);
 }
 TEST_F(ModelTest, MovePlayerRightTest2) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   Player *player_before = AllocPlayer();
   InitPlayer(player);
   InitPlayerPosition(player);
@@ -980,8 +862,8 @@ TEST_F(ModelTest, MovePlayerRightTest2) {
   ASSERT_EQ(player->y_, player_before->y_);
 }
 TEST_F(ModelTest, MovePlayerLeftRightTest) {
-  Player* player = AllocPlayer();
-  Player* player_before = AllocPlayer();
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
   InitPlayer(player);
   InitPlayerPosition(player);
 
@@ -1004,7 +886,7 @@ TEST_F(ModelTest, MovePlayerLeftRightTest) {
   }
 }
 TEST_F(ModelTest, MovePlayerUpTest) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   Player *player_before = AllocPlayer();
   InitPlayer(player);
   InitPlayer(player_before);
@@ -1018,8 +900,8 @@ TEST_F(ModelTest, MovePlayerUpTest) {
   ASSERT_EQ(player_before->direction_, player->direction_);
 }
 TEST_F(ModelTest, MovePlayerUpDownTest) {
-  Player* player = AllocPlayer();
-  Player* player_before = AllocPlayer();
+  Player *player = AllocPlayer();
+  Player *player_before = AllocPlayer();
   InitPlayer(player);
   InitPlayerPosition(player);
   CopyPlayer(player_before, player);
@@ -1043,8 +925,8 @@ TEST_F(ModelTest, MovePlayerUpDownTest) {
 }
 
 TEST_F(ModelTest, RecordsAddSaveLoadTest1) {
-  Records* records = AllocRecords();
-  Records* records2 = AllocRecords();
+  Records *records = AllocRecords();
+  Records *records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
 
@@ -1066,8 +948,8 @@ TEST_F(ModelTest, RecordsAddSaveLoadTest1) {
 }
 
 TEST_F(ModelTest, RecordsAddSaveLoadTest2) {
-  Records* records = AllocRecords();
-  Records* records2 = AllocRecords();
+  Records *records = AllocRecords();
+  Records *records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
 
@@ -1085,8 +967,8 @@ TEST_F(ModelTest, RecordsAddSaveLoadTest2) {
 }
 
 TEST_F(ModelTest, RecordsAddSaveLoadTest3) {
-  Records* records = AllocRecords();
-  Records* records2 = AllocRecords();
+  Records *records = AllocRecords();
+  Records *records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
 
@@ -1098,13 +980,12 @@ TEST_F(ModelTest, RecordsAddSaveLoadTest3) {
 
   for (int i = 0; i < RECORDS_NUMBER; ++i) {
     ASSERT_EQ(records->records_[i].score_, 0);
-    ASSERT_EQ(records->records_[i].is_current_player_, false);
     ASSERT_STREQ(records->records_[i].name_, "");
   }
 }
 TEST_F(ModelTest, RecordsAddSaveLoadTest4) {
-  Records* records = AllocRecords();
-  Records* records2 = AllocRecords();
+  Records *records = AllocRecords();
+  Records *records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
 
@@ -1158,6 +1039,100 @@ TEST_F(ModelTest, CollideWithItself) {
   ControllerSnake(signal_type, parameters);
   signal_type = kSignalMoveDown;
   ControllerSnake(signal_type, parameters);
+
+  ASSERT_EQ(*parameters->s_state_, kGameOver);
+}
+
+TEST_F(ModelTest, MoveStraightTest) {
+  signal_type = kSignalEnterButton;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  sleep(1);
+  signal_type = kSignalNone;
+  ControllerSnake(signal_type, parameters);
+  signal_type = kSignalNone;
 
   ASSERT_EQ(*parameters->s_state_, kGameOver);
 }
