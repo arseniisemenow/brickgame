@@ -94,6 +94,7 @@ lib: ${SHARED_LIB_NAME}
 all: install run_cli
 
 install: uninstall install_cli install_desktop
+	-make server
 
 uninstall:
 	@rm -f brickgame_cli.out

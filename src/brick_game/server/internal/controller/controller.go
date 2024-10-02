@@ -17,6 +17,7 @@ func getSystemLibrary() string {
 		panic(fmt.Errorf("GOOS=%s is not supported", runtime.GOOS))
 	default:
 	}
+	return ""
 }
 
 var GetTimeInMS func() int64

@@ -27,7 +27,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 include_directories(../../../)
 include_directories(.)
 
-set(PROJECT_SOURCES
+set(COMMON_SRC
         ../../../brick_game/common/block/block.c
         ../../../brick_game/common/board/board.c
         ../../../brick_game/common/cell/cell.c
@@ -38,18 +38,22 @@ set(PROJECT_SOURCES
         ../../../brick_game/common/player/player_board/player_board.c
         ../../../brick_game/common/records/records.c
         ../../../brick_game/common/time_handler/time_handler.c
-        ../../../brick_game/tetris/fsm/fsm_matrix.c
-        ../../../brick_game/tetris/backend/backend.c
         ../../../brick_game/common/fsm_types.h
         ../../../brick_game/common/fsm_types.c
         ../../../brick_game/common/api_client/api_client.c
         ../../../brick_game/common/cjson/cjson.c
-
+)
+set(TETRIS_SRC
+        ../../../brick_game/tetris/fsm/fsm_matrix.c
+        ../../../brick_game/tetris/backend/backend.c
+)
+set(SNAKE_SRC
         ../../../brick_game/snake/controller/controller.cc
         ../../../brick_game/snake/model/model.cc
         ../../../brick_game/snake/action/action.cc
         ../../../brick_game/snake/move_snake/move_snake.cc
-        main.cc
+)
+set(VIEW_SRC
         view.cc
         view.h
         view.ui
@@ -62,6 +66,14 @@ set(PROJECT_SOURCES
         next_player_grid_widget/next_player_grid_widget.cc
         next_player_grid_widget/next_player_grid_widget.hpp
         constants.h
+)
+
+set(PROJECT_SOURCES
+        ${COMMON_SRC}
+        ${TETRIS_SRC}
+        ${SNAKE_SRC}
+        ${VIEW_SRC}
+        main.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
