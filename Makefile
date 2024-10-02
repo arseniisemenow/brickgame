@@ -78,7 +78,15 @@ run_postgres:
 	cd docker && docker-compose up -d
 
 server: run_postgres
-	cd src/brick_game/server && go build -o build/server.out && ./build/server.out
+	cd src/brick_game/server && go build -o build/server.out && ./build/server.out &
+server-stop:
+	@pid=$$(ps aux | grep './build/server.out' | grep -v grep | awk '{print $$2}'); \
+    if [ -n "$$pid" ]; then \
+        echo "Killing server with PID: $$pid"; \
+        kill $$pid; \
+    else \
+        echo "Server process not found."; \
+    fi
 
 lib: ${SHARED_LIB_NAME}
 
@@ -115,7 +123,6 @@ run_desktop:
 
 dvi:
 	${OPEN_COMMAND} dvi-folder/README.html
-
 
 test: test_tetris test_snake test_race
 
