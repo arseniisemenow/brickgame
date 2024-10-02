@@ -24,7 +24,7 @@ COMMON :=   	src/brick_game/common/common/colors.c \
 				src/brick_game/common/records/records.c \
 				src/brick_game/common/player/player_board/player_board.c \
  				src/brick_game/common/time_handler/time_handler.c \
- 				src/brick_game/common/retrieve_data/retrieve_data.c \
+ 				src/brick_game/common/api_client/api_client.c \
  				src/brick_game/common/cjson/cjson.c \
  				src/brick_game/common/fsm_types.c
 TETRIS_SRC := 	src/brick_game/tetris/fsm/fsm_matrix.c
@@ -123,13 +123,16 @@ dvi:
 
 test: test_tetris test_snake test_race
 
+TEST_TETRIS_DEST := build/tests/tetris
+
 test_tetris: ${SHARED_LIB_NAME}
-	@${CXX} ${SOURCES_FOR_TESTS} build/${SHARED_LIB_NAME} -lcheck -lm  -o test.out
-	@./test.out
+	@mkdir -p build/tests/tetris
+	@${CXX} ${SOURCES_FOR_TESTS} build/${SHARED_LIB_NAME} -lcheck -lm -o ./${TEST_TETRIS_DEST}/tests.out
+	@./${TEST_TETRIS_DEST}/tests.out
 	@#make clean
 
 TEST_SNAKE_SRC := tests/snake
-TEST_SNAKE_DEST := tests/snake/build
+TEST_SNAKE_DEST := build/tests/snake
 TEST_SNAKE_TARGET := tests
 
 test_snake:

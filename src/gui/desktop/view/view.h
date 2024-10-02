@@ -11,7 +11,7 @@
 
 #include "brick_game/common/fsm_types.h"
 #include "brick_game/common/parameters/parameters.h"
-#include "brick_game/common/retrieve_data/retrieve_data.h"
+#include "brick_game/common/api_client/api_client.h"
 #include "brick_game/snake/controller/controller.h"
 #include "brick_game/tetris/fsm/fsm.h"
 #include "grid_widget/grid_widget.h"

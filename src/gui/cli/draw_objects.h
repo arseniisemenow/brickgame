@@ -10,7 +10,7 @@
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
 
-#include "../../brick_game/common/retrieve_data/retrieve_data.h"
+#include "../../brick_game/common/api_client/api_client.h"
 
 #define NAME_LENGTH (4)
 

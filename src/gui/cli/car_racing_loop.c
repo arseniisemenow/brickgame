@@ -2,7 +2,7 @@
 
 #include <unistd.h>
 
-#include "../../brick_game/common/retrieve_data/retrieve_data.h"
+#include "../../brick_game/common/api_client/api_client.h"
 #include "draw_objects.h"
 
 void CarRacingLoop() {

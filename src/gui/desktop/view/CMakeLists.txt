@@ -42,7 +42,7 @@ set(PROJECT_SOURCES
         ../../../brick_game/tetris/backend/backend.c
         ../../../brick_game/common/fsm_types.h
         ../../../brick_game/common/fsm_types.c
-        ../../../brick_game/common/retrieve_data/retrieve_data.c
+        ../../../brick_game/common/api_client/api_client.c
         ../../../brick_game/common/cjson/cjson.c
 
         ../../../brick_game/snake/controller/controller.cc
