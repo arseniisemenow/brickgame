@@ -212,7 +212,7 @@ void View::StartSnakeGame() {
   InitParametersForSnakeBeforeStart(p_parameters_);
 }
 void View::StartCarRacingGame() {
-  const int error_code = SelectGame(3);
+  const int error_code = MakePostRequestWithInlineQueryNumber("http://localhost", "8080", "api/games", 3);
   if (error_code) {
     return;
   }

@@ -10,7 +10,7 @@ void CarRacingLoop() {
   bool key_held = 0;
   bool break_flag = FALSE;
 
-  int error_code = SelectGame(3);
+  int error_code = MakePostRequestWithInlineQueryNumber("http://localhost", "8080", "api/games", 3);
   if (error_code) {
     return;
   }

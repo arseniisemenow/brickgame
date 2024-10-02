@@ -1,6 +1,12 @@
 #include "retrieve_data.h"
 
-static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+CarRacingParameters ParseParameters1(CarRacingParameters *parameters,
+                                     const cJSON *car_racing_parameters,
+                                     const cJSON *player_car_racing);
+CarRacingParameters ParseParameters2(CarRacingParameters *parameters,
+                                     const cJSON *rival_cars);
+static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb,
+                                     void *userp) {
   return size * nmemb;
 }
 
@@ -21,7 +27,6 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
 
   return realsize;
 }
-
 
 int MakeAction(const int action) {
   CURL *curl;
@@ -66,7 +71,7 @@ int MakeAction(const int action) {
 
   return error_code;
 }
-//todo: add a security by checking pointer for NULL
+
 CarRacingParameters GetGameStateFromServer() {
   CURL *curl;
   CURLcode res;
@@ -124,62 +129,66 @@ CarRacingParameters GetGameStateFromServer() {
   if (!rival_cars) {
     return parameters;
   }
-  parameters.state_ =
-      cJSON_GetObjectItem(car_racing_parameters, "state_car_racing")->valueint;
-  parameters.score_ =
-      cJSON_GetObjectItem(car_racing_parameters, "score")->valueint;
-  parameters.level_ =
-      cJSON_GetObjectItem(car_racing_parameters, "level")->valueint;
-  parameters.record_score_ =
-      cJSON_GetObjectItem(car_racing_parameters, "record_score")->valueint;
-  parameters.time_step_ =
-      cJSON_GetObjectItem(car_racing_parameters, "time_step")->valueint;
-  parameters.last_moved_time_ =
-      cJSON_GetObjectItem(car_racing_parameters, "last_moved_time")->valueint;
-
-  parameters.track_height_ =
-      cJSON_GetObjectItem(car_racing_parameters, "track_height")->valueint;
-  parameters.track_width_ =
-      cJSON_GetObjectItem(car_racing_parameters, "track_width")->valueint;
-
-  parameters.player_car_racing_.lane_ =
-      cJSON_GetObjectItem(player_car_racing, "lane")->valueint;
-  parameters.player_car_racing_.y_ =
-      cJSON_GetObjectItem(player_car_racing, "y")->valueint;
-
-  for (int i = 0; i < cJSON_GetArraySize(rival_cars); i++) {
-    const cJSON *rival_car = cJSON_GetArrayItem(rival_cars, i);
-    if (!rival_car) {
-      return parameters;
-    }
-    parameters.rival_cars_[i].lane_ =
-        cJSON_GetObjectItem(rival_car, "lane")->valueint;
-    parameters.rival_cars_[i].y_ =
-        cJSON_GetObjectItem(rival_car, "y")->valueint;
-  }
+  ParseParameters1(&parameters, car_racing_parameters, player_car_racing);
+  ParseParameters2(&parameters, rival_cars);
 
   return parameters;
 }
+CarRacingParameters ParseParameters2(CarRacingParameters *parameters,
+                                     const cJSON *rival_cars) {
+  for (int i = 0; i < cJSON_GetArraySize(rival_cars); i++) {
+    const cJSON *rival_car = cJSON_GetArrayItem(rival_cars, i);
+    if (!rival_car) {
+      break;
+    }
+    (*parameters).rival_cars_[i].lane_ =
+        cJSON_GetObjectItem(rival_car, "lane")->valueint;
+    (*parameters).rival_cars_[i].y_ =
+        cJSON_GetObjectItem(rival_car, "y")->valueint;
+  }
+  return (*parameters);
+}
+CarRacingParameters ParseParameters1(CarRacingParameters *parameters,
+                                     const cJSON *car_racing_parameters,
+                                     const cJSON *player_car_racing) {
+  (*parameters).state_ =
+      cJSON_GetObjectItem(car_racing_parameters, "state_car_racing")->valueint;
+  (*parameters).score_ =
+      cJSON_GetObjectItem(car_racing_parameters, "score")->valueint;
+  (*parameters).level_ =
+      cJSON_GetObjectItem(car_racing_parameters, "level")->valueint;
+  (*parameters).record_score_ =
+      cJSON_GetObjectItem(car_racing_parameters, "record_score")->valueint;
+  (*parameters).time_step_ =
+      cJSON_GetObjectItem(car_racing_parameters, "time_step")->valueint;
+  (*parameters).last_moved_time_ =
+      cJSON_GetObjectItem(car_racing_parameters, "last_moved_time")->valueint;
 
-int SelectGame(const int game_id) {
+  (*parameters).track_height_ =
+      cJSON_GetObjectItem(car_racing_parameters, "track_height")->valueint;
+  (*parameters).track_width_ =
+      cJSON_GetObjectItem(car_racing_parameters, "track_width")->valueint;
+
+  (*parameters).player_car_racing_.lane_ =
+      cJSON_GetObjectItem(player_car_racing, "lane")->valueint;
+  (*parameters).player_car_racing_.y_ =
+      cJSON_GetObjectItem(player_car_racing, "y")->valueint;
+  return (*parameters);
+}
+
+int MakePostRequestWithInlineQueryNumber(const char * url, const char* port, const char * endpoint, const int game_id) {
   int error_code = 0;
   CURL *curl;
   CURLcode res;
 
   curl = curl_easy_init();
   if (curl) {
-    const char *json = "{\"gameId\": \"3\"}";
-    struct curl_slist *slist1 = NULL;
-    slist1 = curl_slist_append(slist1, "Content-Type: application/json");
-    slist1 = curl_slist_append(slist1, "Accept: application/json");
-
     char full_url[64] = {0};
     curl_easy_setopt(curl, CURLOPT_POST, 1);
-    snprintf(full_url, 64 - 1, "http://localhost:8080/api/games/%d", game_id);
+    snprintf(full_url, 64 - 1, "%s:%s/%s/%d", url, port, endpoint, game_id);
+//    snprintf(full_url, 64 - 1, "http://localhost:8080/api/games/%d", game_id);
 
     curl_easy_setopt(curl, CURLOPT_URL, full_url);
-
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json);
 
     res = curl_easy_perform(curl);
 
