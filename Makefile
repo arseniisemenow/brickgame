@@ -117,7 +117,7 @@ dvi:
 	${OPEN_COMMAND} ../dvi/README.html
 
 
-test: test_tetris test_snake
+test: test_tetris test_snake test_race
 
 test_tetris: ${SHARED_LIB_NAME}
 	@${CXX} ${SOURCES_FOR_TESTS} ${SHARED_LIB_NAME} -lcheck -lm  -o test.out
@@ -132,6 +132,9 @@ test_snake:
 	cmake -DCMAKE_BUILD_TYPE=Release -S ${TEST_SNAKE_SRC} -B ${TEST_SNAKE_DEST}
 	cmake --build ${TEST_SNAKE_DEST} --target tests -j 8
 	./${TEST_SNAKE_DEST}/tests
+
+test_race:
+	cd src/brick_game/race && go test -v
 
 test_valgrind:
 	@${CC} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o test.out

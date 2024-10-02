@@ -48,6 +48,7 @@ func ActionExitState(game *CarRacingGame) {
 func ActionPause(game *CarRacingGame) {
 	game.State = KPause
 }
+
 func ActionUnPause(game *CarRacingGame) {
 	game.State = KMoving
 }
