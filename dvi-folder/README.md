@@ -103,19 +103,21 @@ In that version we maintain **three** modules of backend and frontend written on
 
 ## Overall
 
+
 ![Instalation GIF](media/installation.gif)
 
 ## Gameplay Tetris CLI
 
-![Gameplay GIF](media/gameplay_cli_tetris.gif)
+<img src="media/gameplay_cli_snake.gif" width="300" height="600"/>
+<img src="media/gameplay_cli_tetris.gif" width="300" height="600"/>
+
+![Gameplay GIF](media/gameplay_cli_snake.gif)
 
 ## Gameplay Tetris Desktop
 
 ![Gameplay GIF](media/gameplay_desktop_tetris.gif)
 
 ## Gameplay Snake CLI
-
-![Gameplay GIF](media/gameplay_cli_snake.gif)
 
 ## Gameplay Snake Desktop
 
