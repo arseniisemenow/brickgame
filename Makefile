@@ -97,8 +97,8 @@ install: uninstall install_cli install_desktop
 	-make server
 
 uninstall:
-	@rm -f brickgame_cli.out
-	@rm -rf ${DESKTOP_BUILD}
+	@rm -f build
+	@make server-stop
 	@echo "Uninstallation is finished"
 
 run_web:

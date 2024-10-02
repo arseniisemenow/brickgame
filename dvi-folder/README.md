@@ -1,5 +1,7 @@
 # BrickGame v3.0 aka Tetris + Snake Xerzia + Car Racing
 
+![Untitled.png](media/preview.png)
+
 BrickGame v3.0 is a continuing
 of [BrickGame v2.0](https://github.com/arseniisemenow/c-cpp-brickgame-cli-desktop-tetris-snake-1).
 

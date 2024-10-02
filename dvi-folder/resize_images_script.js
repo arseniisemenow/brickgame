@@ -32,3 +32,6 @@ function resizeGif(srcField, width) {
 for (var i = 0; i < srcs.length; ++i){
     resizeGif(srcs[i], 650);
 }
+
+
+resizeGif("media/preview.png", 1000);
