@@ -4,7 +4,7 @@ project("CURL-DEMO")
 
 
 set(SOURCES
-        "main.c"
+        "test_main.c"
         "retrieve_data.c"
         "retrieve_data.h"
         "cjson.c"

@@ -177,12 +177,11 @@ void View::UpdateCarRacing() {
   if (car_racing_game_state_.state_ == kGameOver) {
   }
 
-  MakeAction(signal);
+  (void)MakeAction(signal);
 }
 
 void View::InitializeUI() {
   StartTetrisGame();
-  //    StartSnakeGame();
 
   connect(ui_->push_button_tetris, &QPushButton::clicked, this,
           &View::StartTetrisGame);
@@ -212,9 +211,11 @@ void View::StartSnakeGame() {
   InitParametersForSnakeBeforeStart(p_parameters_);
 }
 void View::StartCarRacingGame() {
+  const int error_code = SelectGame(3);
+  if (error_code) {
+    return;
+  }
   current_game_ = CurrentGame::kCarRacing;
-  SelectGame(3);
-//  InitParametersForSnakeBeforeStart(p_parameters_);
 }
 
 

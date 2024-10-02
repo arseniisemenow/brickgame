@@ -2,19 +2,23 @@
 
 #include <unistd.h>
 
-#include "draw_objects.h"
 #include "../../brick_game/common/retrieve_data/retrieve_data.h"
+#include "draw_objects.h"
 
 void CarRacingLoop() {
   int input = 0;
   bool key_held = 0;
   bool break_flag = FALSE;
 
-  SelectGame(3);
-//  MakeAction(6); // If wanna skip spawn state at the beginning
+  int error_code = SelectGame(3);
+  if (error_code) {
+    return;
+  }
 
-  while (!break_flag) {
-    usleep(100000);
+  //  MakeAction(6); // If wanna skip spawn state at the beginning
+
+  while (!break_flag && !error_code) {
+    usleep(10000);
     CarRacingParameters game_state = GetGameStateFromServer();
     if (game_state.state_ == kExitState) {
       break_flag = true;
@@ -28,7 +32,7 @@ void CarRacingLoop() {
 
     SignalType signal = GetSignal(input, 0, &key_held);
 
-    MakeAction(signal);
+    error_code = MakeAction(signal);
     input = GET_USER_INPUT;
   }
 }

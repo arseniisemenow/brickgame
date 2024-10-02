@@ -26,7 +26,7 @@ static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb,
                                      void *userp);
 
 
-void SelectGame(const int game_id);
+int SelectGame(const int game_id);
 int MakeAction(const int action);
 CarRacingParameters GetGameStateFromServer();
 

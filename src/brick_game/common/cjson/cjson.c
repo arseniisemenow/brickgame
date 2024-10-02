@@ -56,7 +56,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy
 #pragma GCC visibility pop
 #endif
 
-#include "cJSON.h"
+#include "cjson.h"
 
 /* define our own boolean type */
 #ifdef true
