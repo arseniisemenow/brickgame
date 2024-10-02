@@ -4,9 +4,9 @@ import (
 	"github.com/arseniisemenow/race"
 	"github.com/gin-gonic/gin"
 	"log"
-	"myserver/auxiliary"
-	con "myserver/controller"
-	"myserver/dbhandler"
+	"myserver/internal/cgotransform"
+	con "myserver/internal/controller"
+	"myserver/internal/dbhandler"
 	t "myserver/types"
 	"net/http"
 	"strconv"
@@ -20,11 +20,11 @@ func HandlerGetParameters(activeGameID *int, dbHandler *dbhandler.DBHandler) fun
 		}
 		tState := con.GetTStateValue(con.Parameters)
 		sState := con.GetSStateValue(con.Parameters)
-		board := auxiliary.GetBoardFromParameters()
-		tetrisPlayer, tetrisPredictPlayer, tetrisNextPlayer := auxiliary.GetTetrisPlayersFromParameters()
-		snakePlayer := auxiliary.GetSnakePlayerFromParameters()
-		tetrisRecords, snakeRecords := auxiliary.GetRecords()
-		tetrisGameStatus, snakeGameStatus := auxiliary.GetGameStates()
+		board := cgotransform.GetBoardFromParameters()
+		tetrisPlayer, tetrisPredictPlayer, tetrisNextPlayer := cgotransform.GetTetrisPlayersFromParameters()
+		snakePlayer := cgotransform.GetSnakePlayerFromParameters()
+		tetrisRecords, snakeRecords := cgotransform.GetRecords()
+		tetrisGameStatus, snakeGameStatus := cgotransform.GetGameStates()
 		parameters := t.Parameters{
 			RecordsTetris:       tetrisRecords,
 			RecordsSnake:        snakeRecords,

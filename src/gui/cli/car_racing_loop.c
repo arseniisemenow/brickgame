@@ -10,16 +10,16 @@ void CarRacingLoop() {
   bool key_held = 0;
   bool break_flag = FALSE;
 
-  int error_code = MakePostRequestWithInlineQueryNumber("http://localhost", "8080", "api/games", 3);
+  int error_code = SelectGame(3);
   if (error_code) {
     return;
   }
 
-  //  MakeAction(6); // If wanna skip spawn state at the beginning
+  //  SendSignalAction(6); // If wanna skip spawn state at the beginning
 
   while (!break_flag && !error_code) {
     usleep(10000);
-    CarRacingParameters game_state = GetGameStateFromServer();
+    CarRacingParameters game_state = GetParameters();
     if (game_state.state_ == kExitState) {
       break_flag = true;
     }
@@ -32,7 +32,7 @@ void CarRacingLoop() {
 
     SignalType signal = GetSignal(input, 0, &key_held);
 
-    error_code = MakeAction(signal);
+    error_code = SendSignalAction(signal);
     input = GET_USER_INPUT;
   }
 }

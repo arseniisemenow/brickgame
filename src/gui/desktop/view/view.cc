@@ -157,7 +157,7 @@ void View::UpdateSnake() {
 void View::UpdateCarRacing() {
   SignalType signal = signal_type_;
 
-  car_racing_game_state_ = GetGameStateFromServer();
+  car_racing_game_state_ = GetParameters();
 
   PrintState((State)car_racing_game_state_.state_, ui_->label_state_car_racing);
 
@@ -177,8 +177,7 @@ void View::UpdateCarRacing() {
   }
   if (car_racing_game_state_.state_ == kGameOver) {
   }
-
-  (void)MakeAction(signal);
+  SendSignalAction(signal);
 }
 
 void View::InitializeUI() {
@@ -212,7 +211,7 @@ void View::StartSnakeGame() {
   InitParametersForSnakeBeforeStart(p_parameters_);
 }
 void View::StartCarRacingGame() {
-  const int error_code = MakePostRequestWithInlineQueryNumber("http://localhost", "8080", "api/games", 3);
+  const int error_code = SelectGame(3);
   if (error_code) {
     return;
   }

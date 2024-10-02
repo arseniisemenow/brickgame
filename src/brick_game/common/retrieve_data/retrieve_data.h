@@ -26,9 +26,13 @@ static size_t IgnoreResponseCallback(void *contents, size_t size, size_t nmemb,
                                      void *userp);
 
 int MakePostRequestWithInlineQueryNumber(const char * url, const char* port, const char * endpoint, const int game_id);
-int MakeAction(const int action);
-CarRacingParameters GetGameStateFromServer();
+int MakePostRequestWithJson(const char * url, const char* port, const char * endpoint, const char *json);
+const cJSON * MakeGetRequestRetrieveState(const char *url, const char *port,
+                                           const char *endpoint);
 
+int SelectGame(const int game_id);
+int SendSignalAction(const int action);
+CarRacingParameters GetParameters();
 #ifdef __cplusplus
 }
 #endif

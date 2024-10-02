@@ -1,8 +1,8 @@
-package auxiliary
+package cgotransform
 
 import "C"
 import (
-	con "myserver/controller"
+	con "myserver/internal/controller"
 	t "myserver/types"
 )
 

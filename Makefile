@@ -78,7 +78,7 @@ run_postgres:
 	cd docker && docker-compose up -d
 
 server: run_postgres
-	cd src/brick_game/server && go build -o server.out && ./server.out
+	cd src/brick_game/server && go build -o build/server.out && ./build/server.out
 
 lib: ${SHARED_LIB_NAME}
 
