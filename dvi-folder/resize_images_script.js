@@ -3,9 +3,6 @@ let srcs = [
     "media/gameplay_cli_tetris.gif",
     "media/gameplay_desktop_snake.gif",
     "media/gameplay_desktop_tetris.gif",
-    "media/installation.gif",
-    "media/fsm/fsm_snake.png",
-    "media/fsm/fsm_tetris.png",
 ]
 
 function resizeGif(srcField, width) {
@@ -27,9 +24,9 @@ function resizeGif(srcField, width) {
 }
 
 // Call resizeGif for each source in the srcs array
-for (var i = 0; i < srcs.length; ++i){
-    resizeGif(srcs[i], 650);
-}
-
-
-resizeGif("media/preview.png", 1000);
+// for (var i = 0; i < srcs.length; ++i){
+//     resizeGif(srcs[i], 650);
+// }
+//
+//
+// resizeGif("media/preview.png", 1000);

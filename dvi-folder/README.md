@@ -1,7 +1,7 @@
 
 # BrickGame v3.0 aka Tetris + Snake Xenzia + Car Racing
 
-<img src="media/preview.png"/>
+<img src="media/preview.png" width="1000"/>
 
 BrickGame v3.0 is a continuing
 of [BrickGame v2.0](https://github.com/arseniisemenow/c-cpp-brickgame-cli-desktop-tetris-snake-1).
