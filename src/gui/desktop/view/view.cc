@@ -106,7 +106,7 @@ void View::UpdateTetris() {
       AddRecord(p_parameters_->t_records_, c_string,
                 p_parameters_->t_game_status_->score_,
                 TETRIS_RECORDS_FILE_NAME);
-
+      InitGameStatus(p_parameters_->t_game_status_); // To solve the tetris desktop bug
     }
   }
   if (*p_parameters_->t_state_ == kExitState) {

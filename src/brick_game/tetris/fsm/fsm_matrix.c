@@ -163,7 +163,6 @@ void ActionGameOver(Parameters *p_parameters) {
             p_parameters->t_game_status_->score_, TETRIS_RECORDS_FILE_NAME);
 
   InitBoard(p_parameters->t_board_);
-  InitGameStatus(p_parameters->t_game_status_);
   *p_parameters->t_state_ = kStart;
 }
 
