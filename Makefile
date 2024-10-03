@@ -97,7 +97,7 @@ install: uninstall install_cli install_desktop
 	-make server
 
 uninstall:
-	@rm -f build
+	@rm -rf build
 	@make server-stop
 	@echo "Uninstallation is finished"
 
