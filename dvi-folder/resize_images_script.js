@@ -6,8 +6,6 @@ let srcs = [
     "media/installation.gif",
     "media/fsm/fsm_snake.png",
     "media/fsm/fsm_tetris.png",
-    "media/backend-frontend-connection/brick-game-v-1.png",
-    "media/backend-frontend-connection/brick-game-v-2.png",
 ]
 
 function resizeGif(srcField, width) {
