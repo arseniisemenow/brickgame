@@ -38,6 +38,7 @@ func ActionCollide(game *CarRacingGame) {
 
 func ActionGameOver(game *CarRacingGame) {
 	game.Player = Car{Lane: 1, Y: game.TrackHeight - 1}
+	game.Score = 0
 	game.State = KStart
 }
 

@@ -14,6 +14,8 @@ github.com/arseniisemenow/race v0.3.6 h1:0sWqbKETdPeA/sk3yVv6uxMo4bi+gIPiSM5A3p8
 github.com/arseniisemenow/race v0.3.6/go.mod h1:amqMfmS/3WRyGNZOMpiOutPqwex8aT7mrwuFW9BU5JI=
 github.com/arseniisemenow/race v0.3.7 h1:ZJkTWlmDuA2Oettfb3Fd5uSdHWPsENkzrNWG46HhE6w=
 github.com/arseniisemenow/race v0.3.7/go.mod h1:amqMfmS/3WRyGNZOMpiOutPqwex8aT7mrwuFW9BU5JI=
+github.com/arseniisemenow/race v0.3.9 h1:wWITlyJCLuj342T69K8xburbdzJNZJH3meALq6nuFr4=
+github.com/arseniisemenow/race v0.3.9/go.mod h1:amqMfmS/3WRyGNZOMpiOutPqwex8aT7mrwuFW9BU5JI=
 github.com/bytedance/sonic v1.11.6 h1:oUp34TzMlL+OY1OUWxHqsdkgC/Zfc85zGqw9siXjrc0=
 github.com/bytedance/sonic v1.11.6/go.mod h1:LysEHSvpvDySVdC2f87zGWf6CIKJcAvqab1ZaiQtds4=
 github.com/bytedance/sonic/loader v0.1.1 h1:c+e5Pt1k/cy5wMveRDyk2X4B9hF4g7an8N3zCYjJFNM=
