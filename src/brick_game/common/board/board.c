@@ -40,7 +40,6 @@ void InitBoard(Board *p_board) {
   }
 }
 
-// todo: check why not segfaulting: row_index_2 is set to 20 - out of the bounds
 int HandleBoardCompleteLines(Board *p_board) {
   int complete_lines_count = 0;
   for (int row_index = p_board->height_ - 1; row_index >= 0; --row_index) {
