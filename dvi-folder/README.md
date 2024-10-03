@@ -81,7 +81,7 @@ In that version we maintain **three** modules of backend and frontend written on
 ## Installation
 
 1. Clone the repository.
-2. Run `make install` to install the project.
+2. Run `make install` to install the project. 
 3. Run `make run_cli` to start playing in cli.
 4. Run `make run_desktop` to start playing in desktop.
 5. Run `make run_web` to start playing in desktop.
@@ -101,37 +101,35 @@ In that version we maintain **three** modules of backend and frontend written on
 
 - Use the arrow keys to change car position.
 
-## Overall
+## Gameplay CLI
 
+<img src="media/gifs/cli-tetris.gif" width="250" height="500"/>
+<img src="media/gifs/cli-snake.gif" width="250" height="500"/>
+<img src="media/gifs/cli-car-racing.gif" width="250" height="500"/>
 
-![Instalation GIF](media/installation.gif)
+## Gameplay Desktop
 
-## Gameplay Tetris CLI
+<img src="media/gifs/desktop-tetris.gif" width="250" height="400"/>
+<img src="media/gifs/desktop-snake.gif" width="250" height="400"/>
+<img src="media/gifs/desktop-car-racing.gif" width="250" height="400"/>
 
-<img src="media/gameplay_cli_snake.gif" width="300" height="600"/>
-<img src="media/gameplay_cli_tetris.gif" width="300" height="600"/>
+## Gameplay Web
 
-![Gameplay GIF](media/gameplay_cli_snake.gif)
-
-## Gameplay Tetris Desktop
-
-![Gameplay GIF](media/gameplay_desktop_tetris.gif)
-
-## Gameplay Snake CLI
-
-## Gameplay Snake Desktop
-
-![Gameplay GIF](media/gameplay_desktop_snake.gif)
+<img src="media/gifs/web-tetris.gif" width="250" height="350"/>
+<img src="media/gifs/web-snake.gif" width="250" height="350"/>
+<img src="media/gifs/web-car-racing.gif" width="250" height="350"/>
 
 ## Finite State Machine (FSM) Diagram Tetris
 
-![FSM Diagram Tetris](media/fsm/fsm_tetris.png)
+<img src="media/fsm/fsm-tetris.png" width="550"/>
 
 ## Finite State Machine (FSM) Diagram Snake
 
-![FSM Diagram Snake](media/fsm/fsm_snake.png)
+
+<img src="media/fsm/fsm-snake.png" width="550"/>
 
 ## Finite State Machine (FSM) Diagram Car Racing
 
-![FSM Diagram Car Racing](media/fsm/fsm_race.png)
+
+<img src="media/fsm/fsm-car-racing.png" width="550"/>
 
