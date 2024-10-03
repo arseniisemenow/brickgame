@@ -27,6 +27,7 @@ void TetrisLoop(Parameters *p_parameters) {
                    TETRIS_RECORDS_FILE_NAME);
       AddRecord(p_parameters->t_records_, p_parameters->t_username,
                 p_parameters->t_game_status_->score_, TETRIS_RECORDS_FILE_NAME);
+      InitGameStatus(p_parameters->t_game_status_); // To solve the tetris desktop bug
     }
 
     user_input = GET_USER_INPUT;
