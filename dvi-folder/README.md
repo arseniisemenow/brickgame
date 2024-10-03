@@ -115,9 +115,9 @@ In that version we maintain **three** modules of backend and frontend written on
 
 ## Gameplay Web
 
-<img src="media/gifs/web-tetris.gif" width="250" height="350"/>
-<img src="media/gifs/web-snake.gif" width="250" height="350"/>
-<img src="media/gifs/web-car-racing.gif" width="250" height="350"/>
+<img src="media/gifs/web-tetris.gif" width="250" height="300"/>
+<img src="media/gifs/web-snake.gif" width="250" height="300"/>
+<img src="media/gifs/web-car-racing.gif" width="250" height="300"/>
 
 ## Finite State Machine (FSM) Diagram Tetris
 
