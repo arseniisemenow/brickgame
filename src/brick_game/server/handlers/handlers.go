@@ -46,7 +46,7 @@ func HandlerGetParameters(activeGameID *int, dbHandler *dbhandler.DBHandler) fun
 		if con.CarRacingParameters.RecordsScore > getCurrentRecord.Score {
 			err := dbHandler.StoreRecord(con.CarRacingParameters.RecordsScore)
 			if err != nil {
-				log.Printf("Store record error: {%d %s}: %s\n", con.CarRacingParameters.RecordsScore, err)
+				log.Printf("Store record error: {%d}: %s\n", con.CarRacingParameters.RecordsScore, err)
 			}
 		} else {
 			parameters.CarRacingParameters.RecordsScore = getCurrentRecord.Score
