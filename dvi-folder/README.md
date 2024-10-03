@@ -1,4 +1,4 @@
-# BrickGame v3.0 aka Tetris + Snake Xerzia + Car Racing
+# BrickGame v3.0 aka Tetris + Snake Xenzia + Car Racing
 
 ![Untitled.png](media/preview.png)
 
