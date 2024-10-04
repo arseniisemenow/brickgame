@@ -8,6 +8,7 @@ NextPlayerGridWidget::NextPlayerGridWidget(QWidget *parent) : QWidget(parent) {
 
 void NextPlayerGridWidget::SetPlayer(const Player *next_player) {
   next_player_ = const_cast<Player*>(next_player);
+  is_ready_ = true;
   update();
 }
 
@@ -22,6 +23,9 @@ void NextPlayerGridWidget::paintEvent(QPaintEvent *event) {
                        row * s21::constants::kCellSize,
                        s21::constants::kCellSize, s21::constants::kCellSize);
     }
+  }
+  if (!is_ready_){
+    return;
   }
 
   for (int row = 0; row < PLAYER_BOARD_SIZE; ++row) {

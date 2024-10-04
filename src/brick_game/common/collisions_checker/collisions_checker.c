@@ -158,6 +158,12 @@ bool CheckFutureCollideWithBlocksLeft(Player *p_player, Board *p_board) {
         if (cell_global_pos_x < -1 || cell_global_pos_x > 8) {
           flag |= true;
         }
+        if (cell_global_pos_y < -1 || cell_global_pos_x > 18) {
+          flag |= true;
+        }
+        if (flag){
+          return flag;
+        }
         flag |= p_board->cells_[cell_global_pos_y][cell_global_pos_x].is_set_;
         if (flag) {
           return flag;

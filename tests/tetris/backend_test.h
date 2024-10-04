@@ -31,6 +31,9 @@ START_TEST(BoardOverlayBlockTest) {
   BoardOverlayBlock(player, board);
 
   AssertPlayerBoardSettedCells(player, board);
+
+  FreeBoard(board);
+  FreePlayer(player);
 }
 END_TEST
 

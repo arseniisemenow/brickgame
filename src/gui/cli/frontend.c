@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <locale.h>
 #include <ncurses.h>
+#include <ctime> // For Fedora
 
 int CreateMenu(const char *options[], int size) {
   int highlight = 0;

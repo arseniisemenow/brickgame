@@ -21,6 +21,7 @@ class NextPlayerGridWidget : public QWidget {
 
  private:
   Player *next_player_;
+  bool is_ready_{false};
 };
 
 #endif //CPP3_BRICK_GAME_V_2_0_1_GUI_DESKTOP_VIEW_NEXT_PLAYER_GRID_WIDGET_NEXT_PLAYER_GRID_WIDGET_H_

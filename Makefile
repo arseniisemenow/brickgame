@@ -45,23 +45,18 @@ SOURCES_FOR_TESTS:= tests/tetris/main_test.c
 
 SHARED_LIB_NAME := libbrickgame.so
 
+OS_NAME	 := $(shell uname 2>/dev/null || echo "Unknown")
 
-ifeq ($(OS_NAME), GNU/Linux)
+OPEN_COMMAND := open
+
+ifeq ($(OS_NAME), Linux)
     OPEN_COMMAND := xdg-open
-#	APP_DESTINATION:=../build
 endif
-
 
 DESKTOP_SOURCES := src/gui/desktop/view
 DESKTOP_BUILD := build_desktop
 CLI_BUILD := build_cli
 APP_DESTINATION:=	build_desktop/brickgame_desktop.app/Contents/MacOS
-
-OPEN_COMMAND =open
-# if Fedora, need to uncomment followed two lines
-#OPEN_COMMAND=xdg-open
-#APP_DESTINATION:=build_desktop
-
 
 # Create .so file from all backend and common sources
 ${SHARED_LIB_NAME}: ${TETRIS_SRC} ${BACKEND} ${BACKEND_CXX} ${COMMON}
@@ -125,21 +120,27 @@ dvi:
 test: test_tetris test_snake test_race
 
 TEST_TETRIS_DEST := build/tests/tetris
-
+TEST_SNAKE_DEST := build/tests/snake
+TEST_SNAKE_SRC := tests/snake
+TEST_SNAKE_TARGET := tests
 test_tetris: ${SHARED_LIB_NAME}
 	@mkdir -p build/tests/tetris
 	@${CXX} ${SOURCES_FOR_TESTS} build/${SHARED_LIB_NAME} -lcheck -lm -o ./${TEST_TETRIS_DEST}/tests.out
 	@./${TEST_TETRIS_DEST}/tests.out
-	@#make clean
-
-TEST_SNAKE_SRC := tests/snake
-TEST_SNAKE_DEST := build/tests/snake
-TEST_SNAKE_TARGET := tests
+test_tetris_valgrind: ${SHARED_LIB_NAME}
+	@mkdir -p build/tests/tetris
+	@${CXX} ${SOURCES_FOR_TESTS} build/${SHARED_LIB_NAME} -lcheck -lm -o ./${TEST_TETRIS_DEST}/tests.out
+	@./${TEST_TETRIS_DEST}/tests.out
+	@valgrind ${VALGRIND_FLAGS} ./${TEST_TETRIS_DEST}/tests.out
 
 test_snake:
 	cmake -DCMAKE_BUILD_TYPE=Release -S ${TEST_SNAKE_SRC} -B ${TEST_SNAKE_DEST}
 	cmake --build ${TEST_SNAKE_DEST} --target tests -j 8
 	./${TEST_SNAKE_DEST}/tests
+test_snake_valgrind:
+	cmake -DCMAKE_BUILD_TYPE=Release -S ${TEST_SNAKE_SRC} -B ${TEST_SNAKE_DEST}
+	cmake --build ${TEST_SNAKE_DEST} --target tests -j 8
+	@valgrind ${VALGRIND_FLAGS} ./${TEST_SNAKE_DEST}/tests.out
 
 test_race:
 	cd src/brick_game/race && go test -v
