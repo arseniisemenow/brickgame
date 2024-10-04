@@ -8,7 +8,10 @@ Player *AllocPlayer() {
   p_player->snake_body_ = (Cell *)calloc(sizeof(Cell), 200);
   return p_player;
 }
-void FreePlayer(Player *p_player) { free(p_player); }
+void FreePlayer(Player *p_player) {
+  free(p_player->snake_body_);
+  FreePlayerBoard(p_player->board_);
+  free(p_player); }
 
 Direction PlayerGetDirection(const Player* player){
   return player->direction_;

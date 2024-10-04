@@ -17,6 +17,7 @@ void FreeBoard(Board *board) {
     free(board->cells_[i]);
   }
   free(board->cells_);
+  free(board);
 }
 
 int BoardGetHeight(const Board* board){
