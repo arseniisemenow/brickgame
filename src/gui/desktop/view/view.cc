@@ -3,7 +3,6 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-#include "./ui_view.h"
 #include "brick_game/common/game_status/game_status.h"
 #include "brick_game/common/parameters/parameters.h"
 #include "brick_game/common/player/player.h"
@@ -11,6 +10,7 @@
 #include "brick_game/tetris/fsm/fsm.h"
 #include "grid_widget/grid_widget.h"
 #include "next_player_grid_widget/next_player_grid_widget.hpp"
+#include "./ui_view.h"
 
 namespace s21 {
 

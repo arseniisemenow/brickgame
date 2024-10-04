@@ -110,7 +110,6 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 			*activeGameID = 2
 			c.String(http.StatusOK, "Snake game started")
 		} else if gameID == "3" { // car racing
-			//race.InitParametersCarRacing()
 			con.CarRacingParameters.State = race.KStart
 			con.CarRacingParameters.Score = 0
 			*activeGameID = 3
@@ -121,21 +120,3 @@ func HandlerPostGames(activeGameID *int) func(c *gin.Context) {
 		}
 	}
 }
-
-//func StartGameLoop() {
-//	go func() {
-//		for {
-//			if activeGameID == 3 { // Car Racing game is active
-//				currentTime := time.Now().UnixMilli()
-//
-//				// Call the timed movement logic (moving obstacles down)
-//				if currentTime-game.LastMovedTime > game.TimeStep {
-//					game.LastMovedTime = currentTime
-//					race.ActionMoveDown(game)
-//				}
-//
-//				time.Sleep(100 * time.Millisecond)
-//			}
-//		}
-//	}()
-//}

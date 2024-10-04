@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-#include "../ui_view.h"
 #include "grid_widget/grid_widget.h"
 #include "next_player_grid_widget/next_player_grid_widget.hpp"
+#include "../ui_view.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
