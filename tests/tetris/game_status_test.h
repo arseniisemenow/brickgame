@@ -12,6 +12,7 @@ START_TEST(InitGameStatusTest) {
   InitGameStatus(game_status);
   ck_assert_int_eq(game_status->score_, 0);
   ck_assert_int_eq(game_status->level_, 0);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -31,6 +32,7 @@ START_TEST(AddScoreGameStatusTest1) {
   ck_assert_int_eq(game_status->score_, 400);
   AddScoreGameStatus(game_status, 1);
   ck_assert_int_eq(game_status->score_, 500);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -50,6 +52,7 @@ START_TEST(AddScoreGameStatusTest2) {
   ck_assert_int_eq(game_status->score_, 800);
   AddScoreGameStatus(game_status, 1);
   ck_assert_int_eq(game_status->score_, 900);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -69,6 +72,7 @@ START_TEST(AddScoreGameStatusTest3) {
   ck_assert_int_eq(game_status->score_, 2600);
   AddScoreGameStatus(game_status, 5);
   ck_assert_int_eq(game_status->score_, 4100);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -98,6 +102,7 @@ START_TEST(AddScoreGameStatusUpdateGameStatusLevelTest1) {
   UpdateGameStatusLevel(game_status);
   ck_assert_int_eq(game_status->score_, 900);
   ck_assert_int_eq(game_status->level_, 1);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -127,6 +132,7 @@ START_TEST(AddScoreGameStatusUpdateGameStatusLevelTest2) {
   UpdateGameStatusLevel(game_status);
   ck_assert_int_eq(game_status->score_, 4100);
   ck_assert_int_eq(game_status->level_, 6);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -148,6 +154,7 @@ START_TEST(AddScoreGameStatusNoChangesTest) {
   AddScoreGameStatus(game_status, 0);
   ck_assert_int_eq(game_status->score_, 0);
   ck_assert_int_eq(game_status->level_, 0);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -163,6 +170,7 @@ START_TEST(AddScoreGameStatusInvalidArgumentTest) {
   AddScoreGameStatus(game_status, -100);
   ck_assert_int_eq(game_status->score_, 0);
   ck_assert_int_eq(game_status->level_, 0);
+  FreeGameStatus(game_status);
 }
 
 END_TEST
@@ -202,6 +210,7 @@ START_TEST(AddScoreGameStatusUpdateGameStatusLevelMaxLevelExceedTest) {
   UpdateGameStatusLevel(game_status);
   ck_assert_int_eq(game_status->score_, 9000);
   ck_assert_int_eq(game_status->level_, 10);
+  FreeGameStatus(game_status);
 }
 
 Suite *game_status_suite(void) {

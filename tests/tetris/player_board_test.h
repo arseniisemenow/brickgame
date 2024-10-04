@@ -22,6 +22,7 @@ START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
       }
     }
   }
+  FreePlayerBoard(player_board);
 }
 END_TEST
 
@@ -38,6 +39,7 @@ START_TEST(SetPlayerBoardBlockTestISecondRotation) {
       }
     }
   }
+  FreePlayerBoard(player_board);
 }
 END_TEST
 
@@ -54,6 +56,7 @@ START_TEST(SetPlayerBoardBlockTestThirdRotation) {
       }
     }
   }
+  FreePlayerBoard(player_board);
 }
 
 END_TEST
@@ -71,6 +74,7 @@ START_TEST(SetPlayerBoardBlockTestIForthRotation) {
       }
     }
   }
+  FreePlayerBoard(player_board);
 }
 END_TEST
 
@@ -84,6 +88,7 @@ START_TEST(InitPlayerBoardTest) {
       ck_assert_int_eq(player_board->board_[i][j].is_set_, false);
     }
   }
+  FreePlayerBoard(player_board);
 }
 END_TEST
 
@@ -108,6 +113,8 @@ START_TEST(CopyPlayerBoardTest) {
                        player_board_2->board_[i][j].color_);
     }
   }
+  FreePlayerBoard(player_board_1);
+  FreePlayerBoard(player_board_2);
 }
 END_TEST
 
