@@ -14,6 +14,7 @@ START_TEST(InitPlayerTest) {
   ck_assert_int_eq(player->y_, 0);
   ck_assert_int_ge(player->block_type_, 0);
   ck_assert_int_ge(player->direction_, 0);
+  FreePlayer(player);
 }
 END_TEST
 START_TEST(InitNextPlayerTest) {
@@ -23,6 +24,7 @@ START_TEST(InitNextPlayerTest) {
   ck_assert_int_eq(player->y_, INIT_NEXT_PLAYER_POS_Y);
   ck_assert_int_ge(player->block_type_, 0);
   ck_assert_int_ge(player->direction_, 0);
+  FreePlayer(player);
 }
 END_TEST
 START_TEST(InitPlayerPositionTest) {
@@ -32,6 +34,7 @@ START_TEST(InitPlayerPositionTest) {
   ck_assert_int_eq(player->y_, INIT_PLAYER_POS_Y);
   ck_assert_int_ge(player->block_type_, 0);
   ck_assert_int_ge(player->direction_, 0);
+  FreePlayer(player);
 }
 START_TEST(CopyPlayerTest) {
   Player *player = AllocPlayer();
@@ -51,6 +54,8 @@ START_TEST(CopyPlayerTest) {
                        player->board_->board_[i][j].is_set_);
     }
   }
+  FreePlayer(player);
+  FreePlayer(player_2);
 }
 END_TEST
 
@@ -59,6 +64,7 @@ START_TEST(SetPlayerBlockRotationTest) {
   InitPlayer(player);
   SetPlayerBlockRotation(player, kDirectionThird);
   ck_assert_int_eq(player->direction_, kDirectionThird);
+  FreePlayer(player);
 }
 END_TEST
 
@@ -74,6 +80,7 @@ START_TEST(SetPlayerNextBlockRotationTest) {
   ck_assert_int_eq(player->direction_, kDirectionForth);
   SetPlayerNextBlockRotation(player);
   ck_assert_int_eq(player->direction_, kDirectionFirst);
+  FreePlayer(player);
 }
 END_TEST
 START_TEST(SetPlayerPreviousBlockRotationTest) {
@@ -90,6 +97,7 @@ START_TEST(SetPlayerPreviousBlockRotationTest) {
   ck_assert_int_eq(player->direction_, kDirectionFirst);
   SetPlayerPreviousBlockRotation(player);
   ck_assert_int_eq(player->direction_, kDirectionForth);
+  FreePlayer(player);
 }
 END_TEST
 START_TEST(MovePlayerRightTest1) {
@@ -104,6 +112,8 @@ START_TEST(MovePlayerRightTest1) {
 
   ck_assert_int_eq(player->x_, player_before->x_ + 1);
   ck_assert_int_eq(player->y_, player_before->y_);
+  FreePlayer(player);
+  FreePlayer(player_before);
 }
 END_TEST
 START_TEST(MovePlayerRightTest2) {
@@ -118,6 +128,8 @@ START_TEST(MovePlayerRightTest2) {
   MovePlayerRight(player);
   ck_assert_int_eq(player->x_, player_before->x_ + 3);
   ck_assert_int_eq(player->y_, player_before->y_);
+  FreePlayer(player);
+  FreePlayer(player_before);
 }
 END_TEST
 START_TEST(MovePlayerLeftRightTest) {
@@ -143,6 +155,8 @@ START_TEST(MovePlayerLeftRightTest) {
                        player_before->board_->board_[i][j].is_set_);
     }
   }
+  FreePlayer(player);
+  FreePlayer(player_before);
 }
 END_TEST
 
@@ -159,6 +173,8 @@ START_TEST(MovePlayerUpTest) {
   ck_assert_int_eq(player_before->y_, player->y_ + 1);
   ck_assert_int_eq(player_before->block_type_, player->block_type_);
   ck_assert_int_eq(player_before->direction_, player->direction_);
+  FreePlayer(player);
+  FreePlayer(player_before);
 }
 END_TEST
 
@@ -185,6 +201,8 @@ START_TEST(MovePlayerUpDownTest) {
                        player_before->board_->board_[i][j].is_set_);
     }
   }
+  FreePlayer(player);
+  FreePlayer(player_before);
 }
 END_TEST
 

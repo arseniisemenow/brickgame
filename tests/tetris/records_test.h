@@ -38,6 +38,8 @@ START_TEST(RecordsAddSaveLoadTest1) {
 
     LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
     TestTwoRecords(records, records2);
+    FreeRecords(records);
+    FreeRecords(records2);
 }
 
 END_TEST
@@ -53,6 +55,8 @@ START_TEST(RecordsAddSaveLoadTest2) {
     LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
     TestTwoRecords(records, records2);
 
+        FreeRecords(records);
+        FreeRecords(records2);
 }
 
 END_TEST
@@ -111,6 +115,8 @@ START_TEST(RecordsAddSaveLoadTest3) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -138,6 +144,8 @@ START_TEST(RecordsAddSaveLoadTest4) {
     ck_assert_int_eq(records->records_[i].score_, 0);
     ck_assert_str_eq(records->records_[i].name_, "");
   }
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -165,6 +173,8 @@ START_TEST(RecordsAddSaveLoadTest5) {
   for (int i = 0; i < RECORDS_NUMBER; ++i) {
     ck_assert_int_eq(records->records_[0].is_current_player_, false);
   }
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -263,6 +273,8 @@ START_TEST(RecordsAddSaveLoadTest6) {
 
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -410,6 +422,8 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[2].score_, empty_score);
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
