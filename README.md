@@ -1,7 +1,7 @@
 
 # BrickGame v3.0 aka Tetris + Snake Xenzia + Car Racing
 
-<img src="media/preview.png" width="1000"/>
+<img src="dvi-folder/media/preview.png" width="1000"/>
 
 BrickGame v3.0 is a continuing
 of [BrickGame v2.0](https://github.com/arseniisemenow/c-cpp-brickgame-cli-desktop-tetris-snake-1).
@@ -14,19 +14,19 @@ of [BrickGame v2.0](https://github.com/arseniisemenow/c-cpp-brickgame-cli-deskto
 
 ## BrickGame v1.0 backend-frontend connection
 
-<img src="media/backend-frontend-connection/brick-game-v-1.png" width="500"/>
+<img src="dvi-folder/media/backend-frontend-connection/brick-game-v-1.png" width="500"/>
 
 In that version we maintain **only one** module of backend and frontend written on C language.
 
 ## BrickGame v2.0 backend-frontend connection
 
-<img src="media/backend-frontend-connection/brick-game-v-2.png" width="500"/>
+<img src="dvi-folder/media/backend-frontend-connection/brick-game-v-2.png" width="500"/>
 
 In that version we maintain **two** modules of backend and frontend written on C and C++ languages
 
 ## BrickGame v3.0 backend-frontend connection
 
-<img src="media/backend-frontend-connection/brick-game-v-3.png" width="500"/>
+<img src="dvi-folder/media/backend-frontend-connection/brick-game-v-3.png" width="500"/>
 
 In that version we maintain **three** modules of backend and frontend written on C, C++ and Go languages
 
@@ -111,32 +111,32 @@ In that version we maintain **three** modules of backend and frontend written on
 
 ## Gameplay CLI
 
-<img src="media/gifs/cli-tetris.gif" width="250" height="500"/>
-<img src="media/gifs/cli-snake.gif" width="250" height="500"/>
-<img src="media/gifs/cli-car-racing.gif" width="250" height="500"/>
+<img src="dvi-folder/media/gifs/cli-tetris.gif" width="250" height="500"/>
+<img src="dvi-folder/media/gifs/cli-snake.gif" width="250" height="500"/>
+<img src="dvi-folder/media/gifs/cli-car-racing.gif" width="250" height="500"/>
 
 ## Gameplay Desktop
 
-<img src="media/gifs/desktop-tetris.gif" width="250" height="400"/>
-<img src="media/gifs/desktop-snake.gif" width="250" height="400"/>
-<img src="media/gifs/desktop-car-racing.gif" width="250" height="400"/>
+<img src="dvi-folder/media/gifs/desktop-tetris.gif" width="250" height="400"/>
+<img src="dvi-folder/media/gifs/desktop-snake.gif" width="250" height="400"/>
+<img src="dvi-folder/media/gifs/desktop-car-racing.gif" width="250" height="400"/>
 
 ## Gameplay Web
 
-<img src="media/gifs/web-tetris.gif" width="250" height="300"/>
-<img src="media/gifs/web-snake.gif" width="250" height="300"/>
-<img src="media/gifs/web-car-racing.gif" width="250" height="300"/>
+<img src="dvi-folder/media/gifs/web-tetris.gif" width="250" height="300"/>
+<img src="dvi-folder/media/gifs/web-snake.gif" width="250" height="300"/>
+<img src="dvi-folder/media/gifs/web-car-racing.gif" width="250" height="300"/>
 
 ## Finite State Machine (FSM) Diagram Tetris
 
-<img src="media/fsm/fsm-tetris.png" width="550"/>
+<img src="dvi-folder/media/fsm/fsm-tetris.png" width="550"/>
 
 ## Finite State Machine (FSM) Diagram Snake
 
 
-<img src="media/fsm/fsm-snake.png" width="550"/>
+<img src="dvi-folder/media/fsm/fsm-snake.png" width="550"/>
 
 ## Finite State Machine (FSM) Diagram Car Racing
 
 
-<img src="media/fsm/fsm-car-racing.png" width="550"/>
+<img src="dvi-folder/media/fsm/fsm-car-racing.png" width="550"/>
