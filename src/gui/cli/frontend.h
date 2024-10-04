@@ -66,7 +66,6 @@ void HandleSnakeLoop();
 void CarRacingLoop();
 void HandleCarRacingLoop();
 
-
 int CreateMenu(const char *options[], int size);
 
 #endif  // CPP3_BRICK_GAME_V_2_0_1_GUI_CLI_FRONTEND_H_

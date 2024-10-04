@@ -1,4 +1,5 @@
 #include "game_status.h"
+
 #include <stdlib.h>
 
 GameStatus *AllocGameStatus() {

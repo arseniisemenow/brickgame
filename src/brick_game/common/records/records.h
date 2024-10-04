@@ -21,15 +21,15 @@ typedef struct {
   Record *records_;
 } Records;
 
-Records* AllocRecords();
-void FreeRecords(Records*);
+Records *AllocRecords();
+void FreeRecords(Records *);
 
-Record * RecordGetRecordIndex(const Records* records, const int index);
-char* RecordGetName(const Record* record);
-int RecordGetScore(const Record* record);
-int RecordGetIsCurrentPlayer(const Record* record);
+Record *RecordGetRecordIndex(const Records *records, const int index);
+char *RecordGetName(const Record *record);
+int RecordGetScore(const Record *record);
+int RecordGetIsCurrentPlayer(const Record *record);
 
-void CopyRecord(Record* dest, const Record* src);
+void CopyRecord(Record *dest, const Record *src);
 void InitRecords(Records *p_records);
 
 void AddRecord(Records *p_records, const char *name, int score,

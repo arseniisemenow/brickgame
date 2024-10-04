@@ -83,7 +83,9 @@ void ActionSpawn(Parameters *p_parameters) {
   BlockType next_block_type = p_parameters->t_next_player_->block_type_;
   SetPlayerBlockType(p_parameters->t_player_, next_block_type);
   SetPlayerBlockRotation(p_parameters->t_player_, kDirectionFirst);
-  SetPlayerBoardBlock(p_parameters->t_player_->board_, p_parameters->t_player_->block_type_, p_parameters->t_player_->direction_);
+  SetPlayerBoardBlock(p_parameters->t_player_->board_,
+                      p_parameters->t_player_->block_type_,
+                      p_parameters->t_player_->direction_);
   if (CheckCollisions(p_parameters)) {
     *p_parameters->t_state_ = kGameOver;
   } else {
@@ -92,7 +94,9 @@ void ActionSpawn(Parameters *p_parameters) {
 
     SetPlayerBlockType(p_parameters->t_next_player_, GetRandomBlockType());
     SetPlayerBlockRotation(p_parameters->t_player_, kDirectionFirst);
-    SetPlayerBoardBlock(p_parameters->t_next_player_->board_, p_parameters->t_next_player_->block_type_, kDirectionFirst);
+    SetPlayerBoardBlock(p_parameters->t_next_player_->board_,
+                        p_parameters->t_next_player_->block_type_,
+                        kDirectionFirst);
 
     *p_parameters->t_state_ = kMoving;
   }

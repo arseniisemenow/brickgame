@@ -152,20 +152,7 @@ test_valgrind:
 	@${CC} ${CXXFLAGS} ${CXXCOV} $(SOURCES_FOR_TESTS) -lgtest -lstdc++ -lm  -o test.out
 	@valgrind ${VALGRIND_FLAGS} ./test.out
 
-style_check:
-	@cp ../materials/linters/.clang-format .
-	@find .. -type f -name "*.cc" -exec clang-format -n {} \;
-	@find .. -type f -name "*.c" -exec clang-format -n {} \;
-	@find .. -type f -name "*.h" -exec clang-format -n {} \;
-	@rm .clang-format
-	@echo "Clang format style check is finished"
-style:
-	@cp ../materials/linters/.clang-format .
-	@find .. -type f -name "*.cc" -exec clang-format -i {} \;
-	@find .. -type f -name "*.c" -exec clang-format -i {} \;
-	@find .. -type f -name "*.h" -exec clang-format -i {} \;
-	@rm .clang-format
-	@echo "Clang format style apply is finished"
+
 
 clean: clean_project clean_static_lib clean_log clean_exec clean_obj clean_gcov clean_lcov clean_lcov_report clean_dist clean_dynamic_libs
 	@echo "Clean finished"
@@ -208,3 +195,23 @@ dist: clean_dist
 dist_unpack:
 	cd ../ && tar -xzvf archive.tar.gz
 
+FIND_EXTENSIONS_CC := -name "*.cc"
+FIND_EXTENSIONS_C := -name "*.c"
+FIND_EXTENSIONS_H := -name "*.h"
+FIND_EXTENSIONS_HPP := -name "*.hpp"
+FIND_EXTENSIONS_CPP := -name "*.cpp"
+FIND_FLAG_FOR_MATCHES := \( ${FIND_EXTENSIONS_CC} -o ${FIND_EXTENSIONS_C} -o ${FIND_EXTENSIONS_H} -o ${FIND_EXTENSIONS_HPP} -o ${FIND_EXTENSIONS_CPP} \)
+FIND_DIR := .
+CLANG_STYLE := --style=google
+CLANG_COMMAND_HIGHLIGHT := clang-format ${CLANG_STYLE} -n
+CLANG_COMMAND_FIX :=  clang-format ${CLANG_STYLE} -i
+FIND_FLAGS_HIGHLIGHT := -type f ${FIND_FLAG_FOR_MATCHES} -exec ${CLANG_COMMAND_HIGHLIGHT} {} \;
+FIND_FLAGS_FIX := -type f ${FIND_FLAG_FOR_MATCHES} -exec ${CLANG_COMMAND_FIX} {} \;
+FIND_HIGHLIGHT := find ${FIND_DIR} ${FIND_FLAGS_HIGHLIGHT}
+FIND_FIX := find ${FIND_DIR} ${FIND_FLAGS_FIX}
+style_check:
+	@${FIND_HIGHLIGHT}
+	@echo "Clang format style check is finished"
+style:
+	@${FIND_FIX}
+	@echo "Clang format style apply is finished"

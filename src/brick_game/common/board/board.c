@@ -1,13 +1,14 @@
 #include "board.h"
+
 #include <printf.h>
 #include <stdlib.h>
 
 Board *AllocBoard() {
   Board *board = (Board *)calloc(sizeof(Board), 1);
 
-  board->cells_ = (Cell**)calloc(sizeof(Cell *), BOARD_HEIGHT);
+  board->cells_ = (Cell **)calloc(sizeof(Cell *), BOARD_HEIGHT);
   for (int i = 0; i < BOARD_HEIGHT; ++i) {
-    board->cells_[i] = (Cell*)calloc(sizeof(Cell), BOARD_WIDTH);
+    board->cells_[i] = (Cell *)calloc(sizeof(Cell), BOARD_WIDTH);
   }
   return board;
 }
@@ -20,16 +21,11 @@ void FreeBoard(Board *board) {
   free(board);
 }
 
-int BoardGetHeight(const Board* board){
-  return board->height_;
-}
-int BoardGetWidth(const Board* board){
-  return board->width_;
-}
-Cell* BoardGetCellXY(const Board* board, const int x, const int y){
+int BoardGetHeight(const Board *board) { return board->height_; }
+int BoardGetWidth(const Board *board) { return board->width_; }
+Cell *BoardGetCellXY(const Board *board, const int x, const int y) {
   return &board->cells_[x][y];
 }
-
 
 void InitBoard(Board *p_board) {
   p_board->width_ = BOARD_WIDTH;
@@ -62,9 +58,9 @@ void RemoveBoardLine(Board *p_board, int line_index) {
 }
 
 bool CheckBoardCompleteLine(Board *p_board, int row_index) {
-//  if (row_index < 0 && row_index > 19){
-//    return false;
-//  }
+  //  if (row_index < 0 && row_index > 19){
+  //    return false;
+  //  }
   bool flag = true;
   for (int column_index = 0; column_index < BOARD_WIDTH; ++column_index) {
     if (!p_board->cells_[row_index][column_index].is_set_) {

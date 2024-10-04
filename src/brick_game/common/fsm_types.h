@@ -36,4 +36,4 @@ void FreeSignalType(SignalType *);
 }
 #endif
 
-#endif // CPP3_BRICK_GAME_V_2_0_1_BRICK_GAME_COMMON_FSM_TYPES_H_
+#endif  // CPP3_BRICK_GAME_V_2_0_1_BRICK_GAME_COMMON_FSM_TYPES_H_

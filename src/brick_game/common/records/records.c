@@ -57,8 +57,7 @@ void SetCurrentPlayerByIndex(Records *p_records,
 
 void AddRecord(Records *p_records, const char *name, int score,
                const char *filename) {
-  if (!p_records)
-    return;
+  if (!p_records) return;
   if (strlen(name) == 0) {
     return;
   }
@@ -122,8 +121,8 @@ void RemoveRecord(Records *p_records, const char *name, const char *filename) {
     p_records->records_[RECORDS_NUMBER - 1].name_[0] = '\0';
   }
   SortRecords(p_records);
-//  SaveRecords(p_records, filename);
-//  LoadRecords(p_records, filename);
+  //  SaveRecords(p_records, filename);
+  //  LoadRecords(p_records, filename);
 }
 bool SaveRecords(const Records *p_records, const char *filename) {
   FILE *p_file = fopen(filename, "wb");
@@ -134,7 +133,6 @@ bool SaveRecords(const Records *p_records, const char *filename) {
   for (int i = 0; i < RECORDS_NUMBER; ++i) {
     fwrite(&p_records->records_[i].score_, sizeof(int), 1, p_file);
     fwrite(&p_records->records_[i].is_current_player_, sizeof(bool), 1, p_file);
-
 
     fwrite(p_records->records_[i].name_, sizeof(char), 20, p_file);
   }

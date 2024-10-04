@@ -72,7 +72,7 @@ void View::HandleSignal(SignalType signal_type) {
     UpdateTetris();
   } else if (current_game_ == CurrentGame::kSnake) {
     UpdateSnake();
-  }else if (current_game_ == CurrentGame::kCarRacing) {
+  } else if (current_game_ == CurrentGame::kCarRacing) {
     UpdateCarRacing();
   }
 }
@@ -106,7 +106,8 @@ void View::UpdateTetris() {
       AddRecord(p_parameters_->t_records_, c_string,
                 p_parameters_->t_game_status_->score_,
                 TETRIS_RECORDS_FILE_NAME);
-      InitGameStatus(p_parameters_->t_game_status_); // To solve the tetris desktop bug
+      InitGameStatus(
+          p_parameters_->t_game_status_);  // To solve the tetris desktop bug
     }
   }
   if (*p_parameters_->t_state_ == kExitState) {
@@ -167,7 +168,8 @@ void View::UpdateCarRacing() {
   if (car_racing_game_state_.state_ != kStart) {
     ui_->widget_car_racing->SetCurrentGame(s21::CurrentGame::kCarRacing);
     ui_->widget_car_racing->SetCar(&car_racing_game_state_.player_car_racing_);
-    ui_->widget_car_racing->SetRivalCars(&car_racing_game_state_.rival_cars_[0]);
+    ui_->widget_car_racing->SetRivalCars(
+        &car_racing_game_state_.rival_cars_[0]);
 
     ui_->label_score_car_racing_value->setText(
         QString::number(car_racing_game_state_.score_, 10));
@@ -218,7 +220,6 @@ void View::StartCarRacingGame() {
   current_game_ = CurrentGame::kCarRacing;
 }
 
-
 void View::PrintRecords(QLabel **array, const Records *records) {
   for (int i = 0; i < 5; ++i) {
     auto username = QString(records->records_[i].name_);
@@ -237,17 +238,18 @@ void View::PrintTetrisRecords() {
 }
 
 void View::PrintSnakeRecords() {
-  QLabel* records_labels[] = {
+  QLabel *records_labels[] = {
       ui_->label_records_snake_1_value, ui_->label_records_snake_2_value,
       ui_->label_records_snake_3_value, ui_->label_records_snake_4_value,
       ui_->label_records_snake_5_value};
   PrintRecords(records_labels, p_parameters_->s_records_);
 }
 void View::PrintCarRacingRecords() {
-  QLabel* records_labels[] = {
-      ui_->label_records_car_racing_1_value, ui_->label_records_car_racing_2_value,
-      ui_->label_records_car_racing_3_value, ui_->label_records_car_racing_4_value,
-      ui_->label_records_car_racing_5_value};
+  QLabel *records_labels[] = {ui_->label_records_car_racing_1_value,
+                              ui_->label_records_car_racing_2_value,
+                              ui_->label_records_car_racing_3_value,
+                              ui_->label_records_car_racing_4_value,
+                              ui_->label_records_car_racing_5_value};
   Records *records = AllocRecords();
   strcpy(records->records_[0].name_, "Unnamed");
   records->records_[0].score_ = car_racing_game_state_.record_score_;
@@ -293,4 +295,4 @@ void View::keyPressEvent(QKeyEvent *event) {
   }
 }
 
-} // namespace s21
+}  // namespace s21

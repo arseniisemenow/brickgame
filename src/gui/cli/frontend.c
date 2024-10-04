@@ -3,7 +3,8 @@
 #include <ctype.h>
 #include <locale.h>
 #include <ncurses.h>
-#include <ctime> // For Fedora
+
+#include <ctime>  // For Fedora
 
 int CreateMenu(const char *options[], int size) {
   int highlight = 0;
@@ -24,15 +25,15 @@ int CreateMenu(const char *options[], int size) {
     key = getch();
 
     switch (key) {
-    case KEY_UP:
-      highlight = (highlight - 1 + size) % size;
-      break;
-    case KEY_DOWN:
-      highlight = (highlight + 1) % size;
-      break;
-    case 10:
-      choice = highlight;
-      break;
+      case KEY_UP:
+        highlight = (highlight - 1 + size) % size;
+        break;
+      case KEY_DOWN:
+        highlight = (highlight + 1) % size;
+        break;
+      case 10:
+        choice = highlight;
+        break;
     }
     if (choice != -1) {
       break;

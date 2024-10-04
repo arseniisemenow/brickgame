@@ -15,10 +15,11 @@ typedef struct {
   Cell **board_;
 } PlayerBoard;
 
-PlayerBoard * AllocPlayerBoard();
+PlayerBoard *AllocPlayerBoard();
 void FreePlayerBoard(PlayerBoard *p_player_board);
 
-Cell* PlayerBoardGetCellXY(const PlayerBoard * player_board, const int x, const int y);
+Cell *PlayerBoardGetCellXY(const PlayerBoard *player_board, const int x,
+                           const int y);
 
 void PrintPlayerBoard(const PlayerBoard *p_player_board);
 

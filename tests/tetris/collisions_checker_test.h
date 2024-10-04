@@ -8,7 +8,7 @@
 #endif
 
 START_TEST(CheckCollideTest1) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
@@ -25,7 +25,7 @@ START_TEST(CheckCollideTest1) {
 END_TEST
 
 START_TEST(CheckFutureCollideWithBlocksLeftTest1) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);
@@ -42,7 +42,7 @@ START_TEST(CheckFutureCollideWithBlocksLeftTest1) {
 END_TEST
 
 START_TEST(CheckFutureCollideWithBlocksRightTest1) {
-  Player* player = AllocPlayer();
+  Player *player = AllocPlayer();
   Board *board = AllocBoard();
   InitPlayer(player);
   InitPlayerPosition(player);

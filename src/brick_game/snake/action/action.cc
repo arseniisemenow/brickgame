@@ -1,7 +1,7 @@
 #include "action.h"
 
-#include "../move_snake/move_snake.h"
 #include "../../common/time_handler/time_handler.h"
+#include "../move_snake/move_snake.h"
 
 namespace s21 {
 
@@ -19,7 +19,8 @@ void Action::Spawn(Parameters *p_parameters) {
   }
   *p_parameters->s_state_ = kMoving;
   p_parameters->s_player_->direction_ = kDirectionSecond;
-  *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
+  *p_parameters->s_last_moved_time_ =
+      GetTimeInMS();  // todo: move from here all the occurcy
 
   MoveFruitToRandomPlace(p_parameters);
 }
@@ -27,30 +28,32 @@ void Action::MovingUp(Parameters *p_parameters) {
   if (p_parameters->s_player_->direction_ != kDirectionSecond) {
     p_parameters->s_player_->direction_ = kDirectionFirst;
     MoveSnake(p_parameters);
-    *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
+    *p_parameters->s_last_moved_time_ =
+        GetTimeInMS();  // todo: move from here all the occurcy
   }
-
 }
 void Action::MovingDown(Parameters *p_parameters) {
   if (p_parameters->s_player_->direction_ != kDirectionFirst) {
     p_parameters->s_player_->direction_ = kDirectionSecond;
     MoveSnake(p_parameters);
-    *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
-
+    *p_parameters->s_last_moved_time_ =
+        GetTimeInMS();  // todo: move from here all the occurcy
   }
 }
 void Action::MovingLeft(Parameters *p_parameters) {
   if (p_parameters->s_player_->direction_ != kDirectionForth) {
     p_parameters->s_player_->direction_ = kDirectionThird;
     MoveSnake(p_parameters);
-    *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
+    *p_parameters->s_last_moved_time_ =
+        GetTimeInMS();  // todo: move from here all the occurcy
   }
 }
 void Action::MovingRight(Parameters *p_parameters) {
   if (p_parameters->s_player_->direction_ != kDirectionThird) {
     p_parameters->s_player_->direction_ = kDirectionForth;
     MoveSnake(p_parameters);
-    *p_parameters->s_last_moved_time_ = GetTimeInMS(); //todo: move from here all the occurcy
+    *p_parameters->s_last_moved_time_ =
+        GetTimeInMS();  // todo: move from here all the occurcy
   }
 }
 void Action::Collide(Parameters *p_parameters) {
@@ -60,7 +63,7 @@ void Action::GameOver(Parameters *p_parameters) {
   *p_parameters->t_state_ = kStart;
 }
 void Action::Exit(Parameters *p_parameters) {
-      *p_parameters->s_state_ = kExitState;
+  *p_parameters->s_state_ = kExitState;
 }
 void Action::Pause(Parameters *p_parameters) {
   if (*p_parameters->s_state_ == kPause) {

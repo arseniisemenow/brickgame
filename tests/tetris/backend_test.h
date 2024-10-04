@@ -187,4 +187,4 @@ Suite *backend_suite(void) {
   return s;
 }
 
-#endif // C7_BRICK_GAME_V_1_0_1_TESTS_BACKEND_TEST_H_
+#endif  // C7_BRICK_GAME_V_1_0_1_TESTS_BACKEND_TEST_H_

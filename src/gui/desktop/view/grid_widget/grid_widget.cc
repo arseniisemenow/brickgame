@@ -4,7 +4,7 @@ GridWidget::GridWidget(QWidget *parent, int rows, int columns)
     : QWidget(parent), rows_(rows), columns_(columns) {
   setFixedSize(columns_ * s21::constants::kCellSize,
                rows_ * s21::constants::kCellSize);
-  board_ = AllocBoard(); // Leaking at once
+  board_ = AllocBoard();  // Leaking at once
   player_ = AllocPlayer();
   predict_player_ = AllocPlayer();
   fruit_ = AllocCell();
@@ -54,10 +54,8 @@ void GridWidget::paintEvent(QPaintEvent *event) {
 
   for (int row = 0; row < s21::constants::kRows; ++row) {
     for (int col = 0; col < s21::constants::kColumns; ++col) {
-      if (!board_)
-        continue;
-      if (!board_->cells_)
-        continue;
+      if (!board_) continue;
+      if (!board_->cells_) continue;
       if (board_->cells_[row][col].is_set_) {
         int color = board_->cells_[row][col].color_;
         auto q_color = s21::constants::kColorArray[color];
@@ -78,8 +76,7 @@ void GridWidget::paintEvent(QPaintEvent *event) {
 }
 
 void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
-  if (!player)
-    return;
+  if (!player) return;
   int player_pos_x = player->x_;
   int player_pos_y = player->y_;
   PlayerBoard *player_board = player->board_;
@@ -89,8 +86,7 @@ void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
          ++column_index) {
       int print_y = player_pos_y + row_index;
       int print_x = player_pos_x + column_index;
-      if (!player_board)
-        continue;
+      if (!player_board) continue;
       if (player_board->board_[row_index][column_index].is_set_) {
         int color = player_board->board_[row_index][column_index].color_;
         auto q_color = s21::constants::kColorArray[color];
@@ -103,10 +99,8 @@ void GridWidget::DrawPlayer(QPainter *painter, const Player *player) {
   }
 }
 void GridWidget::DrawSnakeGame(QPainter *painter, Player *player) {
-  if (!player)
-    return;
-  if (!board_)
-    return;
+  if (!player) return;
+  if (!board_) return;
   if (current_game_ == s21::CurrentGame::kSnake) {
     for (int y = 0; y < board_->height_; ++y) {
       for (int x = 0; x < board_->width_; ++x) {
@@ -139,14 +133,12 @@ void GridWidget::DrawSnakeGame(QPainter *painter, Player *player) {
   }
 }
 
-void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player, const Car * rival_cars){
-  if (!player)
-    return;
-  if (!rival_cars)
-    return;
+void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player,
+                                   const Car *rival_cars) {
+  if (!player) return;
+  if (!rival_cars) return;
 
-  int lane_width =
-      s21::constants::kCellSize * 3;
+  int lane_width = s21::constants::kCellSize * 3;
 
   int car_x = player->lane_ * lane_width;
   int car_y = player->y_ * s21::constants::kCellSize;
@@ -164,19 +156,17 @@ void GridWidget::DrawCarRacingGame(QPainter *painter, const Car *player, const C
 }
 void GridWidget::DrawCar(QPainter *painter, int car_x, int car_y,
                          const QColor &&color) const {
-  painter->fillRect(car_x + s21::constants::kCellSize,
-                    car_y - 3 * s21::constants::kCellSize,
-                    s21::constants::kCellSize * 2, s21::constants::kCellSize,
-                    color);
+  painter->fillRect(
+      car_x + s21::constants::kCellSize, car_y - 3 * s21::constants::kCellSize,
+      s21::constants::kCellSize * 2, s21::constants::kCellSize, color);
 
   painter->fillRect(car_x, car_y - 2 * s21::constants::kCellSize,
                     s21::constants::kCellSize * 4, s21::constants::kCellSize,
                     color);
 
-  painter->fillRect(car_x + s21::constants::kCellSize,
-                    car_y - 1 * s21::constants::kCellSize,
-                    s21::constants::kCellSize * 2, s21::constants::kCellSize,
-                    color);
+  painter->fillRect(
+      car_x + s21::constants::kCellSize, car_y - 1 * s21::constants::kCellSize,
+      s21::constants::kCellSize * 2, s21::constants::kCellSize, color);
 
   painter->fillRect(car_x, car_y, s21::constants::kCellSize * 4,
                     s21::constants::kCellSize, color);

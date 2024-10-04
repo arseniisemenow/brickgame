@@ -182,16 +182,17 @@ int MakePostRequestWithInlineQueryNumber(const char *url, const char *port,
   return error_code;
 }
 
-int SendSignalAction(const int action){
+int SendSignalAction(const int action) {
   char json[64] = {0};
-  snprintf(json, 64-1, "{\"action\": \"%d\"}", action);
-  return MakePostRequestWithJson("http://localhost", "8080", "api/actions", json);
+  snprintf(json, 64 - 1, "{\"action\": \"%d\"}", action);
+  return MakePostRequestWithJson("http://localhost", "8080", "api/actions",
+                                 json);
 }
 
-
-CarRacingParameters GetParameters(){
+CarRacingParameters GetParameters() {
   CarRacingParameters parameters = {0};
-  const cJSON *json = MakeGetRequestRetrieveState("http://127.0.0.1", "8080", "api/parameters");
+  const cJSON *json =
+      MakeGetRequestRetrieveState("http://127.0.0.1", "8080", "api/parameters");
   if (json == NULL) {
     printf("Error parsing JSON\n");
     return parameters;
@@ -219,8 +220,7 @@ CarRacingParameters GetParameters(){
   return parameters;
 }
 
-
-int SelectGame(const int game_id){
-  return MakePostRequestWithInlineQueryNumber("http://localhost", "8080", "api/games", game_id);
+int SelectGame(const int game_id) {
+  return MakePostRequestWithInlineQueryNumber("http://localhost", "8080",
+                                              "api/games", game_id);
 }
-

@@ -1,4 +1,5 @@
 #include "cell.h"
+
 #include <stdlib.h>
 
 #include "../common/colors.h"
@@ -7,22 +8,12 @@ Cell *AllocCell() {
   Cell *cell = (Cell *)calloc(sizeof(Cell), 1);
   return cell;
 }
-void FreeCell(Cell *p_cell) {
-  free(p_cell);
-}
+void FreeCell(Cell *p_cell) { free(p_cell); }
 
-char CellGetColor(Cell* p_cell){
-  return p_cell->color_;
-}
-int CellGetIsSet(Cell* p_cell){
-  return p_cell->is_set_;
-}
-int CellGetX(Cell* p_cell){
-  return p_cell->x_;
-}
-int CellGetY(Cell* p_cell){
-  return p_cell->y_;
-}
+char CellGetColor(Cell *p_cell) { return p_cell->color_; }
+int CellGetIsSet(Cell *p_cell) { return p_cell->is_set_; }
+int CellGetX(Cell *p_cell) { return p_cell->x_; }
+int CellGetY(Cell *p_cell) { return p_cell->y_; }
 
 void InitCell(Cell *p_cell) {
   p_cell->is_set_ = false;

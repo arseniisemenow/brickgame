@@ -22,8 +22,8 @@ int CellGetIsSet(Cell* p_cell);
 int CellGetX(Cell* p_cell);
 int CellGetY(Cell* p_cell);
 
-void InitCell(Cell *p_cell);
-void CopyCell(Cell *p_cell_dest, Cell cell_src);
+void InitCell(Cell* p_cell);
+void CopyCell(Cell* p_cell_dest, Cell cell_src);
 
 #ifdef __cplusplus
 }

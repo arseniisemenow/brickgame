@@ -9,37 +9,37 @@
 
 #define TEST_TETRIS_RECORDS_FILE_NAME "test_tetris_records.log"
 
-void LoadSaveShell(const Records* from, Records* to, const char* filename){
-    SaveRecords(from, filename);
-    LoadRecords(to, filename);
+void LoadSaveShell(const Records* from, Records* to, const char* filename) {
+  SaveRecords(from, filename);
+  LoadRecords(to, filename);
 }
 
-void TestTwoRecords(const Records* first, const Records* second){
-    for (int i = 0; i < RECORDS_NUMBER; ++i) {
-      ck_assert_int_eq(first->records_[i].is_current_player_,
-                       second->records_[i].is_current_player_);
-      ck_assert_int_eq(first->records_[i].score_, second->records_[i].score_);
-      ck_assert_str_eq(first->records_[i].name_, second->records_[i].name_);
-    }
+void TestTwoRecords(const Records* first, const Records* second) {
+  for (int i = 0; i < RECORDS_NUMBER; ++i) {
+    ck_assert_int_eq(first->records_[i].is_current_player_,
+                     second->records_[i].is_current_player_);
+    ck_assert_int_eq(first->records_[i].score_, second->records_[i].score_);
+    ck_assert_str_eq(first->records_[i].name_, second->records_[i].name_);
+  }
 }
 
 START_TEST(RecordsAddSaveLoadTest1) {
-    Records* records = AllocRecords();
-    Records* records2 = AllocRecords();
-    InitRecords(records);
-    InitRecords(records2);
+  Records* records = AllocRecords();
+  Records* records2 = AllocRecords();
+  InitRecords(records);
+  InitRecords(records2);
 
-    AddRecord(records, "Arsenii1", 500, TEST_TETRIS_RECORDS_FILE_NAME);
-    AddRecord(records, "Arsenii2", 600, TEST_TETRIS_RECORDS_FILE_NAME);
-    AddRecord(records, "Arsenii3", 700, TEST_TETRIS_RECORDS_FILE_NAME);
-    AddRecord(records, "Arsenii4", 800, TEST_TETRIS_RECORDS_FILE_NAME);
-    AddRecord(records, "Arsenii5", 900, TEST_TETRIS_RECORDS_FILE_NAME);
-    AddRecord(records, "Arsenii6", 1000, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii1", 500, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii2", 600, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii3", 700, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii4", 800, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii5", 900, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, "Arsenii6", 1000, TEST_TETRIS_RECORDS_FILE_NAME);
 
-    LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
-    TestTwoRecords(records, records2);
-    FreeRecords(records);
-    FreeRecords(records2);
+  LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
+  TestTwoRecords(records, records2);
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -52,11 +52,11 @@ START_TEST(RecordsAddSaveLoadTest2) {
   AddRecord(records, "Arsenii", 500, TEST_TETRIS_RECORDS_FILE_NAME);
   AddRecord(records, "Arsenii", 600, TEST_TETRIS_RECORDS_FILE_NAME);
 
-    LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
-    TestTwoRecords(records, records2);
+  LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
+  TestTwoRecords(records, records2);
 
-        FreeRecords(records);
-        FreeRecords(records2);
+  FreeRecords(records);
+  FreeRecords(records2);
 }
 
 END_TEST
@@ -65,8 +65,8 @@ START_TEST(RecordsAddSaveLoadTest3) {
   Records* records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
-  const char * name = "Arsenii";
-  const char * empty_name = "";
+  const char* name = "Arsenii";
+  const char* empty_name = "";
   const int first_score = 500;
   const int second_score = 600;
   const int empty_score = 0;
@@ -179,15 +179,14 @@ START_TEST(RecordsAddSaveLoadTest5) {
 
 END_TEST
 
-
 START_TEST(RecordsAddSaveLoadTest6) {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
-  const char * first_name = "Arsenii";
-  const char * second_name = "Andrew";
-  const char * empty_name = "";
+  const char* first_name = "Arsenii";
+  const char* second_name = "Andrew";
+  const char* empty_name = "";
   const int first_score_first_player = 500;
   const int first_score_second_player = 600;
   const int second_score_first_player = 700;
@@ -210,8 +209,8 @@ START_TEST(RecordsAddSaveLoadTest6) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-
-  AddRecord(records, first_name, first_score_first_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, first_name, first_score_first_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
   ck_assert_str_eq(records->records_[0].name_, first_name);
   ck_assert_str_eq(records->records_[1].name_, empty_name);
   ck_assert_str_eq(records->records_[2].name_, empty_name);
@@ -226,7 +225,8 @@ START_TEST(RecordsAddSaveLoadTest6) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, second_name, first_score_second_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, second_name, first_score_second_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, second_name);
   ck_assert_str_eq(records->records_[1].name_, first_name);
@@ -242,7 +242,8 @@ START_TEST(RecordsAddSaveLoadTest6) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, first_name, second_score_first_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, first_name, second_score_first_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, first_name);
   ck_assert_str_eq(records->records_[1].name_, second_name);
@@ -258,7 +259,8 @@ START_TEST(RecordsAddSaveLoadTest6) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, second_name, second_score_second_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, second_name, second_score_second_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, second_name);
   ck_assert_str_eq(records->records_[1].name_, first_name);
@@ -279,17 +281,14 @@ START_TEST(RecordsAddSaveLoadTest6) {
 
 END_TEST
 
-
-
-
 START_TEST(RecordsAddSaveLoadTest7) {
   Records* records = AllocRecords();
   Records* records2 = AllocRecords();
   InitRecords(records);
   InitRecords(records2);
-  const char * first_name = "Arsenii";
-  const char * second_name = "Andrew";
-  const char * empty_name = "";
+  const char* first_name = "Arsenii";
+  const char* second_name = "Andrew";
+  const char* empty_name = "";
   const int first_score_first_player = 500;
   const int first_score_second_player = 600;
   const int second_score_first_player = 700;
@@ -310,11 +309,11 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
 
-
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, first_name, first_score_first_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, first_name, first_score_first_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
   ck_assert_str_eq(records->records_[0].name_, first_name);
   ck_assert_str_eq(records->records_[1].name_, empty_name);
   ck_assert_str_eq(records->records_[2].name_, empty_name);
@@ -329,7 +328,8 @@ START_TEST(RecordsAddSaveLoadTest7) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, second_name, first_score_second_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, second_name, first_score_second_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, second_name);
   ck_assert_str_eq(records->records_[1].name_, first_name);
@@ -358,11 +358,11 @@ START_TEST(RecordsAddSaveLoadTest7) {
   ck_assert_int_eq(records->records_[3].score_, empty_score);
   ck_assert_int_eq(records->records_[4].score_, empty_score);
 
-
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, first_name, second_score_first_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, first_name, second_score_first_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, first_name);
   ck_assert_str_eq(records->records_[1].name_, empty_name);
@@ -410,7 +410,8 @@ START_TEST(RecordsAddSaveLoadTest7) {
   LoadSaveShell(records, records2, TEST_TETRIS_RECORDS_FILE_NAME);
   TestTwoRecords(records, records2);
 
-  AddRecord(records, second_name, second_score_second_player, TEST_TETRIS_RECORDS_FILE_NAME);
+  AddRecord(records, second_name, second_score_second_player,
+            TEST_TETRIS_RECORDS_FILE_NAME);
 
   ck_assert_str_eq(records->records_[0].name_, second_name);
   ck_assert_str_eq(records->records_[1].name_, empty_name);
@@ -428,9 +429,9 @@ START_TEST(RecordsAddSaveLoadTest7) {
 
 END_TEST
 
-Suite *records_suite(void) {
-  Suite *s;
-  TCase *tc_core;
+Suite* records_suite(void) {
+  Suite* s;
+  TCase* tc_core;
   s = suite_create("records suite");
   tc_core = tcase_create("core");
   tcase_add_test(tc_core, RecordsAddSaveLoadTest1);

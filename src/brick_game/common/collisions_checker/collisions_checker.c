@@ -1,4 +1,5 @@
 #include "collisions_checker.h"
+
 #include <printf.h>
 
 bool CheckFutureCollideWithUp(const Player *p_player, const Board *p_board) {
@@ -132,7 +133,8 @@ bool CheckCollideWithBlocks(const Player *p_player, const Board *p_board) {
       if (p_player_board->board_[row_index][column_index].is_set_) {
         int cell_global_pos_x = p_player->x_ + column_index;
         int cell_global_pos_y = p_player->y_ + row_index;
-        if (cell_global_pos_y > 19 || cell_global_pos_x > 9){ // skip out of the bounds
+        if (cell_global_pos_y > 19 ||
+            cell_global_pos_x > 9) {  // skip out of the bounds
           continue;
         }
         bool flag =
@@ -161,7 +163,7 @@ bool CheckFutureCollideWithBlocksLeft(Player *p_player, Board *p_board) {
         if (cell_global_pos_y < -1 || cell_global_pos_x > 18) {
           flag |= true;
         }
-        if (flag){
+        if (flag) {
           return flag;
         }
         flag |= p_board->cells_[cell_global_pos_y][cell_global_pos_x].is_set_;

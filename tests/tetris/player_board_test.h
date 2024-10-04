@@ -7,8 +7,6 @@
 #include "test.h"
 #endif
 
-
-
 START_TEST(SetPlayerBoardBlockTestIFirstRotation) {
   PlayerBoard *player_board = AllocPlayerBoard();
   SetPlayerBoardBlock(player_board, kBlockI, kDirectionFirst);

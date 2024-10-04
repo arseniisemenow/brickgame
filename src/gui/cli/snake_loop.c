@@ -1,9 +1,7 @@
-#include "frontend.h"
-
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
-
 #include "draw_objects.h"
+#include "frontend.h"
 
 void SnakeLoop(Parameters *p_parameters) {
   int user_input = 0;

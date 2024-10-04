@@ -3,11 +3,11 @@
 NextPlayerGridWidget::NextPlayerGridWidget(QWidget *parent) : QWidget(parent) {
   setFixedSize(PLAYER_BOARD_SIZE * s21::constants::kCellSize,
                PLAYER_BOARD_SIZE * s21::constants::kCellSize);
-//  next_player_ = AllocPlayer();
+  //  next_player_ = AllocPlayer();
 }
 
 void NextPlayerGridWidget::SetPlayer(const Player *next_player) {
-  next_player_ = const_cast<Player*>(next_player);
+  next_player_ = const_cast<Player *>(next_player);
   is_ready_ = true;
   update();
 }
@@ -24,18 +24,15 @@ void NextPlayerGridWidget::paintEvent(QPaintEvent *event) {
                        s21::constants::kCellSize, s21::constants::kCellSize);
     }
   }
-  if (!is_ready_){
+  if (!is_ready_) {
     return;
   }
 
   for (int row = 0; row < PLAYER_BOARD_SIZE; ++row) {
     for (int col = 0; col < PLAYER_BOARD_SIZE; ++col) {
-      if (!next_player_)
-        continue;
-      if (!next_player_->board_)
-        continue;
-      if (!next_player_->board_->board_)
-        continue;
+      if (!next_player_) continue;
+      if (!next_player_->board_) continue;
+      if (!next_player_->board_->board_) continue;
       if (next_player_->board_->board_[row][col].is_set_) {
         int color = next_player_->board_->board_[row][col].color_;
         auto q_color = s21::constants::kColorArray[color];
@@ -44,6 +41,5 @@ void NextPlayerGridWidget::paintEvent(QPaintEvent *event) {
             s21::constants::kCellSize, s21::constants::kCellSize, q_color);
       }
     }
-
   }
 }

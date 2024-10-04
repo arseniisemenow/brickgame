@@ -1,16 +1,17 @@
 #include "player_board.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-PlayerBoard * AllocPlayerBoard(){
-  PlayerBoard *p_player_board = (PlayerBoard*)calloc(sizeof(PlayerBoard), 1);
-  p_player_board->board_ = (Cell**)calloc(sizeof(Cell*), PLAYER_BOARD_SIZE);
+#include <stdio.h>
+#include <stdlib.h>
+
+PlayerBoard *AllocPlayerBoard() {
+  PlayerBoard *p_player_board = (PlayerBoard *)calloc(sizeof(PlayerBoard), 1);
+  p_player_board->board_ = (Cell **)calloc(sizeof(Cell *), PLAYER_BOARD_SIZE);
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
-    p_player_board->board_[i] = (Cell*)calloc(sizeof(Cell), PLAYER_BOARD_SIZE);
+    p_player_board->board_[i] = (Cell *)calloc(sizeof(Cell), PLAYER_BOARD_SIZE);
   }
   return p_player_board;
 }
-void FreePlayerBoard(PlayerBoard *p_player_board){
+void FreePlayerBoard(PlayerBoard *p_player_board) {
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {
     free(p_player_board->board_[i]);
   }
@@ -18,10 +19,10 @@ void FreePlayerBoard(PlayerBoard *p_player_board){
   free(p_player_board);
 }
 
-Cell* PlayerBoardGetCellXY(const PlayerBoard * player_board, const int x, const int y){
+Cell *PlayerBoardGetCellXY(const PlayerBoard *player_board, const int x,
+                           const int y) {
   return &player_board->board_[x][y];
 }
-
 
 void InitPlayerBoard(PlayerBoard *p_player_board) {
   for (int i = 0; i < PLAYER_BOARD_SIZE; ++i) {

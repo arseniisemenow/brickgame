@@ -24,19 +24,16 @@ typedef struct {
   Direction direction_;
 } Player;
 
-Player * AllocPlayer();
+Player *AllocPlayer();
 void FreePlayer(Player *);
 
-Direction PlayerGetDirection(const Player* player);
-int PlayerGetSnakeLength(const Player* player);
-Cell* PlayerGetSnakeBodyIndex(const Player* player, const int index);
-PlayerBoard* PlayerGetPlayerBoard(const Player* player);
-BlockType PlayerGetBlockType(const Player* player);
-int PlayerGetX(const Player* player);
-int PlayerGetY(const Player* player);
-
-
-
+Direction PlayerGetDirection(const Player *player);
+int PlayerGetSnakeLength(const Player *player);
+Cell *PlayerGetSnakeBodyIndex(const Player *player, const int index);
+PlayerBoard *PlayerGetPlayerBoard(const Player *player);
+BlockType PlayerGetBlockType(const Player *player);
+int PlayerGetX(const Player *player);
+int PlayerGetY(const Player *player);
 
 void InitPlayer(Player *p_player);
 void InitNextPlayer(Player *p_player);

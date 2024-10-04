@@ -2,7 +2,7 @@
 
 #include <ncurses.h>
 
-//todo: move it from here!
+// todo: move it from here!
 
 void InitGameColors() {
   init_color(CUSTOM_COLOR_PINK, 980, 600, 790);

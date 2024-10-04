@@ -1,6 +1,5 @@
 #include "draw_objects.h"
 
-
 void DrawCar(int y, int lane, int color) {
   lane *= 3;
   y += BOARDS_BEGIN + 1;
@@ -13,38 +12,31 @@ void DrawCar(int y, int lane, int color) {
   mvprintw(y - 1, lane + 1, "##");
   attroff(COLOR_PAIR(color));
 
-
   attron(COLOR_PAIR(color));
   mvprintw(y - 2, lane + 0, "%s", "####");
   attroff(COLOR_PAIR(color));
-
 
   attron(COLOR_PAIR(color));
   mvprintw(y - 3, lane + 1, "##");
   attroff(COLOR_PAIR(color));
 }
 
-const char* kStateLabels[] = {
-    "kStart",
-    "kSpawn",
-    "kMoving",
-    "kCollide",
-    "kGameOver",
-    "kExitState",
-    "kPause"
-};
+const char *kStateLabels[] = {"kStart",    "kSpawn",     "kMoving", "kCollide",
+                              "kGameOver", "kExitState", "kPause"};
 
-void PrintState(const State state){
+void PrintState(const State state) {
   attron(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
   mvprintw(22, 15, "%12s", kStateLabels[state]);
   attroff(COLOR_PAIR(RECORD_4_5_COLOR_PAIR_INDEX));
 }
 
 void DrawCarRacingBoard(CarRacingParameters *p) {
-  DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_, RED_COLOR_PAIR_INDEX);
+  DrawCar(p->player_car_racing_.y_, p->player_car_racing_.lane_,
+          RED_COLOR_PAIR_INDEX);
 
   for (int i = 0; i < 2; i++) {
-    DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_, ORANGE_COLOR_PAIR_INDEX);
+    DrawCar(p->rival_cars_[i].y_, p->rival_cars_[i].lane_,
+            ORANGE_COLOR_PAIR_INDEX);
   }
 
   refresh();
@@ -107,8 +99,7 @@ void PrintRectangle(int top_y, int bottom_y, int left_x, int right_x) {
 
   int i = left_x + 1;
 
-  for (; i < right_x; i++)
-    MVADDCH(top_y, i, ACS_HLINE);
+  for (; i < right_x; i++) MVADDCH(top_y, i, ACS_HLINE);
   MVADDCH(top_y, i, ACS_URCORNER);
 
   for (int i_2 = top_y + 1; i_2 < bottom_y; i_2++) {
@@ -118,8 +109,7 @@ void PrintRectangle(int top_y, int bottom_y, int left_x, int right_x) {
 
   MVADDCH(bottom_y, left_x, ACS_LLCORNER);
   i = left_x + 1;
-  for (; i < right_x; i++)
-    MVADDCH(bottom_y, i, ACS_HLINE);
+  for (; i < right_x; i++) MVADDCH(bottom_y, i, ACS_HLINE);
   MVADDCH(bottom_y, i, ACS_LRCORNER);
 }
 

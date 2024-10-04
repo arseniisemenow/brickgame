@@ -1,9 +1,8 @@
-#include "frontend.h"
-
 #include <unistd.h>
 
 #include "../../brick_game/common/api_client/api_client.h"
 #include "draw_objects.h"
+#include "frontend.h"
 
 void CarRacingLoop() {
   int input = 0;

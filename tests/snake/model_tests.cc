@@ -5,7 +5,7 @@
 
 namespace s21 {
 class ModelTest : public ::testing::Test {
-protected:
+ protected:
   SignalType signal_type{};
   Parameters *parameters = AllocParameters();
 
@@ -1137,4 +1137,4 @@ TEST_F(ModelTest, MoveStraightTest) {
   ASSERT_EQ(*parameters->s_state_, kGameOver);
 }
 
-} // namespace s21
+}  // namespace s21

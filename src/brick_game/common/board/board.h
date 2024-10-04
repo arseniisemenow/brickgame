@@ -23,12 +23,12 @@ typedef struct {
   Cell **cells_;
 } Board;
 
-Board* AllocBoard();
+Board *AllocBoard();
 void FreeBoard(Board *board);
 
-int BoardGetHeight(const Board* board);
-int BoardGetWidth(const Board* board);
-Cell* BoardGetCellXY(const Board* board, const int x, const int y);
+int BoardGetHeight(const Board *board);
+int BoardGetWidth(const Board *board);
+Cell *BoardGetCellXY(const Board *board, const int x, const int y);
 
 void InitBoard(Board *p_board);
 int HandleBoardCompleteLines(Board *p_board);

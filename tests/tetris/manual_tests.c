@@ -1,7 +1,8 @@
 // #include "../../src/brick_game/tetris/backend/backend.h"
-#include "../../src/brick_game/tetris/fsm/fsm.h"
 #include <assert.h>
 #include <printf.h>
+
+#include "../../src/brick_game/tetris/fsm/fsm.h"
 
 #define TEST_TETRIS_RECORDS_FILE_NAME "test_tetris_records.log"
 

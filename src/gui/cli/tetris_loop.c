@@ -1,9 +1,7 @@
-#include "frontend.h"
-
 #include "../../brick_game/snake/controller/controller.h"
 #include "../../brick_game/tetris/fsm/fsm.h"
 #include "draw_objects.h"
-
+#include "frontend.h"
 
 void TetrisLoop(Parameters *p_parameters) {
   int user_input = 0;
@@ -27,7 +25,8 @@ void TetrisLoop(Parameters *p_parameters) {
                    TETRIS_RECORDS_FILE_NAME);
       AddRecord(p_parameters->t_records_, p_parameters->t_username,
                 p_parameters->t_game_status_->score_, TETRIS_RECORDS_FILE_NAME);
-      InitGameStatus(p_parameters->t_game_status_); // To solve the tetris desktop bug
+      InitGameStatus(
+          p_parameters->t_game_status_);  // To solve the tetris desktop bug
     }
 
     user_input = GET_USER_INPUT;
