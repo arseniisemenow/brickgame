@@ -6,6 +6,12 @@
 BrickGame v3.0 is a continuing
 of [BrickGame v2.0](https://github.com/arseniisemenow/c-cpp-brickgame-cli-desktop-tetris-snake-1).
 
+## Requirements
+
+- CMake (version 3.15 or later)
+- Docker (optional, for running the server for car racing)
+- `libcurl` (for the api client)
+
 ## BrickGame v1.0 backend-frontend connection
 
 <img src="media/backend-frontend-connection/brick-game-v-1.png" width="500"/>
@@ -23,6 +29,7 @@ In that version we maintain **two** modules of backend and frontend written on C
 <img src="media/backend-frontend-connection/brick-game-v-3.png" width="500"/>
 
 In that version we maintain **three** modules of backend and frontend written on C, C++ and Go languages
+
 
 ## Features
 
