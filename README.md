@@ -111,9 +111,9 @@ In that version we maintain **three** modules of backend and frontend written on
 
 ## Gameplay CLI
 
-<img src="dvi-folder/media/gifs/cli-tetris.gif" width="200" height="400"/>
-<img src="dvi-folder/media/gifs/cli-snake.gif" width="200" height="400"/>
-<img src="dvi-folder/media/gifs/cli-car-racing.gif" width="200" height="400"/>
+<img src="dvi-folder/media/gifs/cli-tetris.gif" width="250" height="500"/>
+<img src="dvi-folder/media/gifs/cli-snake.gif" width="250" height="500"/>
+<img src="dvi-folder/media/gifs/cli-car-racing.gif" width="250" height="500"/>
 
 ## Gameplay Desktop
 
