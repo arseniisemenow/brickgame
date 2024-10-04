@@ -25,6 +25,7 @@ START_TEST(HandleBoardCompleteLinesTest) {
   }
   int complete_lines = HandleBoardCompleteLines(board);
   ck_assert_int_eq(complete_lines, 3);
+  FreeBoard(board);
 }
 END_TEST
 

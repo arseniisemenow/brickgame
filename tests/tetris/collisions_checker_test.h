@@ -19,6 +19,8 @@ START_TEST(CheckCollideTest1) {
   SetPlayerBlockRotation(player, kDirectionFirst);
   bool flag = CheckCollide(player, board);
   ck_assert_int_eq(flag, false);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 END_TEST
 
@@ -34,6 +36,8 @@ START_TEST(CheckFutureCollideWithBlocksLeftTest1) {
   SetPlayerBlockRotation(player, kDirectionFirst);
   bool flag = CheckFutureCollideWithBlocksLeft(player, board);
   ck_assert_int_eq(flag, false);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 END_TEST
 
@@ -48,6 +52,8 @@ START_TEST(CheckFutureCollideWithBlocksRightTest1) {
   SetPlayerBlockRotation(player, kDirectionFirst);
   bool flag = CheckFutureCollideWithBlocksRight(player, board);
   ck_assert_int_eq(flag, false);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -71,6 +77,8 @@ START_TEST(CheckFutureCollideWithBlocksLeftTest2) {
   MovePlayerLeft(player);
   bool flag = CheckFutureCollideWithBlocksLeft(player, board);
   ck_assert_int_eq(flag, true);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -92,6 +100,8 @@ START_TEST(CheckFutureCollideWithBlocksRightTest2) {
   MovePlayerRight(player);
   bool flag = CheckFutureCollideWithBlocksRight(player, board);
   ck_assert_int_eq(flag, true);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -113,6 +123,8 @@ START_TEST(CheckFutureCollideWithLeftTest) {
 
   bool flag = CheckFutureCollideWithLeft(player, board);
   ck_assert_int_eq(flag, true);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -133,6 +145,8 @@ START_TEST(CheckFutureCollideWithRightTest) {
 
   bool flag = CheckFutureCollideWithRight(player, board);
   ck_assert_int_eq(flag, true);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -153,6 +167,8 @@ START_TEST(CheckFutureCollideWithUpTest) {
 
   bool flag = CheckFutureCollideWithUp(player, board);
   ck_assert_int_eq(flag, false);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
@@ -199,6 +215,8 @@ START_TEST(CheckFutureCollideWithDownTest) {
   MovePlayerDown(player);
   flag = CheckFutureCollideWithDown(player, board);
   ck_assert_int_eq(flag, true);
+  FreePlayer(player);
+  FreeBoard(board);
 }
 
 END_TEST
