@@ -117,15 +117,15 @@ In that version we maintain **three** modules of backend and frontend written on
 
 ## Gameplay Desktop
 
-<img src="dvi-folder/media/gifs/desktop-tetris.gif" width="250" height="400"/>
-<img src="dvi-folder/media/gifs/desktop-snake.gif" width="250" height="400"/>
-<img src="dvi-folder/media/gifs/desktop-car-racing.gif" width="250" height="400"/>
+<img src="dvi-folder/media/gifs/desktop-tetris.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/desktop-snake.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/desktop-car-racing.gif" width="75" height="120"/>
 
 ## Gameplay Web
 
-<img src="dvi-folder/media/gifs/web-tetris.gif" width="250" height="300"/>
-<img src="dvi-folder/media/gifs/web-snake.gif" width="250" height="300"/>
-<img src="dvi-folder/media/gifs/web-car-racing.gif" width="250" height="300"/>
+<img src="dvi-folder/media/gifs/web-tetris.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/web-snake.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/web-car-racing.gif" width="75" height="120"/>
 
 ## Finite State Machine (FSM) Diagram Tetris
 
