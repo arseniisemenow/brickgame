@@ -1,5 +1,5 @@
 
-# BrickGame v3.0 aka Tetris + Snake Xenzia + Car Racing
+# BrickGame v3.0 aka Tetris + Snake Xenzia + [Car Racing](https://github.com/arseniisemenow/race)
 
 <img src="dvi-folder/media/preview.png" width="1000"/>
 
@@ -30,6 +30,23 @@ In that version we maintain **two** modules of backend and frontend written on C
 
 In that version we maintain **three** modules of backend and frontend written on C, C++ and Go languages
 
+## Gameplay CLI
+
+<img src="dvi-folder/media/gifs/cli-tetris.gif" width="75" height="150"/>
+<img src="dvi-folder/media/gifs/cli-snake.gif" width="75" height="150"/>
+<img src="dvi-folder/media/gifs/cli-car-racing.gif" width="75" height="150"/>
+
+## Gameplay Desktop
+
+<img src="dvi-folder/media/gifs/desktop-tetris.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/desktop-snake.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/desktop-car-racing.gif" width="75" height="120"/>
+
+## Gameplay Web
+
+<img src="dvi-folder/media/gifs/web-tetris.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/web-snake.gif" width="75" height="120"/>
+<img src="dvi-folder/media/gifs/web-car-racing.gif" width="75" height="120"/>
 
 ## Features
 
@@ -108,24 +125,6 @@ In that version we maintain **three** modules of backend and frontend written on
 ## Usage Car Racing
 
 - Use the arrow keys to change car position.
-
-## Gameplay CLI
-
-<img src="dvi-folder/media/gifs/cli-tetris.gif" width="75" height="150"/>
-<img src="dvi-folder/media/gifs/cli-snake.gif" width="75" height="150"/>
-<img src="dvi-folder/media/gifs/cli-car-racing.gif" width="75" height="150"/>
-
-## Gameplay Desktop
-
-<img src="dvi-folder/media/gifs/desktop-tetris.gif" width="75" height="120"/>
-<img src="dvi-folder/media/gifs/desktop-snake.gif" width="75" height="120"/>
-<img src="dvi-folder/media/gifs/desktop-car-racing.gif" width="75" height="120"/>
-
-## Gameplay Web
-
-<img src="dvi-folder/media/gifs/web-tetris.gif" width="75" height="120"/>
-<img src="dvi-folder/media/gifs/web-snake.gif" width="75" height="120"/>
-<img src="dvi-folder/media/gifs/web-car-racing.gif" width="75" height="120"/>
 
 ## Finite State Machine (FSM) Diagram Tetris
 
